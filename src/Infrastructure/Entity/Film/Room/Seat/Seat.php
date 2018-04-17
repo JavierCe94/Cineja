@@ -7,7 +7,7 @@ use Javier\Cineja\Infrastructure\Entity\Film\Room\Room;
 use Javier\Cineja\Infrastructure\Entity\Film\Room\SectionRoom;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Javier\Cineja\Infrastructure\Repository\Film\Room\Seat\SeatRepository")
  * @ORM\Table(name="seat")
  */
 class Seat

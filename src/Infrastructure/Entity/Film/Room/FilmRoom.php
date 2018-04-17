@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Javier\Cineja\Infrastructure\Entity\Film\Film;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Javier\Cineja\Infrastructure\Repository\Film\Room\FilmRoomRepository")
  * @ORM\Table(name="film_room")
  */
 class FilmRoom
