@@ -2,20 +2,23 @@
 
 namespace Javier\Cineja\Infrastructure\Controller\Admin\User;
 
-use Javier\Cineja\Infrastructure\Form\Model\Admin\User as UserForm;
+use Javier\Cineja\Infrastructure\Form\Model\Admin\UserForm;
 use Javier\Cineja\Infrastructure\Form\Type\Admin\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class User extends Controller
+class UserController extends Controller
 {
-    public function userLogin(): Response
+    public function userLogin(Request $request): Response
     {
         $form = $this->createForm(UserType::class, new UserForm());
+        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() &&
+            $form->isValid()) {
             $dataAdmin = $form->getData();
-            //return $this->redirectToRoute();
+            return $this->redirectToRoute('admin_films');
         }
 
         return $this->render(

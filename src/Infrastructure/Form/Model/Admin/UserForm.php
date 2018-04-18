@@ -2,7 +2,7 @@
 
 namespace Javier\Cineja\Infrastructure\Form\Model\Admin;
 
-class User
+class UserForm
 {
     private $alias;
     private $password;
