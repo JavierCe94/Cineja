@@ -1,9 +1,9 @@
 # Admin
 
-admin_login:
-    path: /admin
-    controller: Javier\Cineja\Infrastructure\Controller\Admin\User\UserController::userLogin
-
-admin_films:
-    path: /admin/films
-    controller: Javier\Cineja\Infrastructure\Controller\Admin\Film\FilmController::showFilms
+#admin_login:
+#    path: /admin
+#    controller: Javier\Cineja\Infrastructure\Controller\Admin\User\UserController::userLogin
+#
+#admin_films:
+#    path: /admin/films
+#    controller: Javier\Cineja\Infrastructure\Controller\Admin\Film\FilmController::showFilms

@@ -1,6 +1,6 @@
 <?php
 
-namespace Javier\Cineja\Infrastructure\Controller\Admin\User;
+namespace Javier\Cineja\Infrastructure\Controller\User;
 
 use Javier\Cineja\Infrastructure\Form\Model\Admin\UserForm;
 use Javier\Cineja\Infrastructure\Form\Type\Admin\UserType;
