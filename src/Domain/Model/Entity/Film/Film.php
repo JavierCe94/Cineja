@@ -5,7 +5,7 @@ namespace Javier\Cineja\Domain\Model\Entity\Film;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="Javier\Cineja\Infrastructure\Repository\FilmRepository")
+ * @ORM\Entity(repositoryClass="Javier\Cineja\Infrastructure\Repository\Film\FilmRepository")
  * @ORM\Table(name="film")
  */
 class Film

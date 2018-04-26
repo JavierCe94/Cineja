@@ -1,14 +1,14 @@
 <?php
 
-namespace Javier\Cineja\Domain\Model\Entity\Film;
+namespace Javier\Cineja\Domain\Model\Entity\Room;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="Javier\Cineja\Infrastructure\Repository\Film\GenreRepository")
- * @ORM\Table(name="genre")
+ * @ORM\Entity(repositoryClass="Javier\Cineja\Infrastructure\Repository\Room\SectionRoomRepository")
+ * @ORM\Table(name="section_room")
  */
-class Genre
+class SectionRoom
 {
     /**
      * @ORM\Id
@@ -20,11 +20,11 @@ class Genre
     /**
      * @ORM\Column(type="string", length=50, nullable=false, unique=true)
      */
-    private $name;
+    private $positionSection;
 
-    public function __construct(string $name)
+    public function __construct()
     {
-        $this->name = $name;
+
     }
 
     public function id(): int
@@ -32,8 +32,8 @@ class Genre
         return $this->id;
     }
 
-    public function name(): string
+    public function positionSection(): string
     {
-        return $this->name;
+        return $this->positionSection;
     }
 }

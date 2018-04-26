@@ -1,14 +1,14 @@
 <?php
 
-namespace Javier\Cineja\Domain\Model\Entity\Film;
+namespace Javier\Cineja\Domain\Model\Entity\Room;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="Javier\Cineja\Infrastructure\Repository\Film\GenreRepository")
- * @ORM\Table(name="genre")
+ * @ORM\Entity(repositoryClass="Javier\Cineja\Infrastructure\Repository\Room\RoomRepository")
+ * @ORM\Table(name="room")
  */
-class Genre
+class Room
 {
     /**
      * @ORM\Id
@@ -22,9 +22,9 @@ class Genre
      */
     private $name;
 
-    public function __construct(string $name)
+    public function __construct()
     {
-        $this->name = $name;
+
     }
 
     public function id(): int
