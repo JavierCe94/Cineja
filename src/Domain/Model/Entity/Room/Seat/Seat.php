@@ -4,7 +4,6 @@ namespace Javier\Cineja\Domain\Model\Entity\Room\Seat;
 
 use Doctrine\ORM\Mapping as ORM;
 use Javier\Cineja\Domain\Model\Entity\Room\Room;
-use Javier\Cineja\Domain\Model\Entity\Room\SectionRoom;
 
 /**
  * @ORM\Entity(repositoryClass="Javier\Cineja\Infrastructure\Repository\Room\Seat\SeatRepository")
@@ -26,32 +25,22 @@ class Seat
     private $room;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Javier\Cineja\Domain\Model\Entity\Room\SectionRoom", inversedBy="section_rooms")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $sectionRoom;
-
-    /**
-     * @ORM\Column(type="decimal", nullable=false)
+     * @ORM\Column(type="float", nullable=false)
      */
     private $price;
 
     /**
-     * @ORM\Column(type="smallint", nullable=false)
+     * @ORM\Column(type="boolean", nullable=false, options={"default"=false})
      */
-    private $row;
+    private $typeSpace;
 
-    /**
-     * @ORM\Column(type="smallint", nullable=false)
-     */
-    private $column;
-
-    public function __construct()
+    public function __construct($room, $price)
     {
-
+        $this->room = $room;
+        $this->price = $price;
     }
 
-    public function id(): int
+    public function id(): ?int
     {
         return $this->id;
     }
@@ -61,23 +50,13 @@ class Seat
         return $this->room;
     }
 
-    public function sectionRoom(): SectionRoom
-    {
-        return $this->sectionRoom;
-    }
-
     public function price(): float
     {
         return $this->price;
     }
 
-    public function row(): int
+    public function typeSpace(): ?bool
     {
-        return $this->row;
-    }
-
-    public function column(): int
-    {
-        return $this->column;
+        return $this->typeSpace;
     }
 }

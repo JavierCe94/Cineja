@@ -1,17 +1,17 @@
 <?php
 
-namespace Javier\Cineja\Domain\Model\Entity\SeatFilm;
+namespace Javier\Cineja\Domain\Model\Entity\UserSeatFilm;
 
 use Doctrine\ORM\Mapping as ORM;
-use Javier\Cineja\Domain\Model\Entity\Film\Film;
+use Javier\Cineja\Domain\Model\Entity\FilmRoom\FilmRoom;
 use Javier\Cineja\Domain\Model\Entity\Room\Seat\Seat;
 use Javier\Cineja\Domain\Model\Entity\User\User;
 
 /**
- * @ORM\Entity(repositoryClass="Javier\Cineja\Infrastructure\Repository\SeatFilm\SeatFilmRepository")
- * @ORM\Table(name="seat_film")
+ * @ORM\Entity(repositoryClass="Javier\Cineja\Infrastructure\Repository\UserSeatFilm\UserSeatFilmRepository")
+ * @ORM\Table(name="user_seat_film")
  */
-class SeatFilm
+class UserSeatFilm
 {
     /**
      * @ORM\Id
@@ -27,10 +27,10 @@ class SeatFilm
     private $seat;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Javier\Cineja\Domain\Model\Entity\Film\Film", inversedBy="films")
+     * @ORM\ManyToOne(targetEntity="Javier\Cineja\Domain\Model\Entity\FilmRoom\FilmRoom", inversedBy="films")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $film;
+    private $filmRoom;
 
     /**
      * @ORM\ManyToOne(targetEntity="Javier\Cineja\Domain\Model\Entity\User\User", inversedBy="users")
@@ -58,9 +58,9 @@ class SeatFilm
         return $this->seat;
     }
 
-    public function film(): Film
+    public function filmRoom(): FilmRoom
     {
-        return $this->film;
+        return $this->filmRoom;
     }
 
     public function user(): User

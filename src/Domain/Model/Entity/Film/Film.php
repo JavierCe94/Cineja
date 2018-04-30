@@ -47,9 +47,19 @@ class Film
      */
     private $minAge;
 
-    public function __construct()
-    {
+    /**
+     * @ORM\Column(type="string", length=50, nullable=false, options={"default"="VISIBLE"})
+     */
+    private $stateFilm;
 
+    public function __construct($image, $name, $description, $minDescription, $duration, $minAge)
+    {
+        $this->image = $image;
+        $this->name = $name;
+        $this->description = $description;
+        $this->minDescription = $minDescription;
+        $this->duration = $duration;
+        $this->minAge = $minAge;
     }
 
     public function id(): int
@@ -85,5 +95,10 @@ class Film
     public function minAge(): int
     {
         return $this->minAge;
+    }
+
+    public function stateFilm(): string
+    {
+        return $this->stateFilm;
     }
 }

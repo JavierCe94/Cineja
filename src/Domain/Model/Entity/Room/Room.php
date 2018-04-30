@@ -22,12 +22,23 @@ class Room
      */
     private $name;
 
-    public function __construct()
-    {
+    /**
+     * @ORM\Column(type="smallint", nullable=false)
+     */
+    private $totalSeatsByRow;
 
+    /**
+     * @ORM\Column(type="string", length=50, nullable=false, options={"default"="OPEN"})
+     */
+    private $stateRoom;
+
+    public function __construct($name, $totalSeatsByRow)
+    {
+        $this->name = $name;
+        $this->totalSeatsByRow = $totalSeatsByRow;
     }
 
-    public function id(): int
+    public function id(): ?int
     {
         return $this->id;
     }
@@ -35,5 +46,15 @@ class Room
     public function name(): string
     {
         return $this->name;
+    }
+
+    public function totalSeatsByRow(): int
+    {
+        return $this->totalSeatsByRow;
+    }
+
+    public function stateRoom(): ?string
+    {
+        return $this->stateRoom;
     }
 }

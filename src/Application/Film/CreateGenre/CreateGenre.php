@@ -3,6 +3,7 @@
 namespace Javier\Cineja\Application\Film\CreateGenre;
 
 use Doctrine\ORM\ORMException;
+use Javier\Cineja\Domain\Model\Entity\Film\CanNotCreateGenreException;
 use Javier\Cineja\Domain\Model\Entity\Film\Genre;
 use Javier\Cineja\Infrastructure\Repository\Film\GenreRepository;
 
@@ -15,6 +16,11 @@ class CreateGenre
         $this->genreRepository = $genreRepository;
     }
 
+    /**
+     * @param CreateGenreCommand $createGenreCommand
+     * @return array
+     * @throws CanNotCreateGenreException
+     */
     public function handle(CreateGenreCommand $createGenreCommand): array
     {
         $genre = new Genre(
@@ -23,7 +29,7 @@ class CreateGenre
         try {
             $this->genreRepository->createGenre($genre);
         } catch (ORMException $e) {
-            return ['ko' => 404];
+            throw new CanNotCreateGenreException('No se ha podido crear el género');
         }
 
         return ['ok' => 200];
