@@ -38,7 +38,7 @@ class Room
         $this->totalSeatsByRow = $totalSeatsByRow;
     }
 
-    public function id(): ?int
+    public function id(): int
     {
         return $this->id;
     }
@@ -53,7 +53,7 @@ class Room
         return $this->totalSeatsByRow;
     }
 
-    public function stateRoom(): ?string
+    public function stateRoom(): string
     {
         return $this->stateRoom;
     }

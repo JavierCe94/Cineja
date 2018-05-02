@@ -3,7 +3,6 @@
 namespace Javier\Cineja\Application\Film\CreateFilm;
 
 use Doctrine\ORM\ORMException;
-use Javier\Cineja\Domain\Model\Entity\Film\CanNotCreateFilmException;
 use Javier\Cineja\Domain\Model\Entity\Film\Film;
 use Javier\Cineja\Infrastructure\Repository\Film\FilmRepository;
 
@@ -18,10 +17,10 @@ class CreateFilm
 
     /**
      * @param CreateFilmCommand $createFilmCommand
-     * @return array
-     * @throws CanNotCreateFilmException
+     * @throws ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function handle(CreateFilmCommand $createFilmCommand): array
+    public function handle(CreateFilmCommand $createFilmCommand): void
     {
         $minDescription = $createFilmCommand->description();
         if (50 < strlen($minDescription)) {
@@ -37,12 +36,6 @@ class CreateFilm
             $createFilmCommand->minAge()
         );
 
-        try {
-            $this->filmRepository->createFilm($film);
-        } catch (ORMException $ORMException) {
-            throw new CanNotCreateFilmException('No se ha podido crear la película');
-        }
-
-        return ['ok' => 200];
+        $this->filmRepository->createFilm($film);
     }
 }

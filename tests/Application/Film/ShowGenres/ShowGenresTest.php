@@ -19,15 +19,11 @@ class ShowGenresTest extends TestCase
         $genreRepository = $this->getMockBuilder(GenreRepository::class)
             ->disableOriginalConstructor()
             ->getMock();
-
         $genreRepository->method('showGenres')
             ->willReturn([]);
-
         $showGenresTransform = new ShowGenresTransform();
         $showGenres = new ShowGenres($genreRepository, $showGenresTransform);
-
         $this->expectException(NotFoundGenresException::class);
-
         $showGenres->handle();
     }
 
@@ -36,21 +32,24 @@ class ShowGenresTest extends TestCase
      */
     public function given_genres_when_request_then_show(): void
     {
-        $genre = new Genre('acción');
-
+        $genre = $this->getMockBuilder(Genre::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $genre->method('id')
+            ->willReturn(1);
+        $genre->method('name')
+            ->willReturn('acción');
         $genreRepository = $this->getMockBuilder(GenreRepository::class)
             ->disableOriginalConstructor()
             ->getMock();
-
         $genreRepository->method('showGenres')
             ->willReturn([$genre]);
-
         $showGenresTransform = new ShowGenresTransform();
         $showGenres = new ShowGenres($genreRepository, $showGenresTransform);
-
         $this->assertArraySubset(
             [
                 0 => [
+                    'id' => 1,
                     'name' => 'acción'
                 ]
             ],

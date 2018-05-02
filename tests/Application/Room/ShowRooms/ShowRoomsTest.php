@@ -19,15 +19,11 @@ class ShowRoomsTest extends TestCase
         $roomRepository = $this->getMockBuilder(RoomRepository::class)
             ->disableOriginalConstructor()
             ->getMock();
-
         $roomRepository->method('showRooms')
             ->willReturn([]);
-
         $showRoomsTransform = new ShowRoomsTransform();
         $showRooms = new ShowRooms($roomRepository, $showRoomsTransform);
-
         $this->expectException(NotFoundRoomsException::class);
-
         $showRooms->handle();
     }
 
@@ -36,21 +32,26 @@ class ShowRoomsTest extends TestCase
      */
     public function given_rooms_when_request_then_show(): void
     {
-        $room = new Room('Room 1', 20);
-
+        $room = $this->getMockBuilder(Room::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $room->method('id')
+            ->willReturn(1);
+        $room->method('name')
+            ->willReturn('Room 1');
+        $room->method('totalSeatsByRow')
+            ->willReturn(20);
         $roomRepository = $this->getMockBuilder(RoomRepository::class)
             ->disableOriginalConstructor()
             ->getMock();
-
         $roomRepository->method('showRooms')
             ->willReturn([$room]);
-
         $showRoomsTransform = new ShowRoomsTransform();
         $showRooms = new ShowRooms($roomRepository, $showRoomsTransform);
-
         $this->assertArraySubset(
             [
                 0 => [
+                    'id' => 1,
                     'name' => 'Room 1'
                 ]
             ],

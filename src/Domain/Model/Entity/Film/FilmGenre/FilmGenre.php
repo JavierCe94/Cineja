@@ -31,9 +31,10 @@ class FilmGenre
      */
     private $genre;
 
-    public function __construct()
+    public function __construct(Film $film, Genre $genre)
     {
-
+        $this->film = $film;
+        $this->genre = $genre;
     }
 
     public function id(): int

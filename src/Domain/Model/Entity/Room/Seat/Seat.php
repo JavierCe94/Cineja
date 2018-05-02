@@ -40,7 +40,7 @@ class Seat
         $this->price = $price;
     }
 
-    public function id(): ?int
+    public function id(): int
     {
         return $this->id;
     }
@@ -55,7 +55,7 @@ class Seat
         return $this->price;
     }
 
-    public function typeSpace(): ?bool
+    public function typeSpace(): bool
     {
         return $this->typeSpace;
     }

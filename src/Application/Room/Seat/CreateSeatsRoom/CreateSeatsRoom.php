@@ -1,13 +1,13 @@
 <?php
 
-namespace Javier\Cineja\Application\Room\Seat\CreateSeats;
+namespace Javier\Cineja\Application\Room\Seat\CreateSeatsRoom;
 
 use Doctrine\ORM\ORMException;
 use Javier\Cineja\Domain\Model\Entity\Room\Seat\Seat;
 use Javier\Cineja\Infrastructure\Repository\Room\RoomRepository;
 use Javier\Cineja\Infrastructure\Repository\Room\Seat\SeatRepository;
 
-class CreateSeats
+class CreateSeatsRoom
 {
     private $seatRepository;
     private $roomRepository;
@@ -20,7 +20,12 @@ class CreateSeats
         $this->roomRepository = $roomRepository;
     }
 
-    public function handle(CreateSeatsCommand $createSeatsCommand): array
+    /**
+     * @param CreateSeatsRoomCommand $createSeatsCommand
+     * @throws ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function handle(CreateSeatsRoomCommand $createSeatsCommand): void
     {
         $room = $this->roomRepository->findByIdRoom(
             $createSeatsCommand->idRoom()
@@ -34,12 +39,6 @@ class CreateSeats
             );
         }
 
-        try {
-            $this->seatRepository;
-        } catch (ORMException $ORMException) {
-
-        }
-
-        return ['ok' => 200];
+        $this->seatRepository->createSeatsRoom($listSeats);
     }
 }

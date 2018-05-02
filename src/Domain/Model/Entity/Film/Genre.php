@@ -27,12 +27,12 @@ class Genre
         $this->name = $name;
     }
 
-    public function id(): ?int
+    public function id(): int
     {
         return $this->id;
     }
 
-    public function name(): ?string
+    public function name(): string
     {
         return $this->name;
     }

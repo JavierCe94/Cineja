@@ -1,8 +1,8 @@
 <?php
 
-namespace Javier\Cineja\Application\Room\Seat\CreateSeats;
+namespace Javier\Cineja\Application\Room\Seat\CreateSeatsRoom;
 
-class CreateSeatsCommand
+class CreateSeatsRoomCommand
 {
     private $idRoom;
     private $price;
