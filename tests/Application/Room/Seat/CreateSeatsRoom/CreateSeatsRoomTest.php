@@ -1,6 +1,6 @@
 <?php
 
-namespace Javier\Cineja\Tests\Application\Room\Seat\CreateSeats;
+namespace Javier\Cineja\Tests\Application\Room\Seat\CreateSeatsRoom;
 
 use Javier\Cineja\Application\Room\Seat\CreateSeatsRoom\CreateSeatsRoom;
 use Javier\Cineja\Application\Room\Seat\CreateSeatsRoom\CreateSeatsRoomCommand;
@@ -10,7 +10,7 @@ use Javier\Cineja\Infrastructure\Repository\Room\RoomRepository;
 use Javier\Cineja\Infrastructure\Repository\Room\Seat\SeatRepository;
 use PHPUnit\Framework\TestCase;
 
-class CreateSeatsTest extends TestCase
+class CreateSeatsRoomTest extends TestCase
 {
     /**
      * @test
