@@ -21,21 +21,21 @@ class CreateSeatsRoom
     }
 
     /**
-     * @param CreateSeatsRoomCommand $createSeatsCommand
+     * @param CreateSeatsRoomCommand $createSeatsRoomCommand
      * @throws ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function handle(CreateSeatsRoomCommand $createSeatsCommand): void
+    public function handle(CreateSeatsRoomCommand $createSeatsRoomCommand): void
     {
         $room = $this->roomRepository->findByIdRoom(
-            $createSeatsCommand->idRoom()
+            $createSeatsRoomCommand->idRoom()
         );
 
         $listSeats = [];
-        for ($i = 0; $i < $createSeatsCommand->totalSeats(); $i++) {
+        for ($i = 0; $i < $createSeatsRoomCommand->totalSeatsRoom(); $i++) {
             $listSeats[] = new Seat(
                 $room,
-                $createSeatsCommand->price()
+                $createSeatsRoomCommand->priceSeat()
             );
         }
 
