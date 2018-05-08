@@ -42,9 +42,13 @@ class User
      */
     private $creditCard;
 
-    public function __construct()
+    public function __construct($mail, $name, $surname, $password, $creditCard)
     {
-
+        $this->mail = $mail;
+        $this->name = $name;
+        $this->surname = $surname;
+        $this->password = $password;
+        $this->creditCard = $creditCard;
     }
 
     public function id(): int

@@ -10,7 +10,7 @@ class ShowRoomsTransform implements ShowRoomsTransformInterface
      * @param array|Room[] $rooms
      * @return array
      */
-    public function transform(array $rooms): array
+    public function transform(array $rooms)
     {
         $listRooms = [];
         foreach ($rooms as $room) {

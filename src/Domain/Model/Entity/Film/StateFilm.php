@@ -2,8 +2,8 @@
 
 namespace Javier\Cineja\Domain\Model\Entity\Film;
 
-class FilmStatus
+class StateFilm
 {
-    public const STATUS_VISIBLE = 'VISIBLE';
-    public const STATUS_RETIRED = 'RETIRED';
+    public const STATE_VISIBLE = 'VISIBLE';
+    public const STATE_RETIRED = 'RETIRED';
 }

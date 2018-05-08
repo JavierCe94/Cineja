@@ -10,7 +10,7 @@ class ShowGenresTransform implements ShowGenresTransformInterface
      * @param array|Genre[] $genres
      * @return array
      */
-    public function transform(array $genres): array
+    public function transform(array $genres)
     {
         $listGenres = [];
         foreach ($genres as $genre) {

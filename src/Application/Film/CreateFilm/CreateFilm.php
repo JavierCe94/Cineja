@@ -17,25 +17,21 @@ class CreateFilm
 
     /**
      * @param CreateFilmCommand $createFilmCommand
+     * @return array
      * @throws ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function handle(CreateFilmCommand $createFilmCommand): void
+    public function handle(CreateFilmCommand $createFilmCommand): array
     {
-        $minDescription = $createFilmCommand->description();
-        if (50 < strlen($minDescription)) {
-            $minDescription = substr($minDescription, 0, 50);
-        }
-
         $film = new Film(
             $createFilmCommand->image(),
             $createFilmCommand->name(),
             $createFilmCommand->description(),
-            $minDescription,
             $createFilmCommand->duration(),
             $createFilmCommand->minAge()
         );
-
         $this->filmRepository->createFilm($film);
+
+        return ['ok' => 200];
     }
 }

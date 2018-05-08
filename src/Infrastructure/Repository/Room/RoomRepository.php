@@ -2,10 +2,10 @@
 
 namespace Javier\Cineja\Infrastructure\Repository\Room;
 
-use Doctrine\ORM\EntityRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Javier\Cineja\Domain\Model\Entity\Room\Room;
 
-class RoomRepository extends EntityRepository
+class RoomRepository extends ServiceEntityRepository
 {
     /**
      * @param Room $room
@@ -21,7 +21,7 @@ class RoomRepository extends EntityRepository
         return $room;
     }
 
-    public function findByIdRoom(int $id): Room
+    public function findRoomById(int $id): Room
     {
         /* @var Room $room */
         $room = $this->find($id);
@@ -32,7 +32,7 @@ class RoomRepository extends EntityRepository
     /**
      * @return array|Room[]
      */
-    public function showRooms(): array
+    public function findRooms(): array
     {
         $rooms = $this->findAll();
 

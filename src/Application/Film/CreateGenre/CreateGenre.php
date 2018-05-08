@@ -17,14 +17,17 @@ class CreateGenre
 
     /**
      * @param CreateGenreCommand $createGenreCommand
+     * @return array
      * @throws ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function handle(CreateGenreCommand $createGenreCommand): void
+    public function handle(CreateGenreCommand $createGenreCommand): array
     {
         $genre = new Genre(
             $createGenreCommand->name()
         );
         $this->genreRepository->createGenre($genre);
+
+        return ['ok' => 200];
     }
 }

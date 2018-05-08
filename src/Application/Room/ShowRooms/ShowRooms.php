@@ -2,7 +2,6 @@
 
 namespace Javier\Cineja\Application\Room\ShowRooms;
 
-use Javier\Cineja\Domain\Model\Entity\Room\NotFoundRoomsException;
 use Javier\Cineja\Infrastructure\Repository\Room\RoomRepository;
 
 class ShowRooms
@@ -18,14 +17,12 @@ class ShowRooms
 
     /**
      * @return array
-     * @throws NotFoundRoomsException
      */
     public function handle(): array
     {
-        $listRooms = $this->roomRepository->showRooms();
-
+        $listRooms = $this->roomRepository->findRooms();
         if (0 === count($listRooms)) {
-            throw new NotFoundRoomsException('No se han encontrado salas');
+            return ['ko' => 'No se ha encontrado ninguna sala'];
         }
 
         return $this->showRoomsTransform

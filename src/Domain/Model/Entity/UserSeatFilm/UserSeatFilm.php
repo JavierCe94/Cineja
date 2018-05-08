@@ -43,9 +43,12 @@ class UserSeatFilm
      */
     private $codeQr;
 
-    public function __construct()
+    public function __construct($seat, $filmRoom, $user, $codeQr)
     {
-
+        $this->seat = $seat;
+        $this->filmRoom = $filmRoom;
+        $this->user = $user;
+        $this->codeQr = $codeQr;
     }
 
     public function id(): int

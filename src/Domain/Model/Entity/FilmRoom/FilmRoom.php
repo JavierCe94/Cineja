@@ -36,9 +36,11 @@ class FilmRoom
      */
     private $releaseDate;
 
-    public function __construct()
+    public function __construct($film, $room, $releaseDate)
     {
-
+        $this->film = $film;
+        $this->room = $room;
+        $this->releaseDate = $releaseDate;
     }
 
     public function id(): int

@@ -5,21 +5,14 @@ namespace Javier\Cineja\Application\Film\ChangeStateToRetiredFilm;
 class ChangeStateToRetiredFilmCommand
 {
     private $id;
-    private $state;
 
-    public function __construct($id, $state)
+    public function __construct($id)
     {
         $this->id = $id;
-        $this->state = $state;
     }
 
-    public function id()
+    public function id(): int
     {
         return $this->id;
-    }
-
-    public function state()
-    {
-        return $this->state;
     }
 }

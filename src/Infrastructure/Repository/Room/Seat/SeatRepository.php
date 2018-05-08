@@ -8,16 +8,19 @@ use Javier\Cineja\Domain\Model\Entity\Room\Seat\Seat;
 class SeatRepository extends ServiceEntityRepository
 {
     /**
-     * @param array|Seat[] $seats
+     * @param array $seats
+     * @return array|Seat
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function createSeatsRoom(array $seats): void
+    public function createSeatsRoom(array $seats): array
     {
         foreach ($seats as $seat) {
             $this->getEntityManager()->persist($seat);
         }
         $this->getEntityManager()->flush();
+
+        return $seats;
     }
 
     public function changeToTypeSpaceSeat(array $idSeats): void
@@ -40,10 +43,19 @@ class SeatRepository extends ServiceEntityRepository
         $update->execute();
     }
 
-    public function showByIdRoomSeats(int $idRoom): array
+    public function findSeatById(int $id): ?Seat
+    {
+        /* @var Seat $seat */
+        $seat = $this->find($id);
+
+        return $seat;
+    }
+
+    public function findSeatsByIdRoom(int $idRoom): array
     {
         $query = $this->createQueryBuilder('se')
-            ->andWhere('se.room = :idRoom')
+            ->innerJoin('se.room', 'ro')
+            ->andWhere('ro.id = :idRoom')
             ->setParameter('idRoom', $idRoom)
             ->getQuery();
 

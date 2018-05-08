@@ -2,10 +2,10 @@
 
 namespace Javier\Cineja\Infrastructure\Repository\Film;
 
-use Doctrine\ORM\EntityRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Javier\Cineja\Domain\Model\Entity\Film\Genre;
 
-class GenreRepository extends EntityRepository
+class GenreRepository extends ServiceEntityRepository
 {
     /**
      * @param Genre $genre
@@ -21,10 +21,18 @@ class GenreRepository extends EntityRepository
         return $genre;
     }
 
+    public function findGenreById(int $id): ?Genre
+    {
+        /* @var Genre $genre */
+        $genre = $this->find($id);
+
+        return $genre;
+    }
+
     /**
      * @return array|Genre[]
      */
-    public function showGenres(): array
+    public function findGenres(): array
     {
         $listGenres = $this->findAll();
 

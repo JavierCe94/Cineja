@@ -33,11 +33,6 @@ class Film
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=100, nullable=false)
-     */
-    private $minDescription;
-
-    /**
      * @ORM\Column(type="smallint", nullable=false)
      */
     private $duration;
@@ -52,14 +47,14 @@ class Film
      */
     private $stateFilm;
 
-    public function __construct($image, $name, $description, $minDescription, $duration, $minAge)
+    public function __construct($image, $name, $description, $duration, $minAge)
     {
         $this->image = $image;
         $this->name = $name;
         $this->description = $description;
-        $this->minDescription = $minDescription;
         $this->duration = $duration;
         $this->minAge = $minAge;
+        $this->stateFilm = StateFilm::STATE_VISIBLE;
     }
 
     public function id(): int
@@ -82,11 +77,6 @@ class Film
         return $this->description;
     }
 
-    public function minDescription(): string
-    {
-        return $this->minDescription;
-    }
-
     public function duration(): int
     {
         return $this->duration;
@@ -100,5 +90,10 @@ class Film
     public function stateFilm(): string
     {
         return $this->stateFilm;
+    }
+
+    public function setStateFilm(string $stateFilm): void
+    {
+        $this->stateFilm = $stateFilm;
     }
 }
