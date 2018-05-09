@@ -28,4 +28,19 @@ class FilmRoomRepository extends ServiceEntityRepository
 
         return $filmRoom;
     }
+
+    /**
+     * @param int $idFilm
+     * @return array|FilmRoom[]
+     */
+    public function findFilmRooms(int $idFilm): array
+    {
+        $query = $this->createQueryBuilder('fr')
+            ->innerJoin('fr.film', 'f')
+            ->andWhere('f.id = :idFilm')
+            ->setParameter('idFilm', $idFilm)
+            ->getQuery();
+
+        return $query->execute();
+    }
 }

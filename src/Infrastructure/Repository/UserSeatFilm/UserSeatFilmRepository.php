@@ -8,16 +8,23 @@ use Javier\Cineja\Domain\Model\Entity\UserSeatFilm\UserSeatFilm;
 class UserSeatFilmRepository extends ServiceEntityRepository
 {
     /**
-     * @param UserSeatFilm $userSeatFilm
-     * @return UserSeatFilm
+     * @param array|UserSeatFilm[] $userSeatsFilm
+     * @return array|UserSeatFilm[]
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function createUserSeatFilm(UserSeatFilm $userSeatFilm): UserSeatFilm
+    public function createUserSeatFilm(array $userSeatsFilm): array
     {
-        $this->getEntityManager()->persist($userSeatFilm);
+        foreach ($userSeatsFilm as $userSeatFilm) {
+            $this->getEntityManager()->persist($userSeatFilm);
+        }
         $this->getEntityManager()->flush();
 
-        return $userSeatFilm;
+        return $userSeatsFilm;
+    }
+
+    public function findUserSeatsFilm()
+    {
+
     }
 }

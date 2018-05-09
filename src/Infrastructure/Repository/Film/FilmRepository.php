@@ -43,4 +43,14 @@ class FilmRepository extends ServiceEntityRepository
 
         return $film;
     }
+
+    /**
+     * @return array|Film[]
+     */
+    public function findFilms(): array
+    {
+        $films = $this->findAll();
+
+        return $films;
+    }
 }

@@ -39,7 +39,7 @@ class UserSeatFilm
     private $user;
 
     /**
-     * @ORM\Column(type="string", length=50, nullable=false, unique=true, options={"default"="None"})
+     * @ORM\Column(type="string", length=20, nullable=false, unique=true)
      */
     private $codeQr;
 
