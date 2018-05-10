@@ -4,13 +4,13 @@ namespace Javier\Cineja\Domain\Services\Room\Seat;
 
 use Javier\Cineja\Domain\Model\Entity\Room\Seat\NotFoundSeatsException;
 use Javier\Cineja\Domain\Model\Entity\Room\Seat\Seat;
-use Javier\Cineja\Infrastructure\Repository\Room\Seat\SeatRepository;
+use Javier\Cineja\Domain\Model\Entity\Room\Seat\SeatRepositoryInterface;
 
 class SearchSeatById
 {
     private $seatRepository;
 
-    public function __construct(SeatRepository $seatRepository)
+    public function __construct(SeatRepositoryInterface $seatRepository)
     {
         $this->seatRepository = $seatRepository;
     }

@@ -3,8 +3,8 @@
 namespace Javier\Cineja\Application\User\LoginUser;
 
 use Javier\Cineja\Domain\Model\Entity\User\NotCorrectPasswordException;
+use Javier\Cineja\Domain\Model\Entity\User\UserRepositoryInterface;
 use Javier\Cineja\Domain\Services\User\CheckPasswordEncrypt;
-use Javier\Cineja\Infrastructure\Repository\User\UserRepository;
 
 class LoginUser
 {
@@ -12,7 +12,7 @@ class LoginUser
     private $checkPasswordEncrypt;
 
     public function __construct(
-        UserRepository $userRepository,
+        UserRepositoryInterface $userRepository,
         CheckPasswordEncrypt $checkPasswordEncrypt
     ) {
         $this->userRepository = $userRepository;

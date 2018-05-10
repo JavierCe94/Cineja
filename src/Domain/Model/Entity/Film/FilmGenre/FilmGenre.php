@@ -20,7 +20,7 @@ class FilmGenre
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Javier\Cineja\Domain\Model\Entity\Film\Film", inversedBy="films")
+     * @ORM\ManyToOne(targetEntity="Javier\Cineja\Domain\Model\Entity\Film\Film", inversedBy="filmGenres")
      * @ORM\JoinColumn(nullable=false)
      */
     private $film;

@@ -2,15 +2,14 @@
 
 namespace Javier\Cineja\Application\Film\CreateGenre;
 
-use Doctrine\ORM\ORMException;
 use Javier\Cineja\Domain\Model\Entity\Film\Genre;
-use Javier\Cineja\Infrastructure\Repository\Film\GenreRepository;
+use Javier\Cineja\Domain\Model\Entity\Film\GenreRepositoryInterface;
 
 class CreateGenre
 {
     private $genreRepository;
 
-    public function __construct(GenreRepository $genreRepository)
+    public function __construct(GenreRepositoryInterface $genreRepository)
     {
         $this->genreRepository = $genreRepository;
     }
@@ -18,8 +17,6 @@ class CreateGenre
     /**
      * @param CreateGenreCommand $createGenreCommand
      * @return array
-     * @throws ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function handle(CreateGenreCommand $createGenreCommand): array
     {

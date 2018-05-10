@@ -14,6 +14,13 @@ class ShowFilmsTransform implements ShowFilmsTransformInterface
     {
         $listFilms = [];
         foreach ($films as $film) {
+            $listGenres = [];
+            foreach ($film->filmGenres() as $filmGenre) {
+                $listGenres[] = [
+                    'idFilmGenre' => $filmGenre->id(),
+                    'nameGenre' => $filmGenre->genre()->name()
+                ];
+            }
             $listFilms[] = [
                 'id' => $film->id(),
                 'image' => $film->image(),
@@ -21,7 +28,7 @@ class ShowFilmsTransform implements ShowFilmsTransformInterface
                 'description' => $film->description(),
                 'minAge' => $film->minAge(),
                 'duration' => $film->duration(),
-                'stateFilm' => $film->stateFilm()
+                'filmGenres' => $listGenres
             ];
         }
 

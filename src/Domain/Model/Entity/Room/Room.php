@@ -58,4 +58,9 @@ class Room
     {
         return $this->stateRoom;
     }
+
+    public function setStateRoom(string $stateRoom): void
+    {
+        $this->stateRoom = $stateRoom;
+    }
 }

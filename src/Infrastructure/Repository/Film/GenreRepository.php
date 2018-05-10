@@ -4,8 +4,9 @@ namespace Javier\Cineja\Infrastructure\Repository\Film;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Javier\Cineja\Domain\Model\Entity\Film\Genre;
+use Javier\Cineja\Domain\Model\Entity\Film\GenreRepositoryInterface;
 
-class GenreRepository extends ServiceEntityRepository
+class GenreRepository extends ServiceEntityRepository implements GenreRepositoryInterface
 {
     /**
      * @param Genre $genre

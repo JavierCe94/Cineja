@@ -4,10 +4,10 @@ namespace Javier\Cineja\Application\FilmRoom\CreateFilmRoom;
 
 use Javier\Cineja\Domain\Model\Entity\Film\NotFoundFilmsException;
 use Javier\Cineja\Domain\Model\Entity\FilmRoom\FilmRoom;
+use Javier\Cineja\Domain\Model\Entity\FilmRoom\FilmRoomRepositoryInterface;
 use Javier\Cineja\Domain\Model\Entity\Room\NotFoundRoomsException;
 use Javier\Cineja\Domain\Services\Film\SearchFilmById;
 use Javier\Cineja\Domain\Services\Room\SearchRoomById;
-use Javier\Cineja\Infrastructure\Repository\FilmRoom\FilmRoomRepository;
 
 class CreateFilmRoom
 {
@@ -16,7 +16,7 @@ class CreateFilmRoom
     private $searchRoomById;
 
     public function __construct(
-        FilmRoomRepository $filmRoomRepository,
+        FilmRoomRepositoryInterface $filmRoomRepository,
         SearchFilmById $searchFilmById,
         SearchRoomById $searchRoomById
     ) {
@@ -28,8 +28,6 @@ class CreateFilmRoom
     /**
      * @param CreateFilmRoomCommand $createFilmRoomCommand
      * @return array
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function handle(CreateFilmRoomCommand $createFilmRoomCommand): array
     {

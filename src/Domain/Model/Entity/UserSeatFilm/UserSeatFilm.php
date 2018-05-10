@@ -21,7 +21,7 @@ class UserSeatFilm
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Javier\Cineja\Domain\Model\Entity\Room\Seat\Seat", inversedBy="seats")
+     * @ORM\ManyToOne(targetEntity="Javier\Cineja\Domain\Model\Entity\Room\Seat\Seat", inversedBy="userSeatsFilm")
      * @ORM\JoinColumn(nullable=false)
      */
     private $seat;

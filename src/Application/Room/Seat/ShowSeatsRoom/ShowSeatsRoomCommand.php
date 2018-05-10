@@ -1,8 +1,8 @@
 <?php
 
-namespace Javier\Cineja\Application\Room\Seat\ShowSeats;
+namespace Javier\Cineja\Application\Room\Seat\ShowSeatsRoom;
 
-class ShowSeatsCommand
+class ShowSeatsRoomCommand
 {
     private $room;
 

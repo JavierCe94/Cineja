@@ -4,8 +4,9 @@ namespace Javier\Cineja\Infrastructure\Repository\User;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Javier\Cineja\Domain\Model\Entity\User\User;
+use Javier\Cineja\Domain\Model\Entity\User\UserRepositoryInterface;
 
-class UserRepository extends ServiceEntityRepository
+class UserRepository extends ServiceEntityRepository implements UserRepositoryInterface
 {
     /**
      * @param User $user

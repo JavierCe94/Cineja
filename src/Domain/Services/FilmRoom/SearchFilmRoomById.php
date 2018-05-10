@@ -3,14 +3,14 @@
 namespace Javier\Cineja\Domain\Services\FilmRoom;
 
 use Javier\Cineja\Domain\Model\Entity\FilmRoom\FilmRoom;
+use Javier\Cineja\Domain\Model\Entity\FilmRoom\FilmRoomRepositoryInterface;
 use Javier\Cineja\Domain\Model\Entity\FilmRoom\NotFoundFilmRoomsException;
-use Javier\Cineja\Infrastructure\Repository\FilmRoom\FilmRoomRepository;
 
 class SearchFilmRoomById
 {
     private $filmRoomRepository;
 
-    public function __construct(FilmRoomRepository $filmRoomRepository)
+    public function __construct(FilmRoomRepositoryInterface $filmRoomRepository)
     {
         $this->filmRoomRepository = $filmRoomRepository;
     }

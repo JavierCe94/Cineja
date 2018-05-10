@@ -4,13 +4,13 @@ namespace Javier\Cineja\Domain\Services\User;
 
 use Javier\Cineja\Domain\Model\Entity\User\NotFoundUsersException;
 use Javier\Cineja\Domain\Model\Entity\User\User;
-use Javier\Cineja\Infrastructure\Repository\User\UserRepository;
+use Javier\Cineja\Domain\Model\Entity\User\UserRepositoryInterface;
 
 class SearchUserById
 {
     private $userRepository;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepositoryInterface $userRepository)
     {
         $this->userRepository = $userRepository;
     }

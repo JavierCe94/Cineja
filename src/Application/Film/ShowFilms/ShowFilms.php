@@ -2,7 +2,7 @@
 
 namespace Javier\Cineja\Application\Film\ShowFilms;
 
-use Javier\Cineja\Infrastructure\Repository\Film\FilmRepository;
+use Javier\Cineja\Domain\Model\Entity\Film\FilmRepositoryInterface;
 
 class ShowFilms
 {
@@ -10,7 +10,7 @@ class ShowFilms
     private $showFilmTransform;
 
     public function __construct(
-        FilmRepository $filmRepository,
+        FilmRepositoryInterface $filmRepository,
         ShowFilmsTransformInterface $showFilmTransform
     ) {
         $this->filmRepository = $filmRepository;

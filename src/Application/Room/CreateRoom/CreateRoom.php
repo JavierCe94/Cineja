@@ -2,15 +2,14 @@
 
 namespace Javier\Cineja\Application\Room\CreateRoom;
 
-use Doctrine\ORM\ORMException;
 use Javier\Cineja\Domain\Model\Entity\Room\Room;
-use Javier\Cineja\Infrastructure\Repository\Room\RoomRepository;
+use Javier\Cineja\Domain\Model\Entity\Room\RoomRepositoryInterface;
 
 class CreateRoom
 {
     private $roomRepository;
 
-    public function __construct(RoomRepository $roomRepository)
+    public function __construct(RoomRepositoryInterface $roomRepository)
     {
         $this->roomRepository = $roomRepository;
     }
@@ -18,8 +17,6 @@ class CreateRoom
     /**
      * @param CreateRoomCommand $createRoomCommand
      * @return array
-     * @throws ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function handle(CreateRoomCommand $createRoomCommand): array
     {

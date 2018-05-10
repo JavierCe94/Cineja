@@ -3,11 +3,11 @@
 namespace Javier\Cineja\Application\Film\FilmGenre\CreateFilmGenre;
 
 use Javier\Cineja\Domain\Model\Entity\Film\FilmGenre\FilmGenre;
+use Javier\Cineja\Domain\Model\Entity\Film\FilmGenre\FilmGenreRepositoryInterface;
 use Javier\Cineja\Domain\Model\Entity\Film\NotFoundFilmsException;
 use Javier\Cineja\Domain\Model\Entity\Film\NotFoundGenresException;
 use Javier\Cineja\Domain\Services\Film\SearchFilmById;
 use Javier\Cineja\Domain\Services\Film\SearchGenreById;
-use Javier\Cineja\Infrastructure\Repository\Film\FilmGenre\FilmGenreRepository;
 
 class CreateFilmGenre
 {
@@ -16,7 +16,7 @@ class CreateFilmGenre
     private $searchGenreById;
 
     public function __construct(
-        FilmGenreRepository $filmGenreRepository,
+        FilmGenreRepositoryInterface $filmGenreRepository,
         SearchFilmById $searchFilmById,
         SearchGenreById $searchGenreById
     ) {
@@ -28,8 +28,6 @@ class CreateFilmGenre
     /**
      * @param CreateFilmGenreCommand $createFilmGenreCommand
      * @return array
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function handle(CreateFilmGenreCommand $createFilmGenreCommand): array
     {

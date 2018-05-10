@@ -4,8 +4,9 @@ namespace Javier\Cineja\Infrastructure\Repository\UserSeatFilm;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Javier\Cineja\Domain\Model\Entity\UserSeatFilm\UserSeatFilm;
+use Javier\Cineja\Domain\Model\Entity\UserSeatFilm\UserSeatFilmRepositoryInterface;
 
-class UserSeatFilmRepository extends ServiceEntityRepository
+class UserSeatFilmRepository extends ServiceEntityRepository implements UserSeatFilmRepositoryInterface
 {
     /**
      * @param array|UserSeatFilm[] $userSeatsFilm
@@ -21,10 +22,5 @@ class UserSeatFilmRepository extends ServiceEntityRepository
         $this->getEntityManager()->flush();
 
         return $userSeatsFilm;
-    }
-
-    public function findUserSeatsFilm()
-    {
-
     }
 }

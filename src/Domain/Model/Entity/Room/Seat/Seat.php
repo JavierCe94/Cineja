@@ -2,8 +2,10 @@
 
 namespace Javier\Cineja\Domain\Model\Entity\Room\Seat;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Javier\Cineja\Domain\Model\Entity\Room\Room;
+use Javier\Cineja\Domain\Model\Entity\UserSeatFilm\UserSeatFilm;
 
 /**
  * @ORM\Entity(repositoryClass="Javier\Cineja\Infrastructure\Repository\Room\Seat\SeatRepository")
@@ -23,6 +25,11 @@ class Seat
      * @ORM\JoinColumn(nullable=false)
      */
     private $room;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Javier\Cineja\Domain\Model\Entity\UserSeatFilm\UserSeatFilm", mappedBy="seat")
+     */
+    private $userSeatsFilm;
 
     /**
      * @ORM\Column(type="float", nullable=false)
@@ -45,6 +52,14 @@ class Seat
         return $this->id;
     }
 
+    /**
+     * @return Collection|UserSeatFilm[]
+     */
+    public function userSeatsFilm(): Collection
+    {
+        return $this->userSeatsFilm;
+    }
+
     public function room(): Room
     {
         return $this->room;
@@ -58,5 +73,10 @@ class Seat
     public function typeSpace(): bool
     {
         return $this->typeSpace;
+    }
+
+    public function setTypeSpace(bool $typeSpace): void
+    {
+        $this->typeSpace = $typeSpace;
     }
 }

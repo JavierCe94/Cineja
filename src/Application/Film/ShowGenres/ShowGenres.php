@@ -2,7 +2,7 @@
 
 namespace Javier\Cineja\Application\Film\ShowGenres;
 
-use Javier\Cineja\Infrastructure\Repository\Film\GenreRepository;
+use Javier\Cineja\Domain\Model\Entity\Film\GenreRepositoryInterface;
 
 class ShowGenres
 {
@@ -10,16 +10,13 @@ class ShowGenres
     private $showGenresTransform;
 
     public function __construct(
-        GenreRepository $genreRepository,
+        GenreRepositoryInterface $genreRepository,
         ShowGenresTransformInterface $showGenresTransform
     ) {
         $this->genreRepository = $genreRepository;
         $this->showGenresTransform = $showGenresTransform;
     }
 
-    /**
-     * @return array
-     */
     public function handle(): array
     {
         $listGenres = $this->genreRepository->findGenres();

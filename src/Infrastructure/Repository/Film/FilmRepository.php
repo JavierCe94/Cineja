@@ -4,9 +4,11 @@ namespace Javier\Cineja\Infrastructure\Repository\Film;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Javier\Cineja\Domain\Model\Entity\Film\Film;
+use Javier\Cineja\Domain\Model\Entity\Film\FilmRepositoryInterface;
 use Javier\Cineja\Domain\Model\Entity\Film\StateFilm;
+use Javier\Cineja\Domain\Model\Entity\Room\StateRoom;
 
-class FilmRepository extends ServiceEntityRepository
+class FilmRepository extends ServiceEntityRepository implements FilmRepositoryInterface
 {
     /**
      * @param Film $film
@@ -42,6 +44,20 @@ class FilmRepository extends ServiceEntityRepository
         $film = $this->find($id);
 
         return $film;
+    }
+
+    public function findRoomsWhereVisualizeFilmStateVisible(): array
+    {
+        $query = $this->createQueryBuilder('f')
+            ->leftJoin('f.filmRooms', 'fr')
+            ->innerJoin('fr.room', 'r')
+            ->andWhere('f.stateFilm = :stateFilm')
+            ->andWhere('r.stateRoom = :stateRoom')
+            ->setParameter('stateFilm', StateFilm::STATE_VISIBLE)
+            ->setParameter('stateRoom', StateRoom::STATE_OPEN)
+            ->getQuery();
+
+        return $query->execute();
     }
 
     /**

@@ -2,15 +2,17 @@
 
 namespace Javier\Cineja\Application\Room\ShowRooms;
 
-use Javier\Cineja\Infrastructure\Repository\Room\RoomRepository;
+use Javier\Cineja\Domain\Model\Entity\Room\RoomRepositoryInterface;
 
 class ShowRooms
 {
     private $roomRepository;
     private $showRoomsTransform;
 
-    public function __construct(RoomRepository $roomRepository, ShowRoomsTransformInterface $showRoomsTransform)
-    {
+    public function __construct(
+        RoomRepositoryInterface $roomRepository,
+        ShowRoomsTransformInterface $showRoomsTransform
+    ) {
         $this->roomRepository = $roomRepository;
         $this->showRoomsTransform = $showRoomsTransform;
     }

@@ -6,11 +6,11 @@ use Javier\Cineja\Domain\Model\Entity\FilmRoom\NotFoundFilmRoomsException;
 use Javier\Cineja\Domain\Model\Entity\Room\Seat\NotFoundSeatsException;
 use Javier\Cineja\Domain\Model\Entity\User\NotFoundUsersException;
 use Javier\Cineja\Domain\Model\Entity\UserSeatFilm\UserSeatFilm;
+use Javier\Cineja\Domain\Model\Entity\UserSeatFilm\UserSeatFilmRepositoryInterface;
 use Javier\Cineja\Domain\Services\FilmRoom\SearchFilmRoomById;
 use Javier\Cineja\Domain\Services\Room\Seat\SearchSeatById;
 use Javier\Cineja\Domain\Services\User\SearchUserById;
 use Javier\Cineja\Domain\Services\UserSeatFilm\GenerateCodeQr;
-use Javier\Cineja\Infrastructure\Repository\UserSeatFilm\UserSeatFilmRepository;
 
 class CreateUserSeatsFilm
 {
@@ -21,7 +21,7 @@ class CreateUserSeatsFilm
     private $generateCodeQr;
 
     public function __construct(
-        UserSeatFilmRepository $userSeatFilmRepository,
+        UserSeatFilmRepositoryInterface $userSeatFilmRepository,
         SearchSeatById $searchSeatById,
         SearchFilmRoomById $searchFilmRoomById,
         SearchUserById $searchUserById,
@@ -37,8 +37,6 @@ class CreateUserSeatsFilm
     /**
      * @param CreateUserSeatsFilmCommand $createUserSeatFilmCommand
      * @return array
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function handle(CreateUserSeatsFilmCommand $createUserSeatFilmCommand): array
     {

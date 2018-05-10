@@ -4,13 +4,13 @@ namespace Javier\Cineja\Domain\Services\Room;
 
 use Javier\Cineja\Domain\Model\Entity\Room\NotFoundRoomsException;
 use Javier\Cineja\Domain\Model\Entity\Room\Room;
-use Javier\Cineja\Infrastructure\Repository\Room\RoomRepository;
+use Javier\Cineja\Domain\Model\Entity\Room\RoomRepositoryInterface;
 
 class SearchRoomById
 {
     private $roomRepository;
 
-    public function __construct(RoomRepository $roomRepository)
+    public function __construct(RoomRepositoryInterface $roomRepository)
     {
         $this->roomRepository = $roomRepository;
     }

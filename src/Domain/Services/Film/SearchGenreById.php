@@ -3,14 +3,14 @@
 namespace Javier\Cineja\Domain\Services\Film;
 
 use Javier\Cineja\Domain\Model\Entity\Film\Genre;
+use Javier\Cineja\Domain\Model\Entity\Film\GenreRepositoryInterface;
 use Javier\Cineja\Domain\Model\Entity\Film\NotFoundGenresException;
-use Javier\Cineja\Infrastructure\Repository\Film\GenreRepository;
 
 class SearchGenreById
 {
     private $genreRepository;
 
-    public function __construct(GenreRepository $genreRepository)
+    public function __construct(GenreRepositoryInterface $genreRepository)
     {
         $this->genreRepository = $genreRepository;
     }

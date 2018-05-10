@@ -2,7 +2,10 @@
 
 namespace Javier\Cineja\Domain\Model\Entity\Film;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Javier\Cineja\Domain\Model\Entity\Film\FilmGenre\FilmGenre;
+use Javier\Cineja\Domain\Model\Entity\FilmRoom\FilmRoom;
 
 /**
  * @ORM\Entity(repositoryClass="Javier\Cineja\Infrastructure\Repository\Film\FilmRepository")
@@ -16,6 +19,16 @@ class Film
      * @ORM\Column(type="integer", nullable=false)
      */
     private $id;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Javier\Cineja\Domain\Model\Entity\FilmRoom\FilmRoom", mappedBy="film")
+     */
+    private $filmRooms;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Javier\Cineja\Domain\Model\Entity\Film\FilmGenre\FilmGenre", mappedBy="film")
+     */
+    private $filmGenres;
 
     /**
      * @ORM\Column(type="string", length=75, nullable=false)
@@ -60,6 +73,22 @@ class Film
     public function id(): int
     {
         return $this->id;
+    }
+
+    /**
+     * @return Collection|FilmRoom[]
+     */
+    public function filmRooms(): Collection
+    {
+        return $this->filmRooms;
+    }
+
+    /**
+     * @return Collection|FilmGenre[]
+     */
+    public function filmGenres(): Collection
+    {
+        return $this->filmGenres;
     }
 
     public function image(): string

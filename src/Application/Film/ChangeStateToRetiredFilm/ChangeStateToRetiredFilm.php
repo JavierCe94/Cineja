@@ -2,16 +2,16 @@
 
 namespace Javier\Cineja\Application\Film\ChangeStateToRetiredFilm;
 
+use Javier\Cineja\Domain\Model\Entity\Film\FilmRepositoryInterface;
 use Javier\Cineja\Domain\Model\Entity\Film\NotFoundFilmsException;
 use Javier\Cineja\Domain\Services\Film\SearchFilmById;
-use Javier\Cineja\Infrastructure\Repository\Film\FilmRepository;
 
 class ChangeStateToRetiredFilm
 {
     private $filmRepository;
     private $searchFilmById;
 
-    public function __construct(FilmRepository $filmRepository, SearchFilmById $searchFilmById)
+    public function __construct(FilmRepositoryInterface $filmRepository, SearchFilmById $searchFilmById)
     {
         $this->filmRepository = $filmRepository;
         $this->searchFilmById = $searchFilmById;
@@ -20,8 +20,6 @@ class ChangeStateToRetiredFilm
     /**
      * @param ChangeStateToRetiredFilmCommand $changeStateToRetiredFilmCommand
      * @return array
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function handle(ChangeStateToRetiredFilmCommand $changeStateToRetiredFilmCommand): array
     {

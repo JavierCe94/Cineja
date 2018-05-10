@@ -20,7 +20,7 @@ class FilmRoom
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Javier\Cineja\Domain\Model\Entity\Film\Film", inversedBy="films")
+     * @ORM\ManyToOne(targetEntity="Javier\Cineja\Domain\Model\Entity\Film\Film", inversedBy="filmRooms")
      * @ORM\JoinColumn(nullable=false)
      */
     private $film;
@@ -32,7 +32,7 @@ class FilmRoom
     private $room;
 
     /**
-     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\Column(type="datetime", nullable=false)
      */
     private $releaseDate;
 

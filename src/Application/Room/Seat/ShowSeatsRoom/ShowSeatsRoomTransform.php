@@ -1,10 +1,10 @@
 <?php
 
-namespace Javier\Cineja\Application\Room\Seat\ShowSeats;
+namespace Javier\Cineja\Application\Room\Seat\ShowSeatsRoom;
 
 use Javier\Cineja\Domain\Model\Entity\Room\Seat\Seat;
 
-class ShowSeatsTransform implements ShowSeatsTransformInterface
+class ShowSeatsRoomTransform implements ShowSeatsRoomTransformInterface
 {
     /**
      * @param array|Seat[] $seats
