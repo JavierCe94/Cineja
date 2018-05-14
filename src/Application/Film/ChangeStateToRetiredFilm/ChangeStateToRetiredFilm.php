@@ -17,10 +17,6 @@ class ChangeStateToRetiredFilm
         $this->searchFilmById = $searchFilmById;
     }
 
-    /**
-     * @param ChangeStateToRetiredFilmCommand $changeStateToRetiredFilmCommand
-     * @return array
-     */
     public function handle(ChangeStateToRetiredFilmCommand $changeStateToRetiredFilmCommand): array
     {
         try {

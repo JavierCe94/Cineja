@@ -37,7 +37,7 @@ class Seat
     private $price;
 
     /**
-     * @ORM\Column(type="boolean", nullable=false, options={"default"=false})
+     * @ORM\Column(type="boolean", nullable=false)
      */
     private $typeSpace;
 
@@ -45,6 +45,7 @@ class Seat
     {
         $this->room = $room;
         $this->price = $price;
+        $this->typeSpace = false;
     }
 
     public function id(): int

@@ -56,7 +56,7 @@ class Film
     private $minAge;
 
     /**
-     * @ORM\Column(type="string", length=50, nullable=false, options={"default"="VISIBLE"})
+     * @ORM\Column(type="string", length=50, nullable=false)
      */
     private $stateFilm;
 

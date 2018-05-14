@@ -34,10 +34,6 @@ class CreateUserSeatsFilm
         $this->generateCodeQr = $generateCodeQr;
     }
 
-    /**
-     * @param CreateUserSeatsFilmCommand $createUserSeatFilmCommand
-     * @return array
-     */
     public function handle(CreateUserSeatsFilmCommand $createUserSeatFilmCommand): array
     {
         try {

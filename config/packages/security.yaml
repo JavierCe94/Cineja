@@ -16,12 +16,12 @@ security:
             security: false
         main:
             anonymous: ~
-            form_login:
-                login_path: admin_login
-                check_path: admin_login
-                username_parameter: user[alias]
-                password_parameter: user[password]
+#            form_login:
+#                login_path: admin_login
+#                check_path: admin_login
+#                username_parameter: user[alias]
+#                password_parameter: user[password]
 
-    access_control:
-        - { path: ^/admin$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin, roles: ROLE_ADMIN }
+#    access_control:
+#        - { path: ^/admin$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+#        - { path: ^/admin, roles: ROLE_ADMIN }

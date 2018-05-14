@@ -28,40 +28,40 @@ services:
 
     Javier\Cineja\Infrastructure\Repository\Film\FilmRepository:
         arguments:
-            - Doctrine\Common\Persistence\ManagerRegistry
-            - Javier\Cineja\Domain\Model\Entity\Film\Film
+            - '@Doctrine\Common\Persistence\ManagerRegistry'
+            - 'Javier\Cineja\Domain\Model\Entity\Film\Film'
 
     Javier\Cineja\Infrastructure\Repository\Film\GenreRepository:
         arguments:
-            - Doctrine\Common\Persistence\ManagerRegistry
-            - Javier\Cineja\Domain\Model\Entity\Film\Genre
+            - '@Doctrine\Common\Persistence\ManagerRegistry'
+            - 'Javier\Cineja\Domain\Model\Entity\Film\Genre'
 
     Javier\Cineja\Infrastructure\Repository\Film\FilmGenre\FilmGenreRepository:
         arguments:
-            - Doctrine\Common\Persistence\ManagerRegistry
-            - Javier\Cineja\Domain\Model\Entity\Film\FilmGenre\FilmGenre
+            - '@Doctrine\Common\Persistence\ManagerRegistry'
+            - 'Javier\Cineja\Domain\Model\Entity\Film\FilmGenre\FilmGenre'
 
     Javier\Cineja\Infrastructure\Repository\Room\RoomRepository:
         arguments:
-            - Doctrine\Common\Persistence\ManagerRegistry
-            - Javier\Cineja\Domain\Model\Entity\Room\Room
+            - '@Doctrine\Common\Persistence\ManagerRegistry'
+            - 'Javier\Cineja\Domain\Model\Entity\Room\Room'
 
     Javier\Cineja\Infrastructure\Repository\Room\Seat\SeatRepository:
         arguments:
-            - Doctrine\Common\Persistence\ManagerRegistry
-            - Javier\Cineja\Domain\Model\Entity\Room\Seat\Seat
+            - '@Doctrine\Common\Persistence\ManagerRegistry'
+            - 'Javier\Cineja\Domain\Model\Entity\Room\Seat\Seat'
 
     Javier\Cineja\Infrastructure\Repository\FilmRoom\FilmRoomRepository:
         arguments:
-            - Doctrine\Common\Persistence\ManagerRegistry
-            - Javier\Cineja\Domain\Model\Entity\FilmRoom\FilmRoom
+            - '@Doctrine\Common\Persistence\ManagerRegistry'
+            - 'Javier\Cineja\Domain\Model\Entity\FilmRoom\FilmRoom'
 
     Javier\Cineja\Infrastructure\Repository\UserSeatFilm\UserSeatFilmRepository:
         arguments:
-            - Doctrine\Common\Persistence\ManagerRegistry
-            - Javier\Cineja\Domain\Model\Entity\UserSeatFilm\UserSeatFilm
+            - '@Doctrine\Common\Persistence\ManagerRegistry'
+            - 'Javier\Cineja\Domain\Model\Entity\UserSeatFilm\UserSeatFilm'
 
     Javier\Cineja\Infrastructure\Repository\User\UserRepository:
         arguments:
-            - Doctrine\Common\Persistence\ManagerRegistry
-            - Javier\Cineja\Domain\Model\Entity\User\User
+            - '@Doctrine\Common\Persistence\ManagerRegistry'
+            - 'Javier\Cineja\Domain\Model\Entity\User\User'

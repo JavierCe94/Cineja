@@ -17,9 +17,6 @@ class ShowRooms
         $this->showRoomsTransform = $showRoomsTransform;
     }
 
-    /**
-     * @return array
-     */
     public function handle(): array
     {
         $listRooms = $this->roomRepository->findRooms();

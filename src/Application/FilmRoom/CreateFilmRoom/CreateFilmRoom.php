@@ -25,10 +25,6 @@ class CreateFilmRoom
         $this->searchRoomById = $searchRoomById;
     }
 
-    /**
-     * @param CreateFilmRoomCommand $createFilmRoomCommand
-     * @return array
-     */
     public function handle(CreateFilmRoomCommand $createFilmRoomCommand): array
     {
         try {

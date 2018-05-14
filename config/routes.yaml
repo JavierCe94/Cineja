@@ -1,9 +1,3 @@
-# Admin
-
-#admin_login:
-#    path: /admin
-#    controller: Javier\Cineja\Infrastructure\Controller\Admin\User\UserController::userLogin
-#
-#admin_films:
-#    path: /admin/films
-#    controller: Javier\Cineja\Infrastructure\Controller\Admin\Film\FilmController::showFilms
+room_admin:
+    resource: './routes/room/room.yaml'
+    prefix: '/admin/room'

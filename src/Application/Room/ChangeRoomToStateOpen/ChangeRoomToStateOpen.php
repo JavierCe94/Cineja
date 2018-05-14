@@ -19,10 +19,6 @@ class ChangeRoomToStateOpen
         $this->searchRoomById = $searchRoomById;
     }
 
-    /**
-     * @param ChangeRoomToStateOpenCommand $changeRoomToStateOpenCommand
-     * @return array
-     */
     public function handle(ChangeRoomToStateOpenCommand $changeRoomToStateOpenCommand): array
     {
         try {

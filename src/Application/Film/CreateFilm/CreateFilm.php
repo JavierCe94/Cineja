@@ -14,10 +14,6 @@ class CreateFilm
         $this->filmRepository = $filmRepository;
     }
 
-    /**
-     * @param CreateFilmCommand $createFilmCommand
-     * @return array
-     */
     public function handle(CreateFilmCommand $createFilmCommand): array
     {
         $film = new Film(

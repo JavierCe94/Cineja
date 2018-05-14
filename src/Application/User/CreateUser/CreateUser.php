@@ -19,10 +19,6 @@ class CreateUser
         $this->generatePasswordEncrypt = $generatePasswordEncrypt;
     }
 
-    /**
-     * @param CreateUserCommand $createUserCommand
-     * @return array
-     */
     public function handle(CreateUserCommand $createUserCommand): array
     {
         $password = $this->generatePasswordEncrypt->execute(

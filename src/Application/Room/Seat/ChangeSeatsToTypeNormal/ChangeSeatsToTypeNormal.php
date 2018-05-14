@@ -17,10 +17,6 @@ class ChangeSeatsToTypeNormal
         $this->searchSeatById = $searchSeatById;
     }
 
-    /**
-     * @param ChangeSeatsToTypeNormalCommand $changeSeatsToTypeNormalCommand
-     * @return array
-     */
     public function handle(ChangeSeatsToTypeNormalCommand $changeSeatsToTypeNormalCommand): array
     {
         $listSeats = [];

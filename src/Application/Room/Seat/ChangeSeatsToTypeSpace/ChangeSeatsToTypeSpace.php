@@ -17,10 +17,6 @@ class ChangeSeatsToTypeSpace
         $this->searchSeatById = $searchSeatById;
     }
 
-    /**
-     * @param ChangeSeatsToTypeSpaceCommand $changeSeatsToTypeSpaceCommand
-     * @return array
-     */
     public function handle(ChangeSeatsToTypeSpaceCommand $changeSeatsToTypeSpaceCommand): array
     {
         $listSeats = [];

@@ -28,7 +28,7 @@ class Room
     private $totalSeatsByRow;
 
     /**
-     * @ORM\Column(type="string", length=50, nullable=false, options={"default"="OPEN"})
+     * @ORM\Column(type="string", length=50, nullable=false)
      */
     private $stateRoom;
 

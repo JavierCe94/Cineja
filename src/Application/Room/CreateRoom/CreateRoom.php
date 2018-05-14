@@ -14,10 +14,6 @@ class CreateRoom
         $this->roomRepository = $roomRepository;
     }
 
-    /**
-     * @param CreateRoomCommand $createRoomCommand
-     * @return array
-     */
     public function handle(CreateRoomCommand $createRoomCommand): array
     {
         $room = new Room(

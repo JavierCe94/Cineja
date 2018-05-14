@@ -1,8 +1,8 @@
 <?php
 
-namespace Javier\Cineja\Application\User\LoginUser;
+namespace Javier\Cineja\Application\User\CheckLoginUser;
 
-class LoginUserCommand
+class CheckLoginUserCommand
 {
     private $mail;
     private $password;

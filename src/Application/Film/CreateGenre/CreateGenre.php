@@ -14,10 +14,6 @@ class CreateGenre
         $this->genreRepository = $genreRepository;
     }
 
-    /**
-     * @param CreateGenreCommand $createGenreCommand
-     * @return array
-     */
     public function handle(CreateGenreCommand $createGenreCommand): array
     {
         $genre = new Genre(

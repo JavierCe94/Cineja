@@ -19,10 +19,6 @@ class ChangeRoomToStateClose
         $this->searchRoomById = $searchRoomById;
     }
 
-    /**
-     * @param ChangeRoomToStateCloseCommand $changeRoomToStateCloseCommand
-     * @return array
-     */
     public function handle(ChangeRoomToStateCloseCommand $changeRoomToStateCloseCommand): array
     {
         try {

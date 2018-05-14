@@ -20,10 +20,6 @@ class CreateSeatsRoom
         $this->searchRoomById = $searchRoomById;
     }
 
-    /**
-     * @param CreateSeatsRoomCommand $createSeatsRoomCommand
-     * @return array
-     */
     public function handle(CreateSeatsRoomCommand $createSeatsRoomCommand): array
     {
         try {

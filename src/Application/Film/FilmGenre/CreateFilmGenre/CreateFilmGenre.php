@@ -25,10 +25,6 @@ class CreateFilmGenre
         $this->searchGenreById = $searchGenreById;
     }
 
-    /**
-     * @param CreateFilmGenreCommand $createFilmGenreCommand
-     * @return array
-     */
     public function handle(CreateFilmGenreCommand $createFilmGenreCommand): array
     {
         try {

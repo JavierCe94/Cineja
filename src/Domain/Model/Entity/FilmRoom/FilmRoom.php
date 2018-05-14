@@ -58,7 +58,7 @@ class FilmRoom
         return $this->room;
     }
 
-    public function releaseDate(): int
+    public function releaseDate(): \DateTime
     {
         return $this->releaseDate;
     }
