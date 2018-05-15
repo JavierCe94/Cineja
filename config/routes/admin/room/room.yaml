@@ -1,0 +1,15 @@
+change_state_close_room:
+    path: '/{room}/stateclose'
+    controller: 'Javier\Cineja\Infrastructure\Controller\Room\ChangeRoomToStateCloseController::changeRoomToStateClose'
+
+change_state_open_room:
+    path: '/{room}/stateopen'
+    controller: 'Javier\Cineja\Infrastructure\Controller\Room\ChangeRoomToStateOpenController::changeRoomToStateOpen'
+
+create_room:
+    path: '/create'
+    controller: 'Javier\Cineja\Infrastructure\Controller\Room\CreateRoomController::createRoom'
+
+show_rooms:
+    path: '/show'
+    controller: 'Javier\Cineja\Infrastructure\Controller\Room\ShowRoomsController::showRooms'

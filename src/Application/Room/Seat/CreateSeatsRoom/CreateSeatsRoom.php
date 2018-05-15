@@ -24,7 +24,7 @@ class CreateSeatsRoom
     {
         try {
             $room = $this->searchRoomById->execute(
-                $createSeatsRoomCommand->idRoom()
+                $createSeatsRoomCommand->room()
             );
         } catch (NotFoundRoomsException $notFoundRoomsException) {
             return ['ko' => $notFoundRoomsException->getMessage()];

@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CreateRoomController extends Controller
 {
-    public function createController(Request $request, CreateRoom $createRoom): Response
+    public function createRoom(Request $request, CreateRoom $createRoom): Response
     {
         $createRoomCommand = new CreateRoomCommand(
             $request->query->get('name'),

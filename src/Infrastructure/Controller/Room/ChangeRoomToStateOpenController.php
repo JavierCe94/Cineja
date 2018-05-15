@@ -13,7 +13,7 @@ class ChangeRoomToStateOpenController extends Controller
     public function changeRoomToStateOpen(Request $request, ChangeRoomToStateOpen $changeRoomToStateOpen): Response
     {
         $changeRoomToStateOpenCommand = new ChangeRoomToStateOpenCommand(
-            $request->query->get('room')
+            $request->attributes->get('room')
         );
         $response = $changeRoomToStateOpen->handle($changeRoomToStateOpenCommand);
 

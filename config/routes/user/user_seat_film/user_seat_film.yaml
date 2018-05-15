@@ -1,0 +1,3 @@
+create_user_seat_film:
+    path: '/create'
+    controller: 'Javier\Cineja\Infrastructure\Controller\UserSeatFilm\CreateUserSeatsFilmController::createUserSeatsFilm'

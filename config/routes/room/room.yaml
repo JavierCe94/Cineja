@@ -1,3 +1,0 @@
-create_room:
-    path: '/create'
-    controller: 'Javier\Cineja\Infrastructure\Controller\Room\CreateRoomController::createController'

@@ -1,0 +1,7 @@
+check_login_user:
+    path: '/login'
+    controller: 'Javier\Cineja\Infrastructure\Controller\User\CheckLoginUserController::checkLoginUser'
+
+create_user:
+    path: '/create'
+    controller: 'Javier\Cineja\Infrastructure\Controller\User\CreateUserController::createUser'

@@ -13,7 +13,7 @@ class ChangeRoomToStateCloseController extends Controller
     public function changeRoomToStateClose(Request $request, ChangeRoomToStateClose $changeRoomToStateClose): Response
     {
         $changeRoomToStateCloseCommand = new ChangeRoomToStateCloseCommand(
-            $request->query->get('room')
+            $request->attributes->get('room')
         );
         $response = $changeRoomToStateClose->handle($changeRoomToStateCloseCommand);
 

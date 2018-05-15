@@ -1,0 +1,3 @@
+show_seats_film:
+    path: '/room/{room}/filmroom/{filmroom}/show'
+    controller: 'Javier\Cineja\Infrastructure\Controller\Room\Seat\ShowSeatsFilmRoomController::showSeatsFilmRoom'

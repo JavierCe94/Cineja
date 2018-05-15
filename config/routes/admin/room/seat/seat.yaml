@@ -1,0 +1,15 @@
+change_state_type_normal_seat:
+    path: '/typenormal'
+    controller: 'Javier\Cineja\Infrastructure\Controller\Room\Seat\ChangeSeatsToTypeNormalController::changeSeatsToTypeNormal'
+
+change_state_type_space_seat:
+    path: '/typespace'
+    controller: 'Javier\Cineja\Infrastructure\Controller\Room\Seat\ChangeSeatsToTypeSpaceController::changeSeatsToTypeSpace'
+
+create_seats_room:
+    path: '/room/{room}/create'
+    controller: 'Javier\Cineja\Infrastructure\Controller\Room\Seat\CreateSeatsRoomController::createSeatsRoom'
+
+show_seats_room:
+    path: '/room/{room}/show'
+    controller: 'Javier\Cineja\Infrastructure\Controller\Room\Seat\ShowSeatsRoomController::showSeatsRoom'

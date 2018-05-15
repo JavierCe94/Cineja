@@ -1,3 +1,23 @@
+film_room_admin:
+    prefix: '/admin/filmroom'
+    resource: './routes/admin/film_room/film_room.yaml'
+
 room_admin:
-    resource: './routes/room/room.yaml'
     prefix: '/admin/room'
+    resource: './routes/admin/room/room.yaml'
+
+seat_room_admin:
+    prefix: '/admin/seat'
+    resource: './routes/admin/room/seat/seat.yaml'
+
+seat_room_user:
+    prefix: '/user/seat'
+    resource: './routes/user/seat/seat.yaml'
+
+user_user:
+    prefix: '/user'
+    resource: './routes/user/user.yaml'
+
+user_seat_film:
+    prefix: '/user/userseatfilm'
+    resource: './routes/user/user_seat_film/user_seat_film.yaml'

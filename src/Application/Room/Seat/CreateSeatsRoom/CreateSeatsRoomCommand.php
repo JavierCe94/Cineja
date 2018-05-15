@@ -4,20 +4,20 @@ namespace Javier\Cineja\Application\Room\Seat\CreateSeatsRoom;
 
 class CreateSeatsRoomCommand
 {
-    private $idRoom;
+    private $room;
     private $priceSeat;
     private $totalSeatsRoom;
 
-    public function __construct($idRoom, $priceSeat, $totalSeatsRoom)
+    public function __construct($room, $priceSeat, $totalSeatsRoom)
     {
-        $this->idRoom = $idRoom;
+        $this->room = $room;
         $this->priceSeat = $priceSeat;
         $this->totalSeatsRoom = $totalSeatsRoom;
     }
 
-    public function idRoom(): int
+    public function room(): int
     {
-        return $this->idRoom;
+        return $this->room;
     }
 
     public function priceSeat(): float
