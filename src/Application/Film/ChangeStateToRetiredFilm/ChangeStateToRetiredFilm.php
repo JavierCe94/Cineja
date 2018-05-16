@@ -3,7 +3,7 @@
 namespace Javier\Cineja\Application\Film\ChangeStateToRetiredFilm;
 
 use Javier\Cineja\Domain\Model\Entity\Film\FilmRepositoryInterface;
-use Javier\Cineja\Domain\Model\Entity\Film\NotFoundFilmsException;
+use Javier\Cineja\Domain\Model\Entity\Film\NotFoundFilms;
 use Javier\Cineja\Domain\Services\Film\SearchFilmById;
 
 class ChangeStateToRetiredFilm
@@ -23,11 +23,17 @@ class ChangeStateToRetiredFilm
             $film = $this->searchFilmById->execute(
                 $changeStateToRetiredFilmCommand->id()
             );
-        } catch (NotFoundFilmsException $notFoundFilmsException) {
-            return ['ko' => $notFoundFilmsException->getMessage()];
+        } catch (NotFoundFilms $notFoundFilmsException) {
+            return [
+                'data' => $notFoundFilmsException->getMessage(),
+                'code' => $notFoundFilmsException->getCode()
+            ];
         }
         $this->filmRepository->changeToStateRetiredFilm($film);
 
-        return ['ok' => 200];
+        return [
+            'data' => 'Se ha retirado la película con éxito',
+            'code' => 200
+        ];
     }
 }

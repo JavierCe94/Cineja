@@ -1,0 +1,3 @@
+show_films_rooms_user:
+    path: '/showfilmsrooms'
+    controller: 'Javier\Cineja\Infrastructure\Controller\Film\ShowFilmsWithRoomsController::showFilmsWithRooms'

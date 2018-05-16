@@ -20,9 +20,6 @@ class ShowRooms
     public function handle(): array
     {
         $listRooms = $this->roomRepository->findRooms();
-        if (0 === count($listRooms)) {
-            return ['ko' => 'No se ha encontrado ninguna sala'];
-        }
 
         return $this->showRoomsTransform
             ->transform($listRooms);

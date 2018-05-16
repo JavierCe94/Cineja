@@ -11,5 +11,5 @@ create_seats_room:
     controller: 'Javier\Cineja\Infrastructure\Controller\Room\Seat\CreateSeatsRoomController::createSeatsRoom'
 
 show_seats_room:
-    path: '/room/{room}/show'
+    path: '/room/{room}/showseats'
     controller: 'Javier\Cineja\Infrastructure\Controller\Room\Seat\ShowSeatsRoomController::showSeatsRoom'

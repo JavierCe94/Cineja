@@ -1,3 +1,15 @@
+genre_admin:
+    prefix: '/admin/genre'
+    resource: './routes/admin/film/genre.yaml'
+
+film_admin:
+    prefix: '/admin/film'
+    resource: './routes/admin/film/film.yaml'
+
+film_genre_admin:
+    prefix: '/admin/filmgenre'
+    resource: './routes/admin/film/film_genre/film_genre.yaml'
+
 film_room_admin:
     prefix: '/admin/filmroom'
     resource: './routes/admin/film_room/film_room.yaml'
@@ -9,6 +21,10 @@ room_admin:
 seat_room_admin:
     prefix: '/admin/seat'
     resource: './routes/admin/room/seat/seat.yaml'
+
+film_user:
+    prefix: '/user/film'
+    resource: './routes/admin/film/film.yaml'
 
 seat_room_user:
     prefix: '/user/seat'

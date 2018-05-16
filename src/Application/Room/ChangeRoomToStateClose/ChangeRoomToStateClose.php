@@ -26,10 +26,16 @@ class ChangeRoomToStateClose
                 $changeRoomToStateCloseCommand->id()
             );
         } catch (NotFoundRoomsException $notFoundRoomsException) {
-            return ['ko' => $notFoundRoomsException->getMessage()];
+            return [
+                'data' => $notFoundRoomsException->getMessage(),
+                'code' => $notFoundRoomsException->getCode()
+            ];
         }
         $this->roomRepository->changeToStateCloseRoom($room);
 
-        return ['ok' => 200];
+        return [
+            'data' => 'Se ha cerrado la sala con éxito',
+            'code' => 200
+        ];
     }
 }

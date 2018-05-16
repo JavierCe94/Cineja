@@ -4,7 +4,7 @@ namespace Javier\Cineja\Application\Film\FilmGenre\CreateFilmGenre;
 
 use Javier\Cineja\Domain\Model\Entity\Film\FilmGenre\FilmGenre;
 use Javier\Cineja\Domain\Model\Entity\Film\FilmGenre\FilmGenreRepositoryInterface;
-use Javier\Cineja\Domain\Model\Entity\Film\NotFoundFilmsException;
+use Javier\Cineja\Domain\Model\Entity\Film\NotFoundFilms;
 use Javier\Cineja\Domain\Model\Entity\Film\NotFoundGenresException;
 use Javier\Cineja\Domain\Services\Film\SearchFilmById;
 use Javier\Cineja\Domain\Services\Film\SearchGenreById;
@@ -31,15 +31,21 @@ class CreateFilmGenre
             $film = $this->searchFilmById->execute(
                 $createFilmGenreCommand->film()
             );
-        } catch (NotFoundFilmsException $notFoundFilmsException) {
-            return ['ko' => $notFoundFilmsException->getMessage()];
+        } catch (NotFoundFilms $notFoundFilmsException) {
+            return [
+                'data' => $notFoundFilmsException->getMessage(),
+                'code' => $notFoundFilmsException->getCode()
+            ];
         }
         try {
             $genre = $this->searchGenreById->execute(
                 $createFilmGenreCommand->genre()
             );
         } catch (NotFoundGenresException $notFoundGenresException) {
-            return ['ko' => $notFoundGenresException->getMessage()];
+            return [
+                'data' => $notFoundGenresException->getMessage(),
+                'code' => $notFoundGenresException->getCode()
+            ];
         }
         $filmGenre = new FilmGenre(
             $film,
@@ -47,6 +53,9 @@ class CreateFilmGenre
         );
         $this->filmGenreRepository->createFilmGenre($filmGenre);
 
-        return ['ok' => 200];
+        return [
+            'data' => 'Se ha creado la relación género película con éxito',
+            'code' => 200
+        ];
     }
 }

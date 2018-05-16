@@ -4,11 +4,11 @@ namespace Javier\Cineja\Infrastructure\Controller\Room;
 
 use Javier\Cineja\Application\Room\CreateRoom\CreateRoom;
 use Javier\Cineja\Application\Room\CreateRoom\CreateRoomCommand;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CreateRoomController extends Controller
+class CreateRoomController
 {
     public function createRoom(Request $request, CreateRoom $createRoom): Response
     {
@@ -18,6 +18,9 @@ class CreateRoomController extends Controller
         );
         $response = $createRoom->handle($createRoomCommand);
 
-        return $this->json($response);
+        return new JsonResponse(
+            $response['data'],
+            $response['code']
+        );
     }
 }

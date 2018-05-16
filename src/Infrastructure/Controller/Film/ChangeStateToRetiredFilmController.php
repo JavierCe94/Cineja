@@ -4,11 +4,11 @@ namespace Javier\Cineja\Infrastructure\Controller\Film;
 
 use Javier\Cineja\Application\Film\ChangeStateToRetiredFilm\ChangeStateToRetiredFilm;
 use Javier\Cineja\Application\Film\ChangeStateToRetiredFilm\ChangeStateToRetiredFilmCommand;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ChangeStateToRetiredFilmController extends Controller
+class ChangeStateToRetiredFilmController
 {
     public function changeStateToRetiredFilm(
         Request $request,
@@ -19,6 +19,9 @@ class ChangeStateToRetiredFilmController extends Controller
         );
         $response = $changeStateToRetiredFilm->handle($changeStateToRetiredFilmCommand);
 
-        return $this->json($response);
+        return new JsonResponse(
+            $response['data'],
+            $response['code']
+        );
     }
 }

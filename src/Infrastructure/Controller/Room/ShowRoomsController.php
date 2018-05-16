@@ -3,15 +3,18 @@
 namespace Javier\Cineja\Infrastructure\Controller\Room;
 
 use Javier\Cineja\Application\Room\ShowRooms\ShowRooms;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class ShowRoomsController extends Controller
+class ShowRoomsController
 {
     public function showRooms(ShowRooms $showRooms): Response
     {
         $response = $showRooms->handle();
 
-        return $this->json($response);
+        return new JsonResponse(
+            $response,
+            200
+        );
     }
 }

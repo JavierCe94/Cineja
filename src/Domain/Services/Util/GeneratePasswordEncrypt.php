@@ -1,6 +1,6 @@
 <?php
 
-namespace Javier\Cineja\Domain\Services\User;
+namespace Javier\Cineja\Domain\Services\Util;
 
 class GeneratePasswordEncrypt
 {

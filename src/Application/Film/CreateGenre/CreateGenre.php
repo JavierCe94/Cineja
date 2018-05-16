@@ -21,6 +21,9 @@ class CreateGenre
         );
         $this->genreRepository->createGenre($genre);
 
-        return ['ok' => 200];
+        return [
+            'data' => 'Se ha creado el género con éxito',
+            'code' => 200
+        ];
     }
 }

@@ -4,11 +4,11 @@ namespace Javier\Cineja\Infrastructure\Controller\Film;
 
 use Javier\Cineja\Application\Film\CreateFilm\CreateFilm;
 use Javier\Cineja\Application\Film\CreateFilm\CreateFilmCommand;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CreateFilmController extends Controller
+class CreateFilmController
 {
     public function createFilm(Request $request, CreateFilm $createFilm): Response
     {
@@ -21,6 +21,9 @@ class CreateFilmController extends Controller
         );
         $response = $createFilm->handle($createFilmCommand);
 
-        return $this->json($response);
+        return new JsonResponse(
+            $response['data'],
+            $response['code']
+        );
     }
 }

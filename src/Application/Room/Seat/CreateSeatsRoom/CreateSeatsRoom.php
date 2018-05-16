@@ -27,7 +27,10 @@ class CreateSeatsRoom
                 $createSeatsRoomCommand->room()
             );
         } catch (NotFoundRoomsException $notFoundRoomsException) {
-            return ['ko' => $notFoundRoomsException->getMessage()];
+            return [
+                'data' => $notFoundRoomsException->getMessage(),
+                'code' => $notFoundRoomsException->getCode()
+            ];
         }
         $listSeats = [];
         for ($i = 0; $i < $createSeatsRoomCommand->totalSeatsRoom(); $i++) {
@@ -39,6 +42,9 @@ class CreateSeatsRoom
 
         $this->seatRepository->createSeatsRoom($listSeats);
 
-        return ['ok' => 200];
+        return [
+            'data' => 'Se han creado las butacas con éxito',
+            'code' => 200
+        ];
     }
 }

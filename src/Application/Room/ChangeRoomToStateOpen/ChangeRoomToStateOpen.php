@@ -26,10 +26,16 @@ class ChangeRoomToStateOpen
                 $changeRoomToStateOpenCommand->id()
             );
         } catch (NotFoundRoomsException $notFoundRoomsException) {
-            return ['ko' => $notFoundRoomsException->getMessage()];
+            return [
+                'data' => $notFoundRoomsException->getMessage(),
+                'code' => $notFoundRoomsException->getCode()
+            ];
         }
         $this->roomRepository->changeToStateOpenRoom($room);
 
-        return ['ok' => 200];
+        return [
+            'data' => 'Se ha abierto la sala con éxito',
+            'code' => 200
+        ];
     }
 }

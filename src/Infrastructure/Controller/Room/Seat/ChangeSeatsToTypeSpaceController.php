@@ -4,11 +4,11 @@ namespace Javier\Cineja\Infrastructure\Controller\Room\Seat;
 
 use Javier\Cineja\Application\Room\Seat\ChangeSeatsToTypeSpace\ChangeSeatsToTypeSpace;
 use Javier\Cineja\Application\Room\Seat\ChangeSeatsToTypeSpace\ChangeSeatsToTypeSpaceCommand;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ChangeSeatsToTypeSpaceController extends Controller
+class ChangeSeatsToTypeSpaceController
 {
     public function changeSeatsToTypeSpace(
         Request $request,
@@ -19,6 +19,9 @@ class ChangeSeatsToTypeSpaceController extends Controller
         );
         $response = $changeSeatsToTypeSpace->handle($changeSeatsToTypeSpaceCommand);
 
-        return $this->json($response);
+        return new JsonResponse(
+            $response['data'],
+            $response['code']
+        );
     }
 }

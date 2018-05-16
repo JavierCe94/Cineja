@@ -25,6 +25,9 @@ class CreateFilm
         );
         $this->filmRepository->createFilm($film);
 
-        return ['ok' => 200];
+        return [
+            'data' => 'Se ha creado la película con éxito',
+            'code' => 200
+        ];
     }
 }

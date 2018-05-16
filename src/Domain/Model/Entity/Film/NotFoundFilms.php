@@ -2,7 +2,7 @@
 
 namespace Javier\Cineja\Domain\Model\Entity\Film;
 
-class NotFoundFilmsException extends \Exception
+class NotFoundFilms extends \Exception
 {
     public function __construct()
     {

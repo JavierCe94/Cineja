@@ -1,0 +1,7 @@
+create_genre:
+    path: '/create'
+    controller: 'Javier\Cineja\Infrastructure\Controller\Film\CreateGenreController::createGenre'
+
+show_genres:
+    path: '/showgenres'
+    controller: 'Javier\Cineja\Infrastructure\Controller\Film\ShowGenresController::showGenres'

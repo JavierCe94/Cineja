@@ -22,6 +22,9 @@ class CreateRoom
         );
         $this->roomRepository->createRoom($room);
 
-        return ['ok' => 200];
+        return [
+            'data' => 'Se ha creado la sala con éxito',
+            'code' => 200
+        ];
     }
 }

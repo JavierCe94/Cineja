@@ -4,7 +4,7 @@ namespace Javier\Cineja\Domain\Services\Film;
 
 use Javier\Cineja\Domain\Model\Entity\Film\Film;
 use Javier\Cineja\Domain\Model\Entity\Film\FilmRepositoryInterface;
-use Javier\Cineja\Domain\Model\Entity\Film\NotFoundFilmsException;
+use Javier\Cineja\Domain\Model\Entity\Film\NotFoundFilms;
 
 class SearchFilmById
 {
@@ -18,13 +18,13 @@ class SearchFilmById
     /**
      * @param int $id
      * @return Film
-     * @throws NotFoundFilmsException
+     * @throws NotFoundFilms
      */
     public function execute(int $id): Film
     {
         $film = $this->filmRepository->findFilmById($id);
         if (null === $film) {
-            throw new NotFoundFilmsException();
+            throw new NotFoundFilms();
         }
 
         return $film;

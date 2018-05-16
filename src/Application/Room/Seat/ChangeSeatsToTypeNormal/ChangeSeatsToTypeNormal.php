@@ -24,11 +24,17 @@ class ChangeSeatsToTypeNormal
             try {
                 $listSeats[] = $this->searchSeatById->execute($idSeat);
             } catch (NotFoundSeatsException $notFoundSeatsException) {
-                return ['ko' => $notFoundSeatsException->getMessage()];
+                return [
+                    'data' => $notFoundSeatsException->getMessage(),
+                    'code' => $notFoundSeatsException->getCode()
+                ];
             }
         }
         $this->seatRepository->changeToTypeNormalSeat($listSeats);
 
-        return ['ok' => 200];
+        return [
+            'data' => 'Se han cambiado las butacas, al tipo normal',
+            'code' => 200
+        ];
     }
 }

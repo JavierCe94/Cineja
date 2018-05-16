@@ -20,9 +20,6 @@ class ShowFilmsWithRooms
     public function handle(): array
     {
         $filmsWithRooms = $this->filmRepository->findRoomsWhereVisualizeFilmStateVisible();
-        if (0 === count($filmsWithRooms)) {
-            return ['ko' => 'No se ha encontrado ninguna película'];
-        }
 
         return $this->showFilmsWithRoomsTransformer
             ->transform($filmsWithRooms);

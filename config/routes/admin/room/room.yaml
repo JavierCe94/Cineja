@@ -11,5 +11,5 @@ create_room:
     controller: 'Javier\Cineja\Infrastructure\Controller\Room\CreateRoomController::createRoom'
 
 show_rooms:
-    path: '/show'
+    path: '/showrooms'
     controller: 'Javier\Cineja\Infrastructure\Controller\Room\ShowRoomsController::showRooms'

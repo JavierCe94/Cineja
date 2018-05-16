@@ -20,9 +20,6 @@ class ShowGenres
     public function handle(): array
     {
         $listGenres = $this->genreRepository->findGenres();
-        if (0 === count($listGenres)) {
-            return ['ko' => 'No se ha encontrado ningún género'];
-        }
 
         return $this->showGenresTransform
             ->transform($listGenres);

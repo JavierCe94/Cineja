@@ -22,9 +22,6 @@ class ShowSeatsRoom
         $seats = $this->seatRepository->findSeatsByIdRoom(
             $showSeatsRoomCommand->room()
         );
-        if (0 === count($seats)) {
-            return ['ko' => 'No se ha encontrado ningún asiento'];
-        }
 
         return $this->showSeatsTransform
             ->transform($seats);

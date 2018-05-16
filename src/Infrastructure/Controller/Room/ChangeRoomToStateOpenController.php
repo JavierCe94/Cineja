@@ -4,11 +4,11 @@ namespace Javier\Cineja\Infrastructure\Controller\Room;
 
 use Javier\Cineja\Application\Room\ChangeRoomToStateOpen\ChangeRoomToStateOpen;
 use Javier\Cineja\Application\Room\ChangeRoomToStateOpen\ChangeRoomToStateOpenCommand;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ChangeRoomToStateOpenController extends Controller
+class ChangeRoomToStateOpenController
 {
     public function changeRoomToStateOpen(Request $request, ChangeRoomToStateOpen $changeRoomToStateOpen): Response
     {
@@ -17,6 +17,9 @@ class ChangeRoomToStateOpenController extends Controller
         );
         $response = $changeRoomToStateOpen->handle($changeRoomToStateOpenCommand);
 
-        return $this->json($response);
+        return new JsonResponse(
+            $response['data'],
+            $response['code']
+        );
     }
 }

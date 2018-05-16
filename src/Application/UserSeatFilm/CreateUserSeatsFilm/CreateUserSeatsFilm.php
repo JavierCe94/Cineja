@@ -41,14 +41,20 @@ class CreateUserSeatsFilm
                 $createUserSeatFilmCommand->filmRoom()
             );
         } catch (NotFoundFilmRoomsException $notFoundFilmRoomsException) {
-            return ['ko' => $notFoundFilmRoomsException->getMessage()];
+            return [
+                'data' => $notFoundFilmRoomsException->getMessage(),
+                'code' => $notFoundFilmRoomsException->getCode()
+            ];
         }
         try {
             $user = $this->searchUserById->execute(
                 $createUserSeatFilmCommand->user()
             );
         } catch (NotFoundUsersException $notFoundUsersException) {
-            return ['ko' => $notFoundUsersException->getMessage()];
+            return [
+                'data' => $notFoundUsersException->getMessage(),
+                'code' => $notFoundUsersException->getCode()
+            ];
         }
         $listUserSeatsFilm = [];
         foreach ($createUserSeatFilmCommand->seats() as $idSeat) {
@@ -57,7 +63,10 @@ class CreateUserSeatsFilm
                     $idSeat
                 );
             } catch (NotFoundSeatsException $notFoundSeatsException) {
-                return ['ko' => $notFoundSeatsException->getMessage()];
+                return [
+                    'data' => $notFoundSeatsException->getMessage(),
+                    'code' => $notFoundSeatsException->getCode()
+                ];
             }
             $listUserSeatsFilm[] = new UserSeatFilm(
                 $seat,
@@ -68,6 +77,9 @@ class CreateUserSeatsFilm
         }
         $this->userSeatFilmRepository->createUserSeatFilm($listUserSeatsFilm);
 
-        return ['ok' => 200];
+        return [
+            'data' => 'Se ha creado la relación usuario asiento película con éxito',
+            'code' => 200
+        ];
     }
 }

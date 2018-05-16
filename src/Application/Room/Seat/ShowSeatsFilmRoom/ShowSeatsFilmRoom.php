@@ -23,9 +23,6 @@ class ShowSeatsFilmRoom
             $showSeatsFilmRoomCommand->room(),
             $showSeatsFilmRoomCommand->filmRoom()
         );
-        if (0 === count($seatsFilmRoom)) {
-            return ['ko' => 'No se ha encontrado ninguna butaca'];
-        }
 
         return $this->showSeatsFilmRoomTransform
             ->transform($seatsFilmRoom);

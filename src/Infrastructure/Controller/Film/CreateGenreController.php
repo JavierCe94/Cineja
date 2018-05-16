@@ -4,11 +4,11 @@ namespace Javier\Cineja\Infrastructure\Controller\Film;
 
 use Javier\Cineja\Application\Film\CreateGenre\CreateGenre;
 use Javier\Cineja\Application\Film\CreateGenre\CreateGenreCommand;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CreateGenreController extends Controller
+class CreateGenreController
 {
     public function createGenre(Request $request, CreateGenre $createGenre): Response
     {
@@ -17,6 +17,9 @@ class CreateGenreController extends Controller
         );
         $response = $createGenre->handle($createGenreCommand);
 
-        return $this->json($response);
+        return new JsonResponse(
+            $response['data'],
+            $response['code']
+        );
     }
 }

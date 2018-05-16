@@ -4,11 +4,11 @@ namespace Javier\Cineja\Infrastructure\Controller\User;
 
 use Javier\Cineja\Application\User\CreateUser\CreateUser;
 use Javier\Cineja\Application\User\CreateUser\CreateUserCommand;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CreateUserController extends Controller
+class CreateUserController
 {
     public function createUser(Request $request, CreateUser $createUser): Response
     {
@@ -21,6 +21,9 @@ class CreateUserController extends Controller
         );
         $response = $createUser->handle($createUserCommand);
 
-        return $this->json($response);
+        return new JsonResponse(
+            $response['data'],
+            $response['code']
+        );
     }
 }
