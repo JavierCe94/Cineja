@@ -13,7 +13,7 @@ class ShowGenresController
         $response = $showGenres->handle();
 
         return new JsonResponse(
-            $response['data'],
+            $response,
             200
         );
     }

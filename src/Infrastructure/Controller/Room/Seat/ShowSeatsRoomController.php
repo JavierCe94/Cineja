@@ -18,7 +18,7 @@ class ShowSeatsRoomController
         $response = $showSeatsRoom->handle($showSeatsRoomCommand);
 
         return new JsonResponse(
-            $response['data'],
+            $response,
             200
         );
     }
