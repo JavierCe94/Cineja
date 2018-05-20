@@ -4,10 +4,10 @@ namespace Javier\Cineja\Application\Film\FilmGenre\CreateFilmGenre;
 
 use Javier\Cineja\Domain\Model\Entity\Film\FilmGenre\FilmGenre;
 use Javier\Cineja\Domain\Model\Entity\Film\FilmGenre\FilmGenreRepositoryInterface;
-use Javier\Cineja\Domain\Model\Entity\Film\NotFoundFilms;
-use Javier\Cineja\Domain\Model\Entity\Film\NotFoundGenresException;
+use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
 use Javier\Cineja\Domain\Services\Film\SearchFilmById;
 use Javier\Cineja\Domain\Services\Film\SearchGenreById;
+use Javier\Cineja\Domain\Services\Util\Observer\ListExceptions;
 
 class CreateFilmGenre
 {
@@ -23,29 +23,21 @@ class CreateFilmGenre
         $this->filmGenreRepository = $filmGenreRepository;
         $this->searchFilmById = $searchFilmById;
         $this->searchGenreById = $searchGenreById;
+        ListExceptions::instance()->restartExceptions();
+        ListExceptions::instance()->attach($searchFilmById);
+        ListExceptions::instance()->attach($searchGenreById);
     }
 
     public function handle(CreateFilmGenreCommand $createFilmGenreCommand): array
     {
-        try {
-            $film = $this->searchFilmById->execute(
-                $createFilmGenreCommand->film()
-            );
-        } catch (NotFoundFilms $notFoundFilmsException) {
-            return [
-                'data' => $notFoundFilmsException->getMessage(),
-                'code' => $notFoundFilmsException->getCode()
-            ];
-        }
-        try {
-            $genre = $this->searchGenreById->execute(
-                $createFilmGenreCommand->genre()
-            );
-        } catch (NotFoundGenresException $notFoundGenresException) {
-            return [
-                'data' => $notFoundGenresException->getMessage(),
-                'code' => $notFoundGenresException->getCode()
-            ];
+        $film = $this->searchFilmById->execute(
+            $createFilmGenreCommand->film()
+        );
+        $genre = $this->searchGenreById->execute(
+            $createFilmGenreCommand->genre()
+        );
+        if (ListExceptions::instance()->checkForExceptions()) {
+            return ListExceptions::instance()->firstException();
         }
         $filmGenre = new FilmGenre(
             $film,
@@ -55,7 +47,7 @@ class CreateFilmGenre
 
         return [
             'data' => 'Se ha creado la relación género película con éxito',
-            'code' => 200
+            'code' => HttpResponses::OK_CREATED
         ];
     }
 }

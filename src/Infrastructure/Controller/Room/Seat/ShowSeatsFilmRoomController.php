@@ -19,8 +19,8 @@ class ShowSeatsFilmRoomController
         $response = $showSeatsFilmRoom->handle($showSeatsFilmRoomCommand);
 
         return new JsonResponse(
-            $response,
-            200
+            $response['data'],
+            $response['code']
         );
     }
 }

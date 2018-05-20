@@ -4,6 +4,7 @@ namespace Javier\Cineja\Application\User\CreateUser;
 
 use Javier\Cineja\Domain\Model\Entity\User\User;
 use Javier\Cineja\Domain\Model\Entity\User\UserRepositoryInterface;
+use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
 use Javier\Cineja\Domain\Services\Util\GeneratePasswordEncrypt;
 
 class CreateUser
@@ -35,7 +36,7 @@ class CreateUser
 
         return [
             'data' => 'Se ha creado el usuario con éxito',
-            'code' => 200
+            'code' => HttpResponses::OK_CREATED
         ];
     }
 }

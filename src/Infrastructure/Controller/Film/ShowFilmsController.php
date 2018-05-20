@@ -13,8 +13,8 @@ class ShowFilmsController
         $response = $showFilms->handle();
 
         return new JsonResponse(
-            $response,
-            200
+            $response['data'],
+            $response['code']
         );
     }
 }

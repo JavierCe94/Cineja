@@ -22,7 +22,7 @@ class FilmRoomRepository extends ServiceEntityRepository implements FilmRoomRepo
         return $filmRoom;
     }
 
-    public function findFilmRoomById(int $id): FilmRoom
+    public function findFilmRoomById(int $id): ?FilmRoom
     {
         /* @var FilmRoom $filmRoom */
         $filmRoom = $this->find($id);

@@ -3,6 +3,7 @@
 namespace Javier\Cineja\Application\Film\ShowFilmsWithRooms;
 
 use Javier\Cineja\Domain\Model\Entity\Film\FilmRepositoryInterface;
+use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
 
 class ShowFilmsWithRooms
 {
@@ -21,7 +22,9 @@ class ShowFilmsWithRooms
     {
         $filmsWithRooms = $this->filmRepository->findRoomsWhereVisualizeFilmStateVisible();
 
-        return $this->showFilmsWithRoomsTransformer
-            ->transform($filmsWithRooms);
+        return [
+            'data' => $this->showFilmsWithRoomsTransformer->transform($filmsWithRooms),
+            'code' => HttpResponses::OK
+        ];
     }
 }

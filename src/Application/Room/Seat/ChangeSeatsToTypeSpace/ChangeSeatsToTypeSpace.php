@@ -2,9 +2,10 @@
 
 namespace Javier\Cineja\Application\Room\Seat\ChangeSeatsToTypeSpace;
 
-use Javier\Cineja\Domain\Model\Entity\Room\Seat\NotFoundSeatsException;
 use Javier\Cineja\Domain\Model\Entity\Room\Seat\SeatRepositoryInterface;
+use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
 use Javier\Cineja\Domain\Services\Room\Seat\SearchSeatById;
+use Javier\Cineja\Domain\Services\Util\Observer\ListExceptions;
 
 class ChangeSeatsToTypeSpace
 {
@@ -15,26 +16,24 @@ class ChangeSeatsToTypeSpace
     {
         $this->seatRepository = $seatRepository;
         $this->searchSeatById = $searchSeatById;
+        ListExceptions::instance()->restartExceptions();
+        ListExceptions::instance()->attach($searchSeatById);
     }
 
     public function handle(ChangeSeatsToTypeSpaceCommand $changeSeatsToTypeSpaceCommand): array
     {
         $listSeats = [];
         foreach ($changeSeatsToTypeSpaceCommand->seats() as $idSeat) {
-            try {
-                $listSeats[] = $this->searchSeatById->execute($idSeat);
-            } catch (NotFoundSeatsException $notFoundSeatsException) {
-                return [
-                    'data' => $notFoundSeatsException->getMessage(),
-                    'code' => $notFoundSeatsException->getCode()
-                ];
+            $listSeats[] = $this->searchSeatById->execute($idSeat);
+            if (ListExceptions::instance()->checkForExceptions()) {
+                return ListExceptions::instance()->firstException();
             }
         }
         $this->seatRepository->changeToTypeSpaceSeat($listSeats);
 
         return [
             'data' => 'Se han cambiado las butacas, al tipo space',
-            'code' => 200
+            'code' => HttpResponses::OK
         ];
     }
 }

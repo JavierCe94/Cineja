@@ -2,15 +2,14 @@
 
 namespace Javier\Cineja\Application\UserSeatFilm\CreateUserSeatsFilm;
 
-use Javier\Cineja\Domain\Model\Entity\FilmRoom\NotFoundFilmRoomsException;
-use Javier\Cineja\Domain\Model\Entity\Room\Seat\NotFoundSeatsException;
-use Javier\Cineja\Domain\Model\Entity\User\NotFoundUsersException;
 use Javier\Cineja\Domain\Model\Entity\UserSeatFilm\UserSeatFilm;
 use Javier\Cineja\Domain\Model\Entity\UserSeatFilm\UserSeatFilmRepositoryInterface;
+use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
 use Javier\Cineja\Domain\Services\FilmRoom\SearchFilmRoomById;
 use Javier\Cineja\Domain\Services\Room\Seat\SearchSeatById;
 use Javier\Cineja\Domain\Services\User\SearchUserById;
 use Javier\Cineja\Domain\Services\UserSeatFilm\GenerateCodeQr;
+use Javier\Cineja\Domain\Services\Util\Observer\ListExceptions;
 
 class CreateUserSeatsFilm
 {
@@ -32,41 +31,30 @@ class CreateUserSeatsFilm
         $this->searchFilmRoomById = $searchFilmRoomById;
         $this->searchUserById = $searchUserById;
         $this->generateCodeQr = $generateCodeQr;
+        ListExceptions::instance()->restartExceptions();
+        ListExceptions::instance()->attach($searchFilmRoomById);
+        ListExceptions::instance()->attach($searchUserById);
+        ListExceptions::instance()->attach($searchSeatById);
     }
 
     public function handle(CreateUserSeatsFilmCommand $createUserSeatFilmCommand): array
     {
-        try {
-            $filmRoom = $this->searchFilmRoomById->execute(
-                $createUserSeatFilmCommand->filmRoom()
-            );
-        } catch (NotFoundFilmRoomsException $notFoundFilmRoomsException) {
-            return [
-                'data' => $notFoundFilmRoomsException->getMessage(),
-                'code' => $notFoundFilmRoomsException->getCode()
-            ];
-        }
-        try {
-            $user = $this->searchUserById->execute(
-                $createUserSeatFilmCommand->user()
-            );
-        } catch (NotFoundUsersException $notFoundUsersException) {
-            return [
-                'data' => $notFoundUsersException->getMessage(),
-                'code' => $notFoundUsersException->getCode()
-            ];
+        $filmRoom = $this->searchFilmRoomById->execute(
+            $createUserSeatFilmCommand->filmRoom()
+        );
+        $user = $this->searchUserById->execute(
+            $createUserSeatFilmCommand->user()
+        );
+        if (ListExceptions::instance()->checkForExceptions()) {
+            return ListExceptions::instance()->firstException();
         }
         $listUserSeatsFilm = [];
         foreach ($createUserSeatFilmCommand->seats() as $idSeat) {
-            try {
-                $seat = $this->searchSeatById->execute(
-                    $idSeat
-                );
-            } catch (NotFoundSeatsException $notFoundSeatsException) {
-                return [
-                    'data' => $notFoundSeatsException->getMessage(),
-                    'code' => $notFoundSeatsException->getCode()
-                ];
+            $seat = $this->searchSeatById->execute(
+                $idSeat
+            );
+            if (ListExceptions::instance()->checkForExceptions()) {
+                return ListExceptions::instance()->firstException();
             }
             $listUserSeatsFilm[] = new UserSeatFilm(
                 $seat,
@@ -79,7 +67,7 @@ class CreateUserSeatsFilm
 
         return [
             'data' => 'Se ha creado la relación usuario asiento película con éxito',
-            'code' => 200
+            'code' => HttpResponses::OK_CREATED
         ];
     }
 }

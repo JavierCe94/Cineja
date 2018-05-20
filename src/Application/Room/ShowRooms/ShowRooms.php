@@ -3,6 +3,7 @@
 namespace Javier\Cineja\Application\Room\ShowRooms;
 
 use Javier\Cineja\Domain\Model\Entity\Room\RoomRepositoryInterface;
+use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
 
 class ShowRooms
 {
@@ -21,7 +22,9 @@ class ShowRooms
     {
         $listRooms = $this->roomRepository->findRooms();
 
-        return $this->showRoomsTransform
-            ->transform($listRooms);
+        return [
+            'data' => $this->showRoomsTransform->transform($listRooms),
+            'code' => HttpResponses::OK
+        ];
     }
 }

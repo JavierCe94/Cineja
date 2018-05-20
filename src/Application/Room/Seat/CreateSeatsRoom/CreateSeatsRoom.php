@@ -5,7 +5,9 @@ namespace Javier\Cineja\Application\Room\Seat\CreateSeatsRoom;
 use Javier\Cineja\Domain\Model\Entity\Room\NotFoundRoomsException;
 use Javier\Cineja\Domain\Model\Entity\Room\Seat\Seat;
 use Javier\Cineja\Domain\Model\Entity\Room\Seat\SeatRepositoryInterface;
+use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
 use Javier\Cineja\Domain\Services\Room\SearchRoomById;
+use Javier\Cineja\Domain\Services\Util\Observer\ListExceptions;
 
 class CreateSeatsRoom
 {
@@ -18,19 +20,17 @@ class CreateSeatsRoom
     ) {
         $this->seatRepository = $seatRepository;
         $this->searchRoomById = $searchRoomById;
+        ListExceptions::instance()->restartExceptions();
+        ListExceptions::instance()->attach($searchRoomById);
     }
 
     public function handle(CreateSeatsRoomCommand $createSeatsRoomCommand): array
     {
-        try {
-            $room = $this->searchRoomById->execute(
-                $createSeatsRoomCommand->room()
-            );
-        } catch (NotFoundRoomsException $notFoundRoomsException) {
-            return [
-                'data' => $notFoundRoomsException->getMessage(),
-                'code' => $notFoundRoomsException->getCode()
-            ];
+        $room = $this->searchRoomById->execute(
+            $createSeatsRoomCommand->room()
+        );
+        if (ListExceptions::instance()->checkForExceptions()) {
+            return ListExceptions::instance()->firstException();
         }
         $listSeats = [];
         for ($i = 0; $i < $createSeatsRoomCommand->totalSeatsRoom(); $i++) {
@@ -44,7 +44,7 @@ class CreateSeatsRoom
 
         return [
             'data' => 'Se han creado las butacas con éxito',
-            'code' => 200
+            'code' => HttpResponses::OK_CREATED
         ];
     }
 }

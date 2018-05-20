@@ -13,8 +13,8 @@ class ShowFilmsWithRoomsController
         $response = $showFilmsWithRooms->handle();
 
         return new JsonResponse(
-            $response,
-            200
+            $response['data'],
+            $response['code']
         );
     }
 }

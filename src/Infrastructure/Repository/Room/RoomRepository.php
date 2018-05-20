@@ -51,7 +51,7 @@ class RoomRepository extends ServiceEntityRepository implements RoomRepositoryIn
         return $room;
     }
 
-    public function findRoomById(int $id): Room
+    public function findRoomById(int $id): ?Room
     {
         /* @var Room $room */
         $room = $this->find($id);

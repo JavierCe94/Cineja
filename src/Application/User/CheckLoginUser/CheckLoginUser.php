@@ -2,10 +2,10 @@
 
 namespace Javier\Cineja\Application\User\CheckLoginUser;
 
-use Javier\Cineja\Domain\Model\Entity\User\NotCorrectPasswordException;
-use Javier\Cineja\Domain\Model\Entity\User\NotFoundUsersException;
+use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
 use Javier\Cineja\Domain\Services\Util\CheckPasswordEncrypt;
 use Javier\Cineja\Domain\Services\User\SearchUserByMail;
+use Javier\Cineja\Domain\Services\Util\Observer\ListExceptions;
 
 class CheckLoginUser
 {
@@ -18,26 +18,27 @@ class CheckLoginUser
     ) {
         $this->searchUserByMail = $searchUserByMail;
         $this->checkPasswordEncrypt = $checkPasswordEncrypt;
+        ListExceptions::instance()->restartExceptions();
+        ListExceptions::instance()->attach($searchUserByMail);
+        ListExceptions::instance()->attach($checkPasswordEncrypt);
     }
 
     public function handle(CheckLoginUserCommand $checkLoginUserCommand): array
     {
-        try {
-            $user = $this->searchUserByMail->execute(
-                $checkLoginUserCommand->mail()
-            );
-        } catch (NotFoundUsersException $notFoundUsersException) {
-            return ['ko' => $notFoundUsersException->getMessage()];
-        }
-        try {
-            $this->checkPasswordEncrypt->execute(
-                $checkLoginUserCommand->password(),
-                $user->password()
-            );
-        } catch (NotCorrectPasswordException $notCorrectPasswordException) {
-            return ['ko' => $notCorrectPasswordException->getMessage()];
+        $user = $this->searchUserByMail->execute(
+            $checkLoginUserCommand->mail()
+        );
+        $this->checkPasswordEncrypt->execute(
+            $checkLoginUserCommand->password(),
+            $user->password()
+        );
+        if (ListExceptions::instance()->checkForExceptions()) {
+            return ListExceptions::instance()->firstException();
         }
 
-        return ['ok' => 200];
+        return [
+            'data' => 'Los datos introducidos son correctos',
+            'code' => HttpResponses::OK
+        ];
     }
 }

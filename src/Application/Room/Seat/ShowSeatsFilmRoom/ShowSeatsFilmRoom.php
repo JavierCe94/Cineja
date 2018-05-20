@@ -3,6 +3,7 @@
 namespace Javier\Cineja\Application\Room\Seat\ShowSeatsFilmRoom;
 
 use Javier\Cineja\Domain\Model\Entity\Room\Seat\SeatRepositoryInterface;
+use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
 
 class ShowSeatsFilmRoom
 {
@@ -24,7 +25,9 @@ class ShowSeatsFilmRoom
             $showSeatsFilmRoomCommand->filmRoom()
         );
 
-        return $this->showSeatsFilmRoomTransform
-            ->transform($seatsFilmRoom);
+        return [
+            'data' => $this->showSeatsFilmRoomTransform->transform($seatsFilmRoom),
+            'code' => HttpResponses::OK
+        ];
     }
 }

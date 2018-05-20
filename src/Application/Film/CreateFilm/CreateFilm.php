@@ -4,6 +4,7 @@ namespace Javier\Cineja\Application\Film\CreateFilm;
 
 use Javier\Cineja\Domain\Model\Entity\Film\Film;
 use Javier\Cineja\Domain\Model\Entity\Film\FilmRepositoryInterface;
+use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
 
 class CreateFilm
 {
@@ -27,7 +28,7 @@ class CreateFilm
 
         return [
             'data' => 'Se ha creado la película con éxito',
-            'code' => 200
+            'code' => HttpResponses::OK_CREATED
         ];
     }
 }

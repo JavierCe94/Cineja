@@ -4,6 +4,7 @@ namespace Javier\Cineja\Application\Film\CreateGenre;
 
 use Javier\Cineja\Domain\Model\Entity\Film\Genre;
 use Javier\Cineja\Domain\Model\Entity\Film\GenreRepositoryInterface;
+use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
 
 class CreateGenre
 {
@@ -23,7 +24,7 @@ class CreateGenre
 
         return [
             'data' => 'Se ha creado el género con éxito',
-            'code' => 200
+            'code' => HttpResponses::OK_CREATED
         ];
     }
 }

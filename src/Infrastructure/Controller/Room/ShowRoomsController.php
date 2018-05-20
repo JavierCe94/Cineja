@@ -13,8 +13,8 @@ class ShowRoomsController
         $response = $showRooms->handle();
 
         return new JsonResponse(
-            $response,
-            200
+            $response['data'],
+            $response['code']
         );
     }
 }

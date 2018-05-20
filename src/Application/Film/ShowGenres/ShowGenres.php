@@ -3,6 +3,7 @@
 namespace Javier\Cineja\Application\Film\ShowGenres;
 
 use Javier\Cineja\Domain\Model\Entity\Film\GenreRepositoryInterface;
+use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
 
 class ShowGenres
 {
@@ -21,7 +22,9 @@ class ShowGenres
     {
         $listGenres = $this->genreRepository->findGenres();
 
-        return $this->showGenresTransform
-            ->transform($listGenres);
+        return [
+            'data' => $this->showGenresTransform->transform($listGenres),
+            'code' => HttpResponses::OK
+        ];
     }
 }

@@ -4,6 +4,7 @@ namespace Javier\Cineja\Application\Room\CreateRoom;
 
 use Javier\Cineja\Domain\Model\Entity\Room\Room;
 use Javier\Cineja\Domain\Model\Entity\Room\RoomRepositoryInterface;
+use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
 
 class CreateRoom
 {
@@ -24,7 +25,7 @@ class CreateRoom
 
         return [
             'data' => 'Se ha creado la sala con éxito',
-            'code' => 200
+            'code' => HttpResponses::OK_CREATED
         ];
     }
 }

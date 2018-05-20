@@ -3,18 +3,33 @@
 namespace Javier\Cineja\Domain\Services\Util;
 
 use Javier\Cineja\Domain\Model\Entity\User\NotCorrectPasswordException;
+use Javier\Cineja\Domain\Services\Util\Observer\ListExceptions;
+use Javier\Cineja\Domain\Services\Util\Observer\Observer;
 
-class CheckPasswordEncrypt
+class CheckPasswordEncrypt implements Observer
 {
-    /**
-     * @param string $password
-     * @param string $passwordEncrypted
-     * @throws NotCorrectPasswordException
-     */
+    private $stateException;
+
+    public function __construct()
+    {
+        $this->stateException = false;
+    }
+
     public function execute(string $password, string $passwordEncrypted)
     {
         $isCorrectPassword = password_verify($password, $passwordEncrypted);
         if (false === $isCorrectPassword) {
+            $this->stateException = true;
+            ListExceptions::instance()->notify();
+        }
+    }
+
+    /**
+     * @throws NotCorrectPasswordException
+     */
+    public function update()
+    {
+        if ($this->stateException) {
             throw new NotCorrectPasswordException();
         }
     }

@@ -3,6 +3,7 @@
 namespace Javier\Cineja\Application\Film\ShowFilms;
 
 use Javier\Cineja\Domain\Model\Entity\Film\FilmRepositoryInterface;
+use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
 
 class ShowFilms
 {
@@ -21,7 +22,9 @@ class ShowFilms
     {
         $films = $this->filmRepository->findFilms();
 
-        return $this->showFilmTransform
-            ->transform($films);
+        return [
+            'data' => $this->showFilmTransform->transform($films),
+            'code' => HttpResponses::OK
+        ];
     }
 }

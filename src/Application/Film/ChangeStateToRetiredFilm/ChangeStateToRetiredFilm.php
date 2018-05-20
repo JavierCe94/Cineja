@@ -3,8 +3,9 @@
 namespace Javier\Cineja\Application\Film\ChangeStateToRetiredFilm;
 
 use Javier\Cineja\Domain\Model\Entity\Film\FilmRepositoryInterface;
-use Javier\Cineja\Domain\Model\Entity\Film\NotFoundFilms;
+use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
 use Javier\Cineja\Domain\Services\Film\SearchFilmById;
+use Javier\Cineja\Domain\Services\Util\Observer\ListExceptions;
 
 class ChangeStateToRetiredFilm
 {
@@ -15,25 +16,23 @@ class ChangeStateToRetiredFilm
     {
         $this->filmRepository = $filmRepository;
         $this->searchFilmById = $searchFilmById;
+        ListExceptions::instance()->restartExceptions();
+        ListExceptions::instance()->attach($searchFilmById);
     }
 
     public function handle(ChangeStateToRetiredFilmCommand $changeStateToRetiredFilmCommand): array
     {
-        try {
-            $film = $this->searchFilmById->execute(
-                $changeStateToRetiredFilmCommand->id()
-            );
-        } catch (NotFoundFilms $notFoundFilmsException) {
-            return [
-                'data' => $notFoundFilmsException->getMessage(),
-                'code' => $notFoundFilmsException->getCode()
-            ];
+        $film = $this->searchFilmById->execute(
+            $changeStateToRetiredFilmCommand->id()
+        );
+        if (ListExceptions::instance()->checkForExceptions()) {
+            return ListExceptions::instance()->firstException();
         }
         $this->filmRepository->changeToStateRetiredFilm($film);
 
         return [
             'data' => 'Se ha retirado la película con éxito',
-            'code' => 200
+            'code' => HttpResponses::OK
         ];
     }
 }
