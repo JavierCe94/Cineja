@@ -65,3 +65,7 @@ services:
         arguments:
             - '@Doctrine\Common\Persistence\ManagerRegistry'
             - 'Javier\Cineja\Domain\Model\Entity\User\User'
+
+    Javier\Cineja\Infrastructure\Util\JwtToken\JwtTokenUtil:
+        arguments:
+            - '@Symfony\Component\HttpFoundation\RequestStack'

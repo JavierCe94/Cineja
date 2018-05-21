@@ -5,7 +5,7 @@ namespace Javier\Cineja\Application\Room\Seat\ChangeSeatsToTypeSpace;
 use Javier\Cineja\Domain\Model\Entity\Room\Seat\SeatRepositoryInterface;
 use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
 use Javier\Cineja\Domain\Services\Room\Seat\SearchSeatById;
-use Javier\Cineja\Domain\Services\Util\Observer\ListExceptions;
+use Javier\Cineja\Domain\Util\Observer\ListExceptions;
 
 class ChangeSeatsToTypeSpace
 {

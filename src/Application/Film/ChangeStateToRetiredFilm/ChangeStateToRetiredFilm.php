@@ -5,7 +5,7 @@ namespace Javier\Cineja\Application\Film\ChangeStateToRetiredFilm;
 use Javier\Cineja\Domain\Model\Entity\Film\FilmRepositoryInterface;
 use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
 use Javier\Cineja\Domain\Services\Film\SearchFilmById;
-use Javier\Cineja\Domain\Services\Util\Observer\ListExceptions;
+use Javier\Cineja\Domain\Util\Observer\ListExceptions;
 
 class ChangeStateToRetiredFilm
 {

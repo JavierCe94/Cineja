@@ -5,8 +5,8 @@ namespace Javier\Cineja\Domain\Services\Film;
 use Javier\Cineja\Domain\Model\Entity\Film\Genre;
 use Javier\Cineja\Domain\Model\Entity\Film\GenreRepositoryInterface;
 use Javier\Cineja\Domain\Model\Entity\Film\NotFoundGenresException;
-use Javier\Cineja\Domain\Services\Util\Observer\ListExceptions;
-use Javier\Cineja\Domain\Services\Util\Observer\Observer;
+use Javier\Cineja\Domain\Util\Observer\ListExceptions;
+use Javier\Cineja\Domain\Util\Observer\Observer;
 
 class SearchGenreById implements Observer
 {
@@ -19,7 +19,7 @@ class SearchGenreById implements Observer
         $this->genreRepository = $genreRepository;
     }
 
-    public function execute(int $id): Genre
+    public function execute(int $id): ?Genre
     {
         $genre = $this->genreRepository->findGenreById($id);
         if (null === $genre) {

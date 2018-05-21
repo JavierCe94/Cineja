@@ -2,12 +2,11 @@
 
 namespace Javier\Cineja\Application\Room\Seat\CreateSeatsRoom;
 
-use Javier\Cineja\Domain\Model\Entity\Room\NotFoundRoomsException;
 use Javier\Cineja\Domain\Model\Entity\Room\Seat\Seat;
 use Javier\Cineja\Domain\Model\Entity\Room\Seat\SeatRepositoryInterface;
 use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
 use Javier\Cineja\Domain\Services\Room\SearchRoomById;
-use Javier\Cineja\Domain\Services\Util\Observer\ListExceptions;
+use Javier\Cineja\Domain\Util\Observer\ListExceptions;
 
 class CreateSeatsRoom
 {

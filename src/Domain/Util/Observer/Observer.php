@@ -1,6 +1,6 @@
 <?php
 
-namespace Javier\Cineja\Domain\Services\Util\Observer;
+namespace Javier\Cineja\Domain\Util\Observer;
 
 interface Observer
 {

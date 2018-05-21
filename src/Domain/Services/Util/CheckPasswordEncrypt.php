@@ -3,8 +3,8 @@
 namespace Javier\Cineja\Domain\Services\Util;
 
 use Javier\Cineja\Domain\Model\Entity\User\NotCorrectPasswordException;
-use Javier\Cineja\Domain\Services\Util\Observer\ListExceptions;
-use Javier\Cineja\Domain\Services\Util\Observer\Observer;
+use Javier\Cineja\Domain\Util\Observer\ListExceptions;
+use Javier\Cineja\Domain\Util\Observer\Observer;
 
 class CheckPasswordEncrypt implements Observer
 {

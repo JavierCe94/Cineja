@@ -5,7 +5,7 @@ namespace Javier\Cineja\Application\Room\ChangeRoomToStateOpen;
 use Javier\Cineja\Domain\Model\Entity\Room\RoomRepositoryInterface;
 use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
 use Javier\Cineja\Domain\Services\Room\SearchRoomById;
-use Javier\Cineja\Domain\Services\Util\Observer\ListExceptions;
+use Javier\Cineja\Domain\Util\Observer\ListExceptions;
 
 class ChangeRoomToStateOpen
 {

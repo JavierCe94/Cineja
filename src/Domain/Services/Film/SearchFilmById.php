@@ -5,8 +5,8 @@ namespace Javier\Cineja\Domain\Services\Film;
 use Javier\Cineja\Domain\Model\Entity\Film\Film;
 use Javier\Cineja\Domain\Model\Entity\Film\FilmRepositoryInterface;
 use Javier\Cineja\Domain\Model\Entity\Film\NotFoundFilms;
-use Javier\Cineja\Domain\Services\Util\Observer\ListExceptions;
-use Javier\Cineja\Domain\Services\Util\Observer\Observer;
+use Javier\Cineja\Domain\Util\Observer\ListExceptions;
+use Javier\Cineja\Domain\Util\Observer\Observer;
 
 class SearchFilmById implements Observer
 {
@@ -19,7 +19,7 @@ class SearchFilmById implements Observer
         $this->filmRepository = $filmRepository;
     }
 
-    public function execute(int $id): Film
+    public function execute(int $id): ?Film
     {
         $film = $this->filmRepository->findFilmById($id);
         if (null === $film) {

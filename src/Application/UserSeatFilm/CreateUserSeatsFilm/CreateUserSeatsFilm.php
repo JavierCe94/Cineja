@@ -9,7 +9,7 @@ use Javier\Cineja\Domain\Services\FilmRoom\SearchFilmRoomById;
 use Javier\Cineja\Domain\Services\Room\Seat\SearchSeatById;
 use Javier\Cineja\Domain\Services\User\SearchUserById;
 use Javier\Cineja\Domain\Services\UserSeatFilm\GenerateCodeQr;
-use Javier\Cineja\Domain\Services\Util\Observer\ListExceptions;
+use Javier\Cineja\Domain\Util\Observer\ListExceptions;
 
 class CreateUserSeatsFilm
 {

@@ -5,8 +5,8 @@ namespace Javier\Cineja\Domain\Services\Room;
 use Javier\Cineja\Domain\Model\Entity\Room\NotFoundRoomsException;
 use Javier\Cineja\Domain\Model\Entity\Room\Room;
 use Javier\Cineja\Domain\Model\Entity\Room\RoomRepositoryInterface;
-use Javier\Cineja\Domain\Services\Util\Observer\ListExceptions;
-use Javier\Cineja\Domain\Services\Util\Observer\Observer;
+use Javier\Cineja\Domain\Util\Observer\ListExceptions;
+use Javier\Cineja\Domain\Util\Observer\Observer;
 
 class SearchRoomById implements Observer
 {
@@ -19,7 +19,7 @@ class SearchRoomById implements Observer
         $this->roomRepository = $roomRepository;
     }
 
-    public function execute(int $id): Room
+    public function execute(int $id): ?Room
     {
         $room = $this->roomRepository->findRoomById($id);
         if (null === $room) {
