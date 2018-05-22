@@ -5,38 +5,28 @@ namespace Javier\Cineja\Domain\Services\Film;
 use Javier\Cineja\Domain\Model\Entity\Film\Genre;
 use Javier\Cineja\Domain\Model\Entity\Film\GenreRepositoryInterface;
 use Javier\Cineja\Domain\Model\Entity\Film\NotFoundGenresException;
-use Javier\Cineja\Domain\Util\Observer\ListExceptions;
-use Javier\Cineja\Domain\Util\Observer\Observer;
 
-class SearchGenreById implements Observer
+class SearchGenreById
 {
-    private $stateException;
     private $genreRepository;
 
     public function __construct(GenreRepositoryInterface $genreRepository)
     {
-        $this->stateException = false;
         $this->genreRepository = $genreRepository;
     }
 
-    public function execute(int $id): ?Genre
+    /**
+     * @param int $id
+     * @return Genre|null
+     * @throws NotFoundGenresException
+     */
+    public function execute(int $id): Genre
     {
         $genre = $this->genreRepository->findGenreById($id);
         if (null === $genre) {
-            $this->stateException = true;
-            ListExceptions::instance()->notify();
+            throw new NotFoundGenresException();
         }
 
         return $genre;
-    }
-
-    /**
-     * @throws NotFoundGenresException
-     */
-    public function update()
-    {
-        if ($this->stateException) {
-            throw new NotFoundGenresException();
-        }
     }
 }

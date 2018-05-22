@@ -1,3 +1,7 @@
+admin_admin:
+    prefix: '/admin'
+    resource: './routes/admin/admin.yaml'
+
 genre_admin:
     prefix: '/admin/genre'
     resource: './routes/admin/film/genre.yaml'

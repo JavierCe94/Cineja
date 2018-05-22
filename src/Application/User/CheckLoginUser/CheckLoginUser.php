@@ -4,10 +4,9 @@ namespace Javier\Cineja\Application\User\CheckLoginUser;
 
 use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
 use Javier\Cineja\Domain\Model\JwtToken\Roles;
-use Javier\Cineja\Domain\Services\Util\CheckPasswordEncrypt;
+use Javier\Cineja\Domain\Services\PasswordHash\CheckPasswordEncrypt;
 use Javier\Cineja\Domain\Services\User\SearchUserByMail;
-use Javier\Cineja\Domain\Services\Util\JwtToken\CreateToken;
-use Javier\Cineja\Domain\Util\Observer\ListExceptions;
+use Javier\Cineja\Domain\Services\JwtToken\CreateToken;
 
 class CheckLoginUser
 {
@@ -23,11 +22,14 @@ class CheckLoginUser
         $this->searchUserByMail = $searchUserByMail;
         $this->checkPasswordEncrypt = $checkPasswordEncrypt;
         $this->createToken = $createToken;
-        ListExceptions::instance()->restartExceptions();
-        ListExceptions::instance()->attach($searchUserByMail);
-        ListExceptions::instance()->attach($checkPasswordEncrypt);
     }
 
+    /**
+     * @param CheckLoginUserCommand $checkLoginUserCommand
+     * @return array
+     * @throws \Javier\Cineja\Domain\Model\Entity\User\NotFoundUsersException
+     * @throws \Javier\Cineja\Domain\Model\PasswordHash\IncorrectPasswordException
+     */
     public function handle(CheckLoginUserCommand $checkLoginUserCommand): array
     {
         $user = $this->searchUserByMail->execute(
@@ -35,11 +37,8 @@ class CheckLoginUser
         );
         $this->checkPasswordEncrypt->execute(
             $checkLoginUserCommand->password(),
-            null !== $user ? $user->password() : ''
+            $user->password()
         );
-        if (ListExceptions::instance()->checkForExceptions()) {
-            return ListExceptions::instance()->firstException();
-        }
         $token = $this->createToken->execute(
             Roles::ROLE_USER,
             [

@@ -2,32 +2,41 @@
 
 namespace Javier\Cineja\Application\Room\Seat\ChangeSeatsToTypeSpace;
 
+use Javier\Cineja\Application\Util\Role\RoleAdmin;
 use Javier\Cineja\Domain\Model\Entity\Room\Seat\SeatRepositoryInterface;
 use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
+use Javier\Cineja\Domain\Services\JwtToken\CheckToken;
 use Javier\Cineja\Domain\Services\Room\Seat\SearchSeatById;
-use Javier\Cineja\Domain\Util\Observer\ListExceptions;
 
-class ChangeSeatsToTypeSpace
+class ChangeSeatsToTypeSpace extends RoleAdmin
 {
     private $seatRepository;
     private $searchSeatById;
 
-    public function __construct(SeatRepositoryInterface $seatRepository, SearchSeatById $searchSeatById)
-    {
+    public function __construct(
+        SeatRepositoryInterface $seatRepository,
+        SearchSeatById $searchSeatById,
+        CheckToken $checkToken
+    ) {
+        parent::__construct($checkToken);
         $this->seatRepository = $seatRepository;
         $this->searchSeatById = $searchSeatById;
-        ListExceptions::instance()->restartExceptions();
-        ListExceptions::instance()->attach($searchSeatById);
     }
 
+    /**
+     * @param ChangeSeatsToTypeSpaceCommand $changeSeatsToTypeSpaceCommand
+     * @return array
+     * @throws \Javier\Cineja\Domain\Model\Entity\Room\Seat\NotFoundSeatsException
+     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidRoleTokenException
+     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidTokenException
+     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidUserTokenException
+     */
     public function handle(ChangeSeatsToTypeSpaceCommand $changeSeatsToTypeSpaceCommand): array
     {
+        $this->checkToken();
         $listSeats = [];
         foreach ($changeSeatsToTypeSpaceCommand->seats() as $idSeat) {
             $listSeats[] = $this->searchSeatById->execute($idSeat);
-            if (ListExceptions::instance()->checkForExceptions()) {
-                return ListExceptions::instance()->firstException();
-            }
         }
         $this->seatRepository->changeToTypeSpaceSeat($listSeats);
 

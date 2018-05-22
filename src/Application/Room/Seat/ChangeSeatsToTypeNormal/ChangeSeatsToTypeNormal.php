@@ -2,32 +2,41 @@
 
 namespace Javier\Cineja\Application\Room\Seat\ChangeSeatsToTypeNormal;
 
+use Javier\Cineja\Application\Util\Role\RoleAdmin;
 use Javier\Cineja\Domain\Model\Entity\Room\Seat\SeatRepositoryInterface;
 use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
+use Javier\Cineja\Domain\Services\JwtToken\CheckToken;
 use Javier\Cineja\Domain\Services\Room\Seat\SearchSeatById;
-use Javier\Cineja\Domain\Util\Observer\ListExceptions;
 
-class ChangeSeatsToTypeNormal
+class ChangeSeatsToTypeNormal extends RoleAdmin
 {
     private $seatRepository;
     private $searchSeatById;
 
-    public function __construct(SeatRepositoryInterface $seatRepository, SearchSeatById $searchSeatById)
-    {
+    public function __construct(
+        SeatRepositoryInterface $seatRepository,
+        SearchSeatById $searchSeatById,
+        CheckToken $checkToken
+    ) {
+        parent::__construct($checkToken);
         $this->seatRepository = $seatRepository;
         $this->searchSeatById = $searchSeatById;
-        ListExceptions::instance()->restartExceptions();
-        ListExceptions::instance()->attach($searchSeatById);
     }
 
+    /**
+     * @param ChangeSeatsToTypeNormalCommand $changeSeatsToTypeNormalCommand
+     * @return array
+     * @throws \Javier\Cineja\Domain\Model\Entity\Room\Seat\NotFoundSeatsException
+     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidRoleTokenException
+     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidTokenException
+     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidUserTokenException
+     */
     public function handle(ChangeSeatsToTypeNormalCommand $changeSeatsToTypeNormalCommand): array
     {
+        $this->checkToken();
         $listSeats = [];
         foreach ($changeSeatsToTypeNormalCommand->seats() as $idSeat) {
             $listSeats[] = $this->searchSeatById->execute($idSeat);
-            if (ListExceptions::instance()->checkForExceptions()) {
-                return ListExceptions::instance()->firstException();
-            }
         }
         $this->seatRepository->changeToTypeNormalSeat($listSeats);
 

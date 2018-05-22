@@ -1,6 +1,6 @@
 <?php
 
-namespace Javier\Cineja\Infrastructure\Util\JwtToken;
+namespace Javier\Cineja\Infrastructure\JwtToken;
 
 use Firebase\JWT\JWT;
 use Javier\Cineja\Domain\Model\JwtToken\InvalidRoleTokenException;
@@ -9,7 +9,7 @@ use Javier\Cineja\Domain\Model\JwtToken\InvalidUserTokenException;
 use Javier\Cineja\Domain\Model\JwtToken\JwtToken;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-class JwtTokenUtil
+class JwtTokenClass
 {
     private $requestStack;
 

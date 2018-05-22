@@ -2,32 +2,41 @@
 
 namespace Javier\Cineja\Application\Film\ChangeStateToRetiredFilm;
 
+use Javier\Cineja\Application\Util\Role\RoleAdmin;
 use Javier\Cineja\Domain\Model\Entity\Film\FilmRepositoryInterface;
 use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
 use Javier\Cineja\Domain\Services\Film\SearchFilmById;
-use Javier\Cineja\Domain\Util\Observer\ListExceptions;
+use Javier\Cineja\Domain\Services\JwtToken\CheckToken;
 
-class ChangeStateToRetiredFilm
+class ChangeStateToRetiredFilm extends RoleAdmin
 {
     private $filmRepository;
     private $searchFilmById;
 
-    public function __construct(FilmRepositoryInterface $filmRepository, SearchFilmById $searchFilmById)
-    {
+    public function __construct(
+        FilmRepositoryInterface $filmRepository,
+        SearchFilmById $searchFilmById,
+        CheckToken $checkToken
+    ) {
+        parent::__construct($checkToken);
         $this->filmRepository = $filmRepository;
         $this->searchFilmById = $searchFilmById;
-        ListExceptions::instance()->restartExceptions();
-        ListExceptions::instance()->attach($searchFilmById);
     }
 
+    /**
+     * @param ChangeStateToRetiredFilmCommand $changeStateToRetiredFilmCommand
+     * @return array
+     * @throws \Javier\Cineja\Domain\Model\Entity\Film\NotFoundFilms
+     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidRoleTokenException
+     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidTokenException
+     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidUserTokenException
+     */
     public function handle(ChangeStateToRetiredFilmCommand $changeStateToRetiredFilmCommand): array
     {
+        $this->checkToken();
         $film = $this->searchFilmById->execute(
             $changeStateToRetiredFilmCommand->id()
         );
-        if (ListExceptions::instance()->checkForExceptions()) {
-            return ListExceptions::instance()->firstException();
-        }
         $this->filmRepository->changeToStateRetiredFilm($film);
 
         return [

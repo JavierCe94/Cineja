@@ -2,37 +2,35 @@
 
 namespace Javier\Cineja\Application\Room\ShowRooms;
 
+use Javier\Cineja\Application\Util\Role\RoleAdmin;
 use Javier\Cineja\Domain\Model\Entity\Room\RoomRepositoryInterface;
 use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
-use Javier\Cineja\Domain\Model\JwtToken\Roles;
-use Javier\Cineja\Domain\Services\Util\JwtToken\CheckToken;
+use Javier\Cineja\Domain\Services\JwtToken\CheckToken;
 
-class ShowRooms
+class ShowRooms extends RoleAdmin
 {
     private $roomRepository;
     private $showRoomsTransform;
-    private $checkToken;
 
     public function __construct(
         RoomRepositoryInterface $roomRepository,
         ShowRoomsTransformInterface $showRoomsTransform,
         CheckToken $checkToken
     ) {
+        parent::__construct($checkToken);
         $this->roomRepository = $roomRepository;
         $this->showRoomsTransform = $showRoomsTransform;
-        $this->checkToken = $checkToken;
     }
 
+    /**
+     * @return array
+     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidRoleTokenException
+     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidTokenException
+     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidUserTokenException
+     */
     public function handle(): array
     {
-        try {
-            $this->checkToken->execute(Roles::ROLE_ADMIN);
-        } catch (\Exception $exception) {
-            return [
-                'data' => $exception->getMessage(),
-                'code' => $exception->getCode()
-            ];
-        }
+        $this->checkToken();
         $listRooms = $this->roomRepository->findRooms();
 
         return [

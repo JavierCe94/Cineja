@@ -5,7 +5,7 @@ namespace Javier\Cineja\Application\User\CreateUser;
 use Javier\Cineja\Domain\Model\Entity\User\User;
 use Javier\Cineja\Domain\Model\Entity\User\UserRepositoryInterface;
 use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
-use Javier\Cineja\Domain\Services\Util\GeneratePasswordEncrypt;
+use Javier\Cineja\Domain\Services\PasswordHash\GeneratePasswordEncrypt;
 
 class CreateUser
 {

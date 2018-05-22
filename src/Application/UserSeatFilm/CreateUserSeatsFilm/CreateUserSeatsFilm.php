@@ -2,16 +2,17 @@
 
 namespace Javier\Cineja\Application\UserSeatFilm\CreateUserSeatsFilm;
 
+use Javier\Cineja\Application\Util\Role\RoleUser;
 use Javier\Cineja\Domain\Model\Entity\UserSeatFilm\UserSeatFilm;
 use Javier\Cineja\Domain\Model\Entity\UserSeatFilm\UserSeatFilmRepositoryInterface;
 use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
 use Javier\Cineja\Domain\Services\FilmRoom\SearchFilmRoomById;
+use Javier\Cineja\Domain\Services\JwtToken\CheckToken;
 use Javier\Cineja\Domain\Services\Room\Seat\SearchSeatById;
 use Javier\Cineja\Domain\Services\User\SearchUserById;
 use Javier\Cineja\Domain\Services\UserSeatFilm\GenerateCodeQr;
-use Javier\Cineja\Domain\Util\Observer\ListExceptions;
 
-class CreateUserSeatsFilm
+class CreateUserSeatsFilm extends RoleUser
 {
     private $userSeatFilmRepository;
     private $searchSeatById;
@@ -24,38 +25,41 @@ class CreateUserSeatsFilm
         SearchSeatById $searchSeatById,
         SearchFilmRoomById $searchFilmRoomById,
         SearchUserById $searchUserById,
-        GenerateCodeQr $generateCodeQr
+        GenerateCodeQr $generateCodeQr,
+        CheckToken $checkToken
     ) {
+        parent::__construct($checkToken);
         $this->userSeatFilmRepository = $userSeatFilmRepository;
         $this->searchSeatById = $searchSeatById;
         $this->searchFilmRoomById = $searchFilmRoomById;
         $this->searchUserById = $searchUserById;
         $this->generateCodeQr = $generateCodeQr;
-        ListExceptions::instance()->restartExceptions();
-        ListExceptions::instance()->attach($searchFilmRoomById);
-        ListExceptions::instance()->attach($searchUserById);
-        ListExceptions::instance()->attach($searchSeatById);
     }
 
+    /**
+     * @param CreateUserSeatsFilmCommand $createUserSeatFilmCommand
+     * @return array
+     * @throws \Javier\Cineja\Domain\Model\Entity\FilmRoom\NotFoundFilmRoomsException
+     * @throws \Javier\Cineja\Domain\Model\Entity\Room\Seat\NotFoundSeatsException
+     * @throws \Javier\Cineja\Domain\Model\Entity\User\NotFoundUsersException
+     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidRoleTokenException
+     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidTokenException
+     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidUserTokenException
+     */
     public function handle(CreateUserSeatsFilmCommand $createUserSeatFilmCommand): array
     {
+        $token = $this->checkToken();
         $filmRoom = $this->searchFilmRoomById->execute(
             $createUserSeatFilmCommand->filmRoom()
         );
         $user = $this->searchUserById->execute(
-            $createUserSeatFilmCommand->user()
+            $token->id
         );
-        if (ListExceptions::instance()->checkForExceptions()) {
-            return ListExceptions::instance()->firstException();
-        }
         $listUserSeatsFilm = [];
         foreach ($createUserSeatFilmCommand->seats() as $idSeat) {
             $seat = $this->searchSeatById->execute(
                 $idSeat
             );
-            if (ListExceptions::instance()->checkForExceptions()) {
-                return ListExceptions::instance()->firstException();
-            }
             $listUserSeatsFilm[] = new UserSeatFilm(
                 $seat,
                 $filmRoom,

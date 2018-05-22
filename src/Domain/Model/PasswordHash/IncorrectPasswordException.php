@@ -1,10 +1,10 @@
 <?php
 
-namespace Javier\Cineja\Domain\Model\Entity\User;
+namespace Javier\Cineja\Domain\Model\PasswordHash;
 
 use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
 
-class NotCorrectPasswordException extends \Exception
+class IncorrectPasswordException extends \Exception
 {
     public function __construct()
     {
