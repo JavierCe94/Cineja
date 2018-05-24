@@ -31,6 +31,10 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
 
+    Javier\Cineja\Infrastructure\Event\ControllerListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+
     # token class
     Javier\Cineja\Infrastructure\JwtToken\JwtTokenClass:
         arguments:

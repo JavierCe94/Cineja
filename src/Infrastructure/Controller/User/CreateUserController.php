@@ -13,11 +13,11 @@ class CreateUserController
     public function createUser(Request $request, CreateUser $createUser): Response
     {
         $createUserCommand = new CreateUserCommand(
-            $request->query->get('mail'),
-            $request->query->get('name'),
-            $request->query->get('surname'),
-            $request->query->get('password'),
-            $request->query->get('creditcard')
+            $request->request->get('mail'),
+            $request->request->get('name'),
+            $request->request->get('surname'),
+            $request->request->get('password'),
+            $request->request->get('creditcard')
         );
         $response = $createUser->handle($createUserCommand);
 

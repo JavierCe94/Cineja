@@ -14,8 +14,8 @@ class CheckLoginUserController extends Controller
     public function checkLoginUser(Request $request, CheckLoginUser $checkLoginUser): Response
     {
         $checkLoginUserCommand = new CheckLoginUserCommand(
-            $request->query->get('mail'),
-            $request->query->get('password')
+            $request->request->get('mail'),
+            $request->request->get('password')
         );
         $response = $checkLoginUser->handle($checkLoginUserCommand);
 

@@ -2,7 +2,6 @@
 
 namespace Javier\Cineja\Infrastructure\Event;
 
-use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 
@@ -13,8 +12,9 @@ class ExceptionListener
         $exception = $event->getException();
         $jsonResponse = new JsonResponse(
             $exception->getMessage(),
-            100 <= $exception->getCode() ? $exception->getCode() : HttpResponses::BAD_REQUEST
+            $exception->getCode()
         );
+        $event->allowCustomResponseCode();
         $event->setResponse($jsonResponse);
     }
 }

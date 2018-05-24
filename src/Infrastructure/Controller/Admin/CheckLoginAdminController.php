@@ -13,8 +13,8 @@ class CheckLoginAdminController
     public function checkLoginAdmin(Request $request, CheckLoginAdmin $checkLoginAdmin): Response
     {
         $checkLoginAdminCommand = new CheckLoginAdminCommand(
-            $request->query->get('username'),
-            $request->query->get('password')
+            $request->request->get('username'),
+            $request->request->get('password')
         );
         $response = $checkLoginAdmin->handle($checkLoginAdminCommand);
 
