@@ -13,11 +13,11 @@ class CreateFilmController
     public function createFilm(Request $request, CreateFilm $createFilm): Response
     {
         $createFilmCommand = new CreateFilmCommand(
-            $request->query->get('image'),
-            $request->query->get('name'),
-            $request->query->get('description'),
-            $request->query->get('duration'),
-            $request->query->get('minage')
+            $request->files->get('image'),
+            $request->request->get('name'),
+            $request->request->get('description'),
+            $request->request->get('duration'),
+            $request->request->get('minage')
         );
         $response = $createFilm->handle($createFilmCommand);
 

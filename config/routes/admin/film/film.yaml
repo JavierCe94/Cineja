@@ -5,6 +5,7 @@ change_state_retired_film:
 create_film:
     path: '/create'
     controller: 'Javier\Cineja\Infrastructure\Controller\Film\CreateFilmController::createFilm'
+    methods: [PUT]
 
 show_films:
     path: '/showfilms'

@@ -70,7 +70,7 @@ class CreateUserSeatsFilm extends RoleUser
         $this->userSeatFilmRepository->createUserSeatFilm($listUserSeatsFilm);
 
         return [
-            'data' => 'Se ha creado la relación usuario asiento película con éxito',
+            'data' => 'Se ha creado la relación usuario, asiento, película con éxito',
             'code' => HttpResponses::OK_CREATED
         ];
     }

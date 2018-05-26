@@ -19,7 +19,7 @@ class CreateFilmCommand
         $this->minAge = $minAge;
     }
 
-    public function image(): string
+    public function image()
     {
         return $this->image;
     }

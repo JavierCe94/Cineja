@@ -15,9 +15,6 @@ class ControllerListener
                     case 'request':
                         $event->getRequest()->request->replace($data['request']);
                         break;
-                    case 'attributes':
-                        $event->getRequest()->attributes->replace($data['attributes']);
-                        break;
                     case 'files':
                         $event->getRequest()->files->replace($data['files']);
                 }

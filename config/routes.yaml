@@ -28,7 +28,7 @@ seat_room_admin:
 
 film_user:
     prefix: '/user/film'
-    resource: './routes/admin/film/film.yaml'
+    resource: './routes/user/film/film.yaml'
 
 seat_room_user:
     prefix: '/user/seat'
