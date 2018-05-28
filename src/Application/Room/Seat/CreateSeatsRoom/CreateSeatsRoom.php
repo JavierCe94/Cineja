@@ -28,13 +28,9 @@ class CreateSeatsRoom extends RoleAdmin
      * @param CreateSeatsRoomCommand $createSeatsRoomCommand
      * @return array
      * @throws \Javier\Cineja\Domain\Model\Entity\Room\NotFoundRoomsException
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidRoleTokenException
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidTokenException
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidUserTokenException
      */
     public function handle(CreateSeatsRoomCommand $createSeatsRoomCommand): array
     {
-        $this->checkToken();
         $room = $this->searchRoomById->execute(
             $createSeatsRoomCommand->room()
         );

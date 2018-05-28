@@ -7,22 +7,18 @@ use Javier\Cineja\Domain\Services\JwtToken\CheckToken;
 
 class RoleUser
 {
-    private $checkToken;
+    private $dataToken;
 
     public function __construct(CheckToken $checkToken)
     {
-        $this->checkToken = $checkToken;
+        $this->dataToken = $checkToken->execute(
+            $this->role()
+        );
     }
 
-    /**
-     * @return mixed
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidRoleTokenException
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidTokenException
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidUserTokenException
-     */
-    public function checkToken()
+    public function dataToken()
     {
-        return $this->checkToken->execute($this->role());
+        return $this->dataToken;
     }
 
     private function role(): string

@@ -6,36 +6,29 @@ use Javier\Cineja\Application\Util\Role\RoleAdmin;
 use Javier\Cineja\Domain\Model\Entity\Film\Film;
 use Javier\Cineja\Domain\Model\Entity\Film\FilmRepositoryInterface;
 use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
-use Javier\Cineja\Domain\Services\Film\UploadPhotoFilm;
+use Javier\Cineja\Domain\Services\File\UploadImage;
 use Javier\Cineja\Domain\Services\JwtToken\CheckToken;
 
 class CreateFilm extends RoleAdmin
 {
     private $filmRepository;
-    private $uploadPhotoFilm;
+    private $uploadImage;
 
     public function __construct(
         FilmRepositoryInterface $filmRepository,
-        UploadPhotoFilm $uploadPhotoFilm,
+        UploadImage $uploadImage,
         CheckToken $checkToken
     ) {
         parent::__construct($checkToken);
         $this->filmRepository = $filmRepository;
-        $this->uploadPhotoFilm = $uploadPhotoFilm;
+        $this->uploadImage = $uploadImage;
     }
 
-    /**
-     * @param CreateFilmCommand $createFilmCommand
-     * @return array
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidRoleTokenException
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidTokenException
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidUserTokenException
-     */
     public function handle(CreateFilmCommand $createFilmCommand): array
     {
-        $this->checkToken();
-        $imageName = $this->uploadPhotoFilm->execute(
-            $createFilmCommand->image()
+        $imageName = $this->uploadImage->execute(
+            $createFilmCommand->image(),
+            Film::URL_IMAGE
         );
         $film = new Film(
             $imageName,

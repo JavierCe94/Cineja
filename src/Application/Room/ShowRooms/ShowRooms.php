@@ -22,15 +22,8 @@ class ShowRooms extends RoleAdmin
         $this->showRoomsTransform = $showRoomsTransform;
     }
 
-    /**
-     * @return array
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidRoleTokenException
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidTokenException
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidUserTokenException
-     */
     public function handle(): array
     {
-        $this->checkToken();
         $listRooms = $this->roomRepository->findRooms();
 
         return [

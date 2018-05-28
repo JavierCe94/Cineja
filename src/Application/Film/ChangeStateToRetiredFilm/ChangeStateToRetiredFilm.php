@@ -27,13 +27,9 @@ class ChangeStateToRetiredFilm extends RoleAdmin
      * @param ChangeStateToRetiredFilmCommand $changeStateToRetiredFilmCommand
      * @return array
      * @throws \Javier\Cineja\Domain\Model\Entity\Film\NotFoundFilms
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidRoleTokenException
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidTokenException
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidUserTokenException
      */
     public function handle(ChangeStateToRetiredFilmCommand $changeStateToRetiredFilmCommand): array
     {
-        $this->checkToken();
         $film = $this->searchFilmById->execute(
             $changeStateToRetiredFilmCommand->id()
         );

@@ -20,16 +20,8 @@ class CreateGenre extends RoleAdmin
         $this->genreRepository = $genreRepository;
     }
 
-    /**
-     * @param CreateGenreCommand $createGenreCommand
-     * @return array
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidRoleTokenException
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidTokenException
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidUserTokenException
-     */
     public function handle(CreateGenreCommand $createGenreCommand): array
     {
-        $this->checkToken();
         $genre = new Genre(
             $createGenreCommand->name()
         );

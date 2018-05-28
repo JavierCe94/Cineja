@@ -33,13 +33,9 @@ class CreateFilmGenre extends RoleAdmin
      * @return array
      * @throws \Javier\Cineja\Domain\Model\Entity\Film\NotFoundFilms
      * @throws \Javier\Cineja\Domain\Model\Entity\Film\NotFoundGenresException
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidRoleTokenException
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidTokenException
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidUserTokenException
      */
     public function handle(CreateFilmGenreCommand $createFilmGenreCommand): array
     {
-        $this->checkToken();
         $film = $this->searchFilmById->execute(
             $createFilmGenreCommand->film()
         );

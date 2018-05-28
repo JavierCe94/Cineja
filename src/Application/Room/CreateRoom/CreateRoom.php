@@ -20,16 +20,8 @@ class CreateRoom extends RoleAdmin
         $this->roomRepository = $roomRepository;
     }
 
-    /**
-     * @param CreateRoomCommand $createRoomCommand
-     * @return array
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidRoleTokenException
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidTokenException
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidUserTokenException
-     */
     public function handle(CreateRoomCommand $createRoomCommand): array
     {
-        $this->checkToken();
         $room = new Room(
             $createRoomCommand->name(),
             $createRoomCommand->totalSeatsByRow()

@@ -27,13 +27,9 @@ class ChangeSeatsToTypeNormal extends RoleAdmin
      * @param ChangeSeatsToTypeNormalCommand $changeSeatsToTypeNormalCommand
      * @return array
      * @throws \Javier\Cineja\Domain\Model\Entity\Room\Seat\NotFoundSeatsException
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidRoleTokenException
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidTokenException
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidUserTokenException
      */
     public function handle(ChangeSeatsToTypeNormalCommand $changeSeatsToTypeNormalCommand): array
     {
-        $this->checkToken();
         $listSeats = [];
         foreach ($changeSeatsToTypeNormalCommand->seats() as $idSeat) {
             $listSeats[] = $this->searchSeatById->execute($idSeat);

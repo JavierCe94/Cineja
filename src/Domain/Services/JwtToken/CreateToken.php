@@ -2,13 +2,13 @@
 
 namespace Javier\Cineja\Domain\Services\JwtToken;
 
-use Javier\Cineja\Infrastructure\JwtToken\JwtTokenClass;
+use Javier\Cineja\Domain\Model\JwtToken\JwtTokenClassInterface;
 
 class CreateToken
 {
     private $jwtTokenClass;
 
-    public function __construct(JwtTokenClass $jwtTokenClass)
+    public function __construct(JwtTokenClassInterface $jwtTokenClass)
     {
         $this->jwtTokenClass = $jwtTokenClass;
     }

@@ -13,6 +13,8 @@ use Javier\Cineja\Domain\Model\Entity\FilmRoom\FilmRoom;
  */
 class Film
 {
+    const URL_IMAGE = 'films/';
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

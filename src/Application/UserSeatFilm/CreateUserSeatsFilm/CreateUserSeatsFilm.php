@@ -42,18 +42,14 @@ class CreateUserSeatsFilm extends RoleUser
      * @throws \Javier\Cineja\Domain\Model\Entity\FilmRoom\NotFoundFilmRoomsException
      * @throws \Javier\Cineja\Domain\Model\Entity\Room\Seat\NotFoundSeatsException
      * @throws \Javier\Cineja\Domain\Model\Entity\User\NotFoundUsersException
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidRoleTokenException
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidTokenException
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidUserTokenException
      */
     public function handle(CreateUserSeatsFilmCommand $createUserSeatFilmCommand): array
     {
-        $token = $this->checkToken();
         $filmRoom = $this->searchFilmRoomById->execute(
             $createUserSeatFilmCommand->filmRoom()
         );
         $user = $this->searchUserById->execute(
-            $token->id
+            $this->dataToken()->id
         );
         $listUserSeatsFilm = [];
         foreach ($createUserSeatFilmCommand->seats() as $idSeat) {

@@ -22,15 +22,8 @@ class ShowFilmsWithRooms extends RoleUser
         $this->showFilmsWithRoomsTransformer = $showFilmsWithRoomsTransformer;
     }
 
-    /**
-     * @return array
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidRoleTokenException
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidTokenException
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidUserTokenException
-     */
     public function handle(): array
     {
-        $this->checkToken();
         $filmsWithRooms = $this->filmRepository->findRoomsWhereVisualizeFilmStateVisible();
 
         return [

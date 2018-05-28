@@ -21,17 +21,9 @@ class ShowSeatsFilmRoom extends RoleUser
         $this->seatRepository = $seatRepository;
         $this->showSeatsFilmRoomTransform = $showSeatsFilmRoomTransform;
     }
-
-    /**
-     * @param ShowSeatsFilmRoomCommand $showSeatsFilmRoomCommand
-     * @return array
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidRoleTokenException
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidTokenException
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidUserTokenException
-     */
+    
     public function handle(ShowSeatsFilmRoomCommand $showSeatsFilmRoomCommand): array
     {
-        $this->checkToken();
         $seatsFilmRoom = $this->seatRepository->findSeatsFilmRoom(
             $showSeatsFilmRoomCommand->room(),
             $showSeatsFilmRoomCommand->filmRoom()

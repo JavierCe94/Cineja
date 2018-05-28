@@ -21,17 +21,9 @@ class ShowSeatsRoom extends RoleAdmin
         $this->seatRepository = $seatRepository;
         $this->showSeatsTransform = $showSeatsTransform;
     }
-
-    /**
-     * @param ShowSeatsRoomCommand $showSeatsRoomCommand
-     * @return array
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidRoleTokenException
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidTokenException
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidUserTokenException
-     */
+    
     public function handle(ShowSeatsRoomCommand $showSeatsRoomCommand): array
     {
-        $this->checkToken();
         $seats = $this->seatRepository->findSeatsByIdRoom(
             $showSeatsRoomCommand->room()
         );

@@ -27,13 +27,9 @@ class ChangeRoomToStateClose extends RoleAdmin
      * @param ChangeRoomToStateCloseCommand $changeRoomToStateCloseCommand
      * @return array
      * @throws \Javier\Cineja\Domain\Model\Entity\Room\NotFoundRoomsException
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidRoleTokenException
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidTokenException
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidUserTokenException
      */
     public function handle(ChangeRoomToStateCloseCommand $changeRoomToStateCloseCommand): array
     {
-        $this->checkToken();
         $room = $this->searchRoomById->execute(
             $changeRoomToStateCloseCommand->id()
         );

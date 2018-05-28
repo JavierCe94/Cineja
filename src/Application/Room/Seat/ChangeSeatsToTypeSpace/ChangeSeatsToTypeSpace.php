@@ -27,13 +27,9 @@ class ChangeSeatsToTypeSpace extends RoleAdmin
      * @param ChangeSeatsToTypeSpaceCommand $changeSeatsToTypeSpaceCommand
      * @return array
      * @throws \Javier\Cineja\Domain\Model\Entity\Room\Seat\NotFoundSeatsException
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidRoleTokenException
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidTokenException
-     * @throws \Javier\Cineja\Domain\Model\JwtToken\InvalidUserTokenException
      */
     public function handle(ChangeSeatsToTypeSpaceCommand $changeSeatsToTypeSpaceCommand): array
     {
-        $this->checkToken();
         $listSeats = [];
         foreach ($changeSeatsToTypeSpaceCommand->seats() as $idSeat) {
             $listSeats[] = $this->searchSeatById->execute($idSeat);
