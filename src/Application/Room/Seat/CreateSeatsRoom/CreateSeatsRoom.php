@@ -4,32 +4,34 @@ namespace Javier\Cineja\Application\Room\Seat\CreateSeatsRoom;
 
 use Javier\Cineja\Application\Util\Role\RoleAdmin;
 use Javier\Cineja\Domain\Model\Entity\Room\Seat\Seat;
-use Javier\Cineja\Domain\Model\Entity\Room\Seat\SeatRepositoryInterface;
-use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
-use Javier\Cineja\Domain\Services\JwtToken\CheckToken;
-use Javier\Cineja\Domain\Services\Room\SearchRoomById;
+use Javier\Cineja\Domain\Model\Entity\Room\Seat\SeatRepository;
+use Javier\Cineja\Domain\Service\JwtToken\CheckToken;
+use Javier\Cineja\Domain\Service\Room\SearchRoomById;
 
 class CreateSeatsRoom extends RoleAdmin
 {
     private $seatRepository;
+    private $createSeatsRoomTransform;
     private $searchRoomById;
 
     public function __construct(
-        SeatRepositoryInterface $seatRepository,
+        SeatRepository $seatRepository,
+        CreateSeatsRoomTransformInterface $createSeatsRoomTransform,
         SearchRoomById $searchRoomById,
         CheckToken $checkToken
     ) {
         parent::__construct($checkToken);
         $this->seatRepository = $seatRepository;
+        $this->createSeatsRoomTransform = $createSeatsRoomTransform;
         $this->searchRoomById = $searchRoomById;
     }
 
     /**
      * @param CreateSeatsRoomCommand $createSeatsRoomCommand
-     * @return array
+     * @return string
      * @throws \Javier\Cineja\Domain\Model\Entity\Room\NotFoundRoomsException
      */
-    public function handle(CreateSeatsRoomCommand $createSeatsRoomCommand): array
+    public function handle(CreateSeatsRoomCommand $createSeatsRoomCommand): string
     {
         $room = $this->searchRoomById->execute(
             $createSeatsRoomCommand->room()
@@ -44,9 +46,6 @@ class CreateSeatsRoom extends RoleAdmin
 
         $this->seatRepository->createSeatsRoom($listSeats);
 
-        return [
-            'data' => 'Se han creado las butacas con éxito',
-            'code' => HttpResponses::OK_CREATED
-        ];
+        return $this->createSeatsRoomTransform->transform();
     }
 }

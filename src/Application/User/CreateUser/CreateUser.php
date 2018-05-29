@@ -3,24 +3,26 @@
 namespace Javier\Cineja\Application\User\CreateUser;
 
 use Javier\Cineja\Domain\Model\Entity\User\User;
-use Javier\Cineja\Domain\Model\Entity\User\UserRepositoryInterface;
-use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
-use Javier\Cineja\Domain\Services\PasswordHash\GeneratePasswordEncrypt;
+use Javier\Cineja\Domain\Model\Entity\User\UserRepository;
+use Javier\Cineja\Domain\Service\PasswordHash\GeneratePasswordEncrypt;
 
 class CreateUser
 {
     private $userRepository;
+    private $createUserTransform;
     private $generatePasswordEncrypt;
 
     public function __construct(
-        UserRepositoryInterface $userRepository,
+        UserRepository $userRepository,
+        CreateUserTransformInterface $createUserTransform,
         GeneratePasswordEncrypt $generatePasswordEncrypt
     ) {
         $this->userRepository = $userRepository;
+        $this->createUserTransform = $createUserTransform;
         $this->generatePasswordEncrypt = $generatePasswordEncrypt;
     }
 
-    public function handle(CreateUserCommand $createUserCommand): array
+    public function handle(CreateUserCommand $createUserCommand): string
     {
         $password = $this->generatePasswordEncrypt->execute(
             $createUserCommand->password()
@@ -34,9 +36,6 @@ class CreateUser
         );
         $this->userRepository->createUser($user);
 
-        return [
-            'data' => 'Se ha creado el usuario con éxito',
-            'code' => HttpResponses::OK_CREATED
-        ];
+        return $this->createUserTransform->transform();
     }
 }

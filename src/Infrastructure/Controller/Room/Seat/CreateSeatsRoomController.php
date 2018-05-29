@@ -20,8 +20,8 @@ class CreateSeatsRoomController
         $response = $createSeatsRoom->handle($createSeatsRoomCommand);
 
         return new JsonResponse(
-            $response['data'],
-            $response['code']
+            $response,
+            Response::HTTP_CREATED
         );
     }
 }

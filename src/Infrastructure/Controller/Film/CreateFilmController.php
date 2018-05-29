@@ -22,8 +22,8 @@ class CreateFilmController
         $response = $createFilm->handle($createFilmCommand);
 
         return new JsonResponse(
-            $response['data'],
-            $response['code']
+            $response,
+            Response::HTTP_CREATED
         );
     }
 }

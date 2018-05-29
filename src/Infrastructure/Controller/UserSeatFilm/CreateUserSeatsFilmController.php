@@ -21,8 +21,8 @@ class CreateUserSeatsFilmController
         $response = $createUserSeatsFilm->handle($createUserSeatsFilmCommand);
 
         return new JsonResponse(
-            $response['data'],
-            $response['code']
+            $response,
+            Response::HTTP_CREATED
         );
     }
 }

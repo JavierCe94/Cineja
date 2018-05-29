@@ -2,14 +2,16 @@
 
 namespace Javier\Cineja\Domain\Model\Entity\FilmRoom;
 
-use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class NotFoundFilmRoomsException extends \Exception
+class NotFoundFilmRoomsException extends NotFoundHttpException
 {
     public function __construct()
     {
         $message = 'No se ha encontrado ninguna sala, en la que se visualize la película';
-        $code = HttpResponses::NOT_FOUND;
-        parent::__construct($message, $code);
+        parent::__construct(
+            $message,
+            $this->getStatusCode()
+        );
     }
 }

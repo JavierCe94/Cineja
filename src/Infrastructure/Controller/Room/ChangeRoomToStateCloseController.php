@@ -18,8 +18,8 @@ class ChangeRoomToStateCloseController
         $response = $changeRoomToStateClose->handle($changeRoomToStateCloseCommand);
 
         return new JsonResponse(
-            $response['data'],
-            $response['code']
+            $response,
+            Response::HTTP_OK
         );
     }
 }

@@ -20,8 +20,8 @@ class ChangeSeatsToTypeNormalController
         $response = $changeSeatsToTypeNormal->handle($changeSeatsToTypeNormalCommand);
 
         return new JsonResponse(
-            $response['data'],
-            $response['code']
+            $response,
+            Response::HTTP_OK
         );
     }
 }

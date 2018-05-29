@@ -3,32 +3,34 @@
 namespace Javier\Cineja\Application\Room\Seat\ChangeSeatsToTypeNormal;
 
 use Javier\Cineja\Application\Util\Role\RoleAdmin;
-use Javier\Cineja\Domain\Model\Entity\Room\Seat\SeatRepositoryInterface;
-use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
-use Javier\Cineja\Domain\Services\JwtToken\CheckToken;
-use Javier\Cineja\Domain\Services\Room\Seat\SearchSeatById;
+use Javier\Cineja\Domain\Model\Entity\Room\Seat\SeatRepository;
+use Javier\Cineja\Domain\Service\JwtToken\CheckToken;
+use Javier\Cineja\Domain\Service\Room\Seat\SearchSeatById;
 
 class ChangeSeatsToTypeNormal extends RoleAdmin
 {
     private $seatRepository;
+    private $changeSeatsToTypeNormalTransform;
     private $searchSeatById;
 
     public function __construct(
-        SeatRepositoryInterface $seatRepository,
+        SeatRepository $seatRepository,
+        ChangeSeatsToTypeNormalTransformInterface $changeSeatsToTypeNormalTransform,
         SearchSeatById $searchSeatById,
         CheckToken $checkToken
     ) {
         parent::__construct($checkToken);
         $this->seatRepository = $seatRepository;
+        $this->changeSeatsToTypeNormalTransform = $changeSeatsToTypeNormalTransform;
         $this->searchSeatById = $searchSeatById;
     }
 
     /**
      * @param ChangeSeatsToTypeNormalCommand $changeSeatsToTypeNormalCommand
-     * @return array
+     * @return string
      * @throws \Javier\Cineja\Domain\Model\Entity\Room\Seat\NotFoundSeatsException
      */
-    public function handle(ChangeSeatsToTypeNormalCommand $changeSeatsToTypeNormalCommand): array
+    public function handle(ChangeSeatsToTypeNormalCommand $changeSeatsToTypeNormalCommand): string
     {
         $listSeats = [];
         foreach ($changeSeatsToTypeNormalCommand->seats() as $idSeat) {
@@ -36,9 +38,6 @@ class ChangeSeatsToTypeNormal extends RoleAdmin
         }
         $this->seatRepository->changeToTypeNormalSeat($listSeats);
 
-        return [
-            'data' => 'Se han cambiado las butacas, al tipo normal',
-            'code' => HttpResponses::OK
-        ];
+        return $this->changeSeatsToTypeNormalTransform->transform();
     }
 }

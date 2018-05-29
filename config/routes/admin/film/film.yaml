@@ -10,6 +10,7 @@ create_film:
 show_films:
     path: '/showfilms'
     controller: 'Javier\Cineja\Infrastructure\Controller\Film\ShowFilmsController::showFilms'
+    methods: [PUT]
 
 show_films_rooms:
     path: '/showfilmsrooms'

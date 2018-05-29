@@ -3,9 +3,8 @@
 namespace Javier\Cineja\Application\Room\Seat\ShowSeatsFilmRoom;
 
 use Javier\Cineja\Application\Util\Role\RoleUser;
-use Javier\Cineja\Domain\Model\Entity\Room\Seat\SeatRepositoryInterface;
-use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
-use Javier\Cineja\Domain\Services\JwtToken\CheckToken;
+use Javier\Cineja\Domain\Model\Entity\Room\Seat\SeatRepository;
+use Javier\Cineja\Domain\Service\JwtToken\CheckToken;
 
 class ShowSeatsFilmRoom extends RoleUser
 {
@@ -13,7 +12,7 @@ class ShowSeatsFilmRoom extends RoleUser
     private $showSeatsFilmRoomTransform;
 
     public function __construct(
-        SeatRepositoryInterface $seatRepository,
+        SeatRepository $seatRepository,
         ShowSeatsFilmRoomTransformInterface $showSeatsFilmRoomTransform,
         CheckToken $checkToken
     ) {
@@ -29,9 +28,6 @@ class ShowSeatsFilmRoom extends RoleUser
             $showSeatsFilmRoomCommand->filmRoom()
         );
 
-        return [
-            'data' => $this->showSeatsFilmRoomTransform->transform($seatsFilmRoom),
-            'code' => HttpResponses::OK
-        ];
+        return $this->showSeatsFilmRoomTransform->transform($seatsFilmRoom);
     }
 }

@@ -20,8 +20,8 @@ class CheckLoginUserController extends Controller
         $response = $checkLoginUser->handle($checkLoginUserCommand);
 
         return new JsonResponse(
-            $response['data'],
-            $response['code']
+            $response,
+            Response::HTTP_OK
         );
     }
 }

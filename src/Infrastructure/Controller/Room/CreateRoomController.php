@@ -19,8 +19,8 @@ class CreateRoomController
         $response = $createRoom->handle($createRoomCommand);
 
         return new JsonResponse(
-            $response['data'],
-            $response['code']
+            $response,
+            Response::HTTP_CREATED
         );
     }
 }

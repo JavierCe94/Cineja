@@ -2,14 +2,16 @@
 
 namespace Javier\Cineja\Domain\Model\Entity\Room;
 
-use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class NotFoundRoomsException extends \Exception
+class NotFoundRoomsException extends NotFoundHttpException
 {
     public function __construct()
     {
         $message = 'No se ha encontrado ninguna sala';
-        $code = HttpResponses::NOT_FOUND;
-        parent::__construct($message, $code);
+        parent::__construct(
+            $message,
+            $this->getStatusCode()
+        );
     }
 }

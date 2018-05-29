@@ -3,9 +3,8 @@
 namespace Javier\Cineja\Application\Film\ShowGenres;
 
 use Javier\Cineja\Application\Util\Role\RoleAdmin;
-use Javier\Cineja\Domain\Model\Entity\Film\GenreRepositoryInterface;
-use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
-use Javier\Cineja\Domain\Services\JwtToken\CheckToken;
+use Javier\Cineja\Domain\Model\Entity\Film\GenreRepository;
+use Javier\Cineja\Domain\Service\JwtToken\CheckToken;
 
 class ShowGenres extends RoleAdmin
 {
@@ -13,7 +12,7 @@ class ShowGenres extends RoleAdmin
     private $showGenresTransform;
 
     public function __construct(
-        GenreRepositoryInterface $genreRepository,
+        GenreRepository $genreRepository,
         ShowGenresTransformInterface $showGenresTransform,
         CheckToken $checkToken
     ) {
@@ -26,9 +25,6 @@ class ShowGenres extends RoleAdmin
     {
         $listGenres = $this->genreRepository->findGenres();
 
-        return [
-            'data' => $this->showGenresTransform->transform($listGenres),
-            'code' => HttpResponses::OK
-        ];
+        return $this->showGenresTransform->transform($listGenres);
     }
 }

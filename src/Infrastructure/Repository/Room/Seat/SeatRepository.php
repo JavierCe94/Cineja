@@ -4,7 +4,7 @@ namespace Javier\Cineja\Infrastructure\Repository\Room\Seat;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Javier\Cineja\Domain\Model\Entity\Room\Seat\Seat;
-use Javier\Cineja\Domain\Model\Entity\Room\Seat\SeatRepositoryInterface;
+use Javier\Cineja\Domain\Model\Entity\Room\Seat\SeatRepository as SeatRepositoryInterface;
 
 class SeatRepository extends ServiceEntityRepository implements SeatRepositoryInterface
 {

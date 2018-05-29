@@ -2,14 +2,16 @@
 
 namespace Javier\Cineja\Domain\Model\JwtToken;
 
-use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
-class InvalidUserTokenException extends \Exception
+class InvalidUserTokenException extends UnauthorizedHttpException
 {
     public function __construct()
     {
         $message = 'El usuario al que intentas acceder no es tuyo';
-        $code = HttpResponses::UNAUTHORIZED;
-        parent::__construct($message, $code);
+        parent::__construct(
+            $message,
+            $this->getStatusCode()
+        );
     }
 }

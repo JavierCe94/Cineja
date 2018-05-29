@@ -4,7 +4,7 @@ namespace Javier\Cineja\Infrastructure\Repository\Film;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Javier\Cineja\Domain\Model\Entity\Film\Genre;
-use Javier\Cineja\Domain\Model\Entity\Film\GenreRepositoryInterface;
+use Javier\Cineja\Domain\Model\Entity\Film\GenreRepository as GenreRepositoryInterface;
 
 class GenreRepository extends ServiceEntityRepository implements GenreRepositoryInterface
 {

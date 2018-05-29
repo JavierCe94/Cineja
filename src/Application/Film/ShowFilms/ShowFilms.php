@@ -3,9 +3,8 @@
 namespace Javier\Cineja\Application\Film\ShowFilms;
 
 use Javier\Cineja\Application\Util\Role\RoleAdmin;
-use Javier\Cineja\Domain\Model\Entity\Film\FilmRepositoryInterface;
-use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
-use Javier\Cineja\Domain\Services\JwtToken\CheckToken;
+use Javier\Cineja\Domain\Model\Entity\Film\FilmRepository;
+use Javier\Cineja\Domain\Service\JwtToken\CheckToken;
 
 class ShowFilms extends RoleAdmin
 {
@@ -13,7 +12,7 @@ class ShowFilms extends RoleAdmin
     private $showFilmTransform;
 
     public function __construct(
-        FilmRepositoryInterface $filmRepository,
+        FilmRepository $filmRepository,
         ShowFilmsTransformInterface $showFilmTransform,
         CheckToken $checkToken
     ) {
@@ -26,9 +25,6 @@ class ShowFilms extends RoleAdmin
     {
         $films = $this->filmRepository->findFilms();
 
-        return [
-            'data' => $this->showFilmTransform->transform($films),
-            'code' => HttpResponses::OK
-        ];
+        return $this->showFilmTransform->transform($films);
     }
 }

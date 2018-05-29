@@ -20,8 +20,8 @@ class ChangeStateToRetiredFilmController
         $response = $changeStateToRetiredFilm->handle($changeStateToRetiredFilmCommand);
 
         return new JsonResponse(
-            $response['data'],
-            $response['code']
+            $response,
+            Response::HTTP_OK
         );
     }
 }

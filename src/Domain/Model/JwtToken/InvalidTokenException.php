@@ -2,14 +2,16 @@
 
 namespace Javier\Cineja\Domain\Model\JwtToken;
 
-use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
-class InvalidTokenException extends \Exception
+class InvalidTokenException extends UnauthorizedHttpException
 {
     public function __construct()
     {
         $message = 'No se ha iniciado una sesión';
-        $code = HttpResponses::NOT_FOUND;
-        parent::__construct($message, $code);
+        parent::__construct(
+            $message,
+            $this->getStatusCode()
+        );
     }
 }

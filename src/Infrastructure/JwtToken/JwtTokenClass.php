@@ -2,12 +2,14 @@
 
 namespace Javier\Cineja\Infrastructure\JwtToken;
 
+use Firebase\JWT\ExpiredException;
 use Firebase\JWT\JWT;
+use Javier\Cineja\Domain\Model\JwtToken\ExpiredTokenException;
 use Javier\Cineja\Domain\Model\JwtToken\InvalidRoleTokenException;
 use Javier\Cineja\Domain\Model\JwtToken\InvalidTokenException;
 use Javier\Cineja\Domain\Model\JwtToken\InvalidUserTokenException;
 use Javier\Cineja\Domain\Model\JwtToken\JwtToken;
-use Javier\Cineja\Domain\Model\JwtToken\JwtTokenClassInterface;
+use Javier\Cineja\Domain\Model\JwtToken\JwtTokenClass as JwtTokenClassInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class JwtTokenClass implements JwtTokenClassInterface
@@ -24,7 +26,7 @@ class JwtTokenClass implements JwtTokenClassInterface
         $time = time();
         $token = [
             'iat' => $time,
-            'exp' => $time + JwtToken::ONE_HOUR,
+            'exp' => $time + JwtToken::ONE_DAY,
             'aud' => $this->audience(),
             'role' => $role,
             'data' => $data
@@ -35,24 +37,30 @@ class JwtTokenClass implements JwtTokenClassInterface
     }
 
     /**
-     * @param string $role
+     * @param array $roles
      * @return mixed
+     * @throws ExpiredTokenException
      * @throws InvalidRoleTokenException
      * @throws InvalidTokenException
      * @throws InvalidUserTokenException
      */
-    public function checkToken(string $role)
+    public function checkToken(array $roles)
     {
         $token = $this->requestStack->getCurrentRequest()->headers->get('X-AUTH-TOKEN');
         if (null === $token) {
             throw new InvalidTokenException();
         }
-        $decode = JWT::decode(
-            $token,
-            JwtToken::KEY,
-            JwtToken::TYPE_ENCRYPT
-        );
-        if ($role !== $decode->role) {
+        try {
+            $decode = JWT::decode(
+                $token,
+                JwtToken::KEY,
+                JwtToken::TYPE_ENCRYPT
+            );
+        } catch (ExpiredException $exception) {
+            throw new ExpiredTokenException();
+        }
+
+        if (false === in_array($decode->role, $roles)) {
             throw new InvalidRoleTokenException();
         }
         if ($this->audience() !== $decode->aud) {

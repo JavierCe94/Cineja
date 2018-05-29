@@ -4,37 +4,39 @@ namespace Javier\Cineja\Application\FilmRoom\CreateFilmRoom;
 
 use Javier\Cineja\Application\Util\Role\RoleAdmin;
 use Javier\Cineja\Domain\Model\Entity\FilmRoom\FilmRoom;
-use Javier\Cineja\Domain\Model\Entity\FilmRoom\FilmRoomRepositoryInterface;
-use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
-use Javier\Cineja\Domain\Services\Film\SearchFilmById;
-use Javier\Cineja\Domain\Services\JwtToken\CheckToken;
-use Javier\Cineja\Domain\Services\Room\SearchRoomById;
+use Javier\Cineja\Domain\Model\Entity\FilmRoom\FilmRoomRepository;
+use Javier\Cineja\Domain\Service\Film\SearchFilmById;
+use Javier\Cineja\Domain\Service\JwtToken\CheckToken;
+use Javier\Cineja\Domain\Service\Room\SearchRoomById;
 
 class CreateFilmRoom extends RoleAdmin
 {
     private $filmRoomRepository;
+    private $createFilmRoomTransform;
     private $searchFilmById;
     private $searchRoomById;
 
     public function __construct(
-        FilmRoomRepositoryInterface $filmRoomRepository,
+        FilmRoomRepository $filmRoomRepository,
+        CreateFilmRoomTransformInterface $createFilmRoomTransform,
         SearchFilmById $searchFilmById,
         SearchRoomById $searchRoomById,
         CheckToken $checkToken
     ) {
         parent::__construct($checkToken);
         $this->filmRoomRepository = $filmRoomRepository;
+        $this->createFilmRoomTransform = $createFilmRoomTransform;
         $this->searchFilmById = $searchFilmById;
         $this->searchRoomById = $searchRoomById;
     }
 
     /**
      * @param CreateFilmRoomCommand $createFilmRoomCommand
-     * @return array
+     * @return string
      * @throws \Javier\Cineja\Domain\Model\Entity\Film\NotFoundFilms
      * @throws \Javier\Cineja\Domain\Model\Entity\Room\NotFoundRoomsException
      */
-    public function handle(CreateFilmRoomCommand $createFilmRoomCommand): array
+    public function handle(CreateFilmRoomCommand $createFilmRoomCommand): string
     {
         $film = $this->searchFilmById->execute(
             $createFilmRoomCommand->film()
@@ -51,9 +53,6 @@ class CreateFilmRoom extends RoleAdmin
         );
         $this->filmRoomRepository->createFilmRoom($filmRoom);
 
-        return [
-            'data' => 'Se ha creado la relación película sala con éxito',
-            'code' => HttpResponses::OK
-        ];
+        return $this->createFilmRoomTransform->transform();
     }
 }

@@ -20,8 +20,8 @@ class ChangeSeatsToTypeSpaceController
         $response = $changeSeatsToTypeSpace->handle($changeSeatsToTypeSpaceCommand);
 
         return new JsonResponse(
-            $response['data'],
-            $response['code']
+            $response,
+            Response::HTTP_OK
         );
     }
 }

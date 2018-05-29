@@ -3,9 +3,8 @@
 namespace Javier\Cineja\Application\Room\Seat\ShowSeatsRoom;
 
 use Javier\Cineja\Application\Util\Role\RoleAdmin;
-use Javier\Cineja\Domain\Model\Entity\Room\Seat\SeatRepositoryInterface;
-use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
-use Javier\Cineja\Domain\Services\JwtToken\CheckToken;
+use Javier\Cineja\Domain\Model\Entity\Room\Seat\SeatRepository;
+use Javier\Cineja\Domain\Service\JwtToken\CheckToken;
 
 class ShowSeatsRoom extends RoleAdmin
 {
@@ -13,7 +12,7 @@ class ShowSeatsRoom extends RoleAdmin
     private $showSeatsTransform;
 
     public function __construct(
-        SeatRepositoryInterface $seatRepository,
+        SeatRepository $seatRepository,
         ShowSeatsRoomTransformInterface $showSeatsTransform,
         CheckToken $checkToken
     ) {
@@ -28,9 +27,6 @@ class ShowSeatsRoom extends RoleAdmin
             $showSeatsRoomCommand->room()
         );
 
-        return [
-            'data' => $this->showSeatsTransform->transform($seats),
-            'code' => HttpResponses::OK
-        ];
+        return $this->showSeatsTransform->transform($seats);
     }
 }

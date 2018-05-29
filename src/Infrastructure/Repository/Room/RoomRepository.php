@@ -4,7 +4,7 @@ namespace Javier\Cineja\Infrastructure\Repository\Room;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Javier\Cineja\Domain\Model\Entity\Room\Room;
-use Javier\Cineja\Domain\Model\Entity\Room\RoomRepositoryInterface;
+use Javier\Cineja\Domain\Model\Entity\Room\RoomRepository as RoomRepositoryInterface;
 use Javier\Cineja\Domain\Model\Entity\Room\StateRoom;
 
 class RoomRepository extends ServiceEntityRepository implements RoomRepositoryInterface

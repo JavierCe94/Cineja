@@ -3,9 +3,8 @@
 namespace Javier\Cineja\Application\Room\ShowRooms;
 
 use Javier\Cineja\Application\Util\Role\RoleAdmin;
-use Javier\Cineja\Domain\Model\Entity\Room\RoomRepositoryInterface;
-use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
-use Javier\Cineja\Domain\Services\JwtToken\CheckToken;
+use Javier\Cineja\Domain\Model\Entity\Room\RoomRepository;
+use Javier\Cineja\Domain\Service\JwtToken\CheckToken;
 
 class ShowRooms extends RoleAdmin
 {
@@ -13,7 +12,7 @@ class ShowRooms extends RoleAdmin
     private $showRoomsTransform;
 
     public function __construct(
-        RoomRepositoryInterface $roomRepository,
+        RoomRepository $roomRepository,
         ShowRoomsTransformInterface $showRoomsTransform,
         CheckToken $checkToken
     ) {
@@ -26,9 +25,6 @@ class ShowRooms extends RoleAdmin
     {
         $listRooms = $this->roomRepository->findRooms();
 
-        return [
-            'data' => $this->showRoomsTransform->transform($listRooms),
-            'code' => HttpResponses::OK
-        ];
+        return $this->showRoomsTransform->transform($listRooms);
     }
 }

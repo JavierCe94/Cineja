@@ -4,27 +4,29 @@ namespace Javier\Cineja\Application\Film\CreateFilm;
 
 use Javier\Cineja\Application\Util\Role\RoleAdmin;
 use Javier\Cineja\Domain\Model\Entity\Film\Film;
-use Javier\Cineja\Domain\Model\Entity\Film\FilmRepositoryInterface;
-use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
-use Javier\Cineja\Domain\Services\File\UploadImage;
-use Javier\Cineja\Domain\Services\JwtToken\CheckToken;
+use Javier\Cineja\Domain\Model\Entity\Film\FilmRepository;
+use Javier\Cineja\Infrastructure\Service\File\UploadImage;
+use Javier\Cineja\Domain\Service\JwtToken\CheckToken;
 
 class CreateFilm extends RoleAdmin
 {
     private $filmRepository;
+    private $createFilmTransform;
     private $uploadImage;
 
     public function __construct(
-        FilmRepositoryInterface $filmRepository,
+        FilmRepository $filmRepository,
+        CreateFilmTransformInterface $createFilmTransform,
         UploadImage $uploadImage,
         CheckToken $checkToken
     ) {
         parent::__construct($checkToken);
         $this->filmRepository = $filmRepository;
+        $this->createFilmTransform = $createFilmTransform;
         $this->uploadImage = $uploadImage;
     }
 
-    public function handle(CreateFilmCommand $createFilmCommand): array
+    public function handle(CreateFilmCommand $createFilmCommand): string
     {
         $imageName = $this->uploadImage->execute(
             $createFilmCommand->image(),
@@ -39,9 +41,6 @@ class CreateFilm extends RoleAdmin
         );
         $this->filmRepository->createFilm($film);
 
-        return [
-            'data' => 'Se ha creado la película con éxito',
-            'code' => HttpResponses::OK_CREATED
-        ];
+        return $this->createFilmTransform->transform();
     }
 }

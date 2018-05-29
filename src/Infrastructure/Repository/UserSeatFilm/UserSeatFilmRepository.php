@@ -4,7 +4,7 @@ namespace Javier\Cineja\Infrastructure\Repository\UserSeatFilm;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Javier\Cineja\Domain\Model\Entity\UserSeatFilm\UserSeatFilm;
-use Javier\Cineja\Domain\Model\Entity\UserSeatFilm\UserSeatFilmRepositoryInterface;
+use Javier\Cineja\Domain\Model\Entity\UserSeatFilm\UserSeatFilmRepository as UserSeatFilmRepositoryInterface;
 
 class UserSeatFilmRepository extends ServiceEntityRepository implements UserSeatFilmRepositoryInterface
 {

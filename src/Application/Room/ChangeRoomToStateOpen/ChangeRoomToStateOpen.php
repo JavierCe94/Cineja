@@ -3,41 +3,40 @@
 namespace Javier\Cineja\Application\Room\ChangeRoomToStateOpen;
 
 use Javier\Cineja\Application\Util\Role\RoleAdmin;
-use Javier\Cineja\Domain\Model\Entity\Room\RoomRepositoryInterface;
-use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
-use Javier\Cineja\Domain\Services\JwtToken\CheckToken;
-use Javier\Cineja\Domain\Services\Room\SearchRoomById;
+use Javier\Cineja\Domain\Model\Entity\Room\RoomRepository;
+use Javier\Cineja\Domain\Service\JwtToken\CheckToken;
+use Javier\Cineja\Domain\Service\Room\SearchRoomById;
 
 class ChangeRoomToStateOpen extends RoleAdmin
 {
     private $roomRepository;
+    private $changeRoomToStateOpenTransform;
     private $searchRoomById;
 
     public function __construct(
-        RoomRepositoryInterface $roomRepository,
+        RoomRepository $roomRepository,
+        ChangeRoomToStateOpenTransformInterface $changeRoomToStateOpenTransform,
         SearchRoomById $searchRoomById,
         CheckToken $checkToken
     ) {
         parent::__construct($checkToken);
         $this->roomRepository = $roomRepository;
+        $this->changeRoomToStateOpenTransform = $changeRoomToStateOpenTransform;
         $this->searchRoomById = $searchRoomById;
     }
 
     /**
      * @param ChangeRoomToStateOpenCommand $changeRoomToStateOpenCommand
-     * @return array
+     * @return string
      * @throws \Javier\Cineja\Domain\Model\Entity\Room\NotFoundRoomsException
      */
-    public function handle(ChangeRoomToStateOpenCommand $changeRoomToStateOpenCommand): array
+    public function handle(ChangeRoomToStateOpenCommand $changeRoomToStateOpenCommand): string
     {
         $room = $this->searchRoomById->execute(
             $changeRoomToStateOpenCommand->id()
         );
         $this->roomRepository->changeToStateOpenRoom($room);
 
-        return [
-            'data' => 'Se ha abierto la sala con éxito',
-            'code' => HttpResponses::OK
-        ];
+        return $this->changeRoomToStateOpenTransform->transform();
     }
 }

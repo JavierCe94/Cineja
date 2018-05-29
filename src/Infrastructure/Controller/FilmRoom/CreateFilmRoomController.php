@@ -20,8 +20,8 @@ class CreateFilmRoomController
         $response = $createFilmRoom->handle($createFilmRoomCommand);
 
         return new JsonResponse(
-            $response['data'],
-            $response['code']
+            $response,
+            Response::HTTP_CREATED
         );
     }
 }

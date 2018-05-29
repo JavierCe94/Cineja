@@ -22,8 +22,8 @@ class CreateUserController
         $response = $createUser->handle($createUserCommand);
 
         return new JsonResponse(
-            $response['data'],
-            $response['code']
+            $response,
+            Response::HTTP_CREATED
         );
     }
 }

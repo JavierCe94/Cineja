@@ -2,14 +2,16 @@
 
 namespace Javier\Cineja\Domain\Model\Entity\Room\Seat;
 
-use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class NotFoundSeatsException extends \Exception
+class NotFoundSeatsException extends NotFoundHttpException
 {
     public function __construct()
     {
         $message = 'No se ha encontrado ninguna butaca';
-        $code = HttpResponses::NOT_FOUND;
-        parent::__construct($message, $code);
+        parent::__construct(
+            $message,
+            $this->getStatusCode()
+        );
     }
 }

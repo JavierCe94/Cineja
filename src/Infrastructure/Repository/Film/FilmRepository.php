@@ -4,7 +4,7 @@ namespace Javier\Cineja\Infrastructure\Repository\Film;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Javier\Cineja\Domain\Model\Entity\Film\Film;
-use Javier\Cineja\Domain\Model\Entity\Film\FilmRepositoryInterface;
+use Javier\Cineja\Domain\Model\Entity\Film\FilmRepository as FilmRepositoryInterface;
 use Javier\Cineja\Domain\Model\Entity\Film\StateFilm;
 use Javier\Cineja\Domain\Model\Entity\Room\StateRoom;
 

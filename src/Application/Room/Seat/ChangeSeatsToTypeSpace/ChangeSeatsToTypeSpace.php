@@ -3,32 +3,34 @@
 namespace Javier\Cineja\Application\Room\Seat\ChangeSeatsToTypeSpace;
 
 use Javier\Cineja\Application\Util\Role\RoleAdmin;
-use Javier\Cineja\Domain\Model\Entity\Room\Seat\SeatRepositoryInterface;
-use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
-use Javier\Cineja\Domain\Services\JwtToken\CheckToken;
-use Javier\Cineja\Domain\Services\Room\Seat\SearchSeatById;
+use Javier\Cineja\Domain\Model\Entity\Room\Seat\SeatRepository;
+use Javier\Cineja\Domain\Service\JwtToken\CheckToken;
+use Javier\Cineja\Domain\Service\Room\Seat\SearchSeatById;
 
 class ChangeSeatsToTypeSpace extends RoleAdmin
 {
     private $seatRepository;
+    private $changeSeatsToTypeSpaceTransform;
     private $searchSeatById;
 
     public function __construct(
-        SeatRepositoryInterface $seatRepository,
+        SeatRepository $seatRepository,
+        ChangeSeatsToTypeSpaceTransformInterface $changeSeatsToTypeSpaceTransform,
         SearchSeatById $searchSeatById,
         CheckToken $checkToken
     ) {
         parent::__construct($checkToken);
         $this->seatRepository = $seatRepository;
+        $this->changeSeatsToTypeSpaceTransform = $changeSeatsToTypeSpaceTransform;
         $this->searchSeatById = $searchSeatById;
     }
 
     /**
      * @param ChangeSeatsToTypeSpaceCommand $changeSeatsToTypeSpaceCommand
-     * @return array
+     * @return string
      * @throws \Javier\Cineja\Domain\Model\Entity\Room\Seat\NotFoundSeatsException
      */
-    public function handle(ChangeSeatsToTypeSpaceCommand $changeSeatsToTypeSpaceCommand): array
+    public function handle(ChangeSeatsToTypeSpaceCommand $changeSeatsToTypeSpaceCommand): string
     {
         $listSeats = [];
         foreach ($changeSeatsToTypeSpaceCommand->seats() as $idSeat) {
@@ -36,9 +38,6 @@ class ChangeSeatsToTypeSpace extends RoleAdmin
         }
         $this->seatRepository->changeToTypeSpaceSeat($listSeats);
 
-        return [
-            'data' => 'Se han cambiado las butacas, al tipo space',
-            'code' => HttpResponses::OK
-        ];
+        return $this->changeSeatsToTypeSpaceTransform->transform();
     }
 }

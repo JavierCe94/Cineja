@@ -3,9 +3,8 @@
 namespace Javier\Cineja\Application\Film\ShowFilmsWithRooms;
 
 use Javier\Cineja\Application\Util\Role\RoleUser;
-use Javier\Cineja\Domain\Model\Entity\Film\FilmRepositoryInterface;
-use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
-use Javier\Cineja\Domain\Services\JwtToken\CheckToken;
+use Javier\Cineja\Domain\Model\Entity\Film\FilmRepository;
+use Javier\Cineja\Domain\Service\JwtToken\CheckToken;
 
 class ShowFilmsWithRooms extends RoleUser
 {
@@ -13,7 +12,7 @@ class ShowFilmsWithRooms extends RoleUser
     private $showFilmsWithRoomsTransformer;
 
     public function __construct(
-        FilmRepositoryInterface $filmRepository,
+        FilmRepository $filmRepository,
         ShowFilmsWithRoomsTransformerInterface $showFilmsWithRoomsTransformer,
         CheckToken $checkToken
     ) {
@@ -26,9 +25,6 @@ class ShowFilmsWithRooms extends RoleUser
     {
         $filmsWithRooms = $this->filmRepository->findRoomsWhereVisualizeFilmStateVisible();
 
-        return [
-            'data' => $this->showFilmsWithRoomsTransformer->transform($filmsWithRooms),
-            'code' => HttpResponses::OK
-        ];
+        return $this->showFilmsWithRoomsTransformer->transform($filmsWithRooms);
     }
 }

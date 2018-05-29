@@ -2,11 +2,10 @@
 
 namespace Javier\Cineja\Application\User\CheckLoginUser;
 
-use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
 use Javier\Cineja\Domain\Model\JwtToken\Roles;
-use Javier\Cineja\Domain\Services\PasswordHash\CheckPasswordEncrypt;
-use Javier\Cineja\Domain\Services\User\SearchUserByMail;
-use Javier\Cineja\Domain\Services\JwtToken\CreateToken;
+use Javier\Cineja\Domain\Service\PasswordHash\CheckPasswordEncrypt;
+use Javier\Cineja\Domain\Service\User\SearchUserByMail;
+use Javier\Cineja\Domain\Service\JwtToken\CreateToken;
 
 class CheckLoginUser
 {
@@ -26,11 +25,11 @@ class CheckLoginUser
 
     /**
      * @param CheckLoginUserCommand $checkLoginUserCommand
-     * @return array
+     * @return string
      * @throws \Javier\Cineja\Domain\Model\Entity\User\NotFoundUsersException
      * @throws \Javier\Cineja\Domain\Model\PasswordHash\IncorrectPasswordException
      */
-    public function handle(CheckLoginUserCommand $checkLoginUserCommand): array
+    public function handle(CheckLoginUserCommand $checkLoginUserCommand): string
     {
         $user = $this->searchUserByMail->execute(
             $checkLoginUserCommand->mail()
@@ -47,9 +46,6 @@ class CheckLoginUser
             ]
         );
 
-        return [
-            'data' => $token,
-            'code' => HttpResponses::OK
-        ];
+        return $token;
     }
 }

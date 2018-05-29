@@ -2,14 +2,16 @@
 
 namespace Javier\Cineja\Domain\Model\PasswordHash;
 
-use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class IncorrectPasswordException extends \Exception
+class IncorrectPasswordException extends NotFoundHttpException
 {
     public function __construct()
     {
         $message = 'La contraseña introducida no es correcta';
-        $code = HttpResponses::NOT_FOUND;
-        parent::__construct($message, $code);
+        parent::__construct(
+            $message,
+            $this->getStatusCode()
+        );
     }
 }

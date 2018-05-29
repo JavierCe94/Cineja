@@ -2,14 +2,16 @@
 
 namespace Javier\Cineja\Domain\Model\Entity\Film;
 
-use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class NotFoundGenresException extends \Exception
+class NotFoundGenresException extends NotFoundHttpException
 {
     public function __construct()
     {
         $message = 'No se ha encontrado ningún género';
-        $code = HttpResponses::NOT_FOUND;
-        parent::__construct($message, $code);
+        parent::__construct(
+            $message,
+            $this->getStatusCode()
+        );
     }
 }

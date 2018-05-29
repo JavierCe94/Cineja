@@ -2,14 +2,16 @@
 
 namespace Javier\Cineja\Domain\Model\Entity\Admin;
 
-use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class NotFoundAdminsException extends \Exception
+class NotFoundAdminsException extends NotFoundHttpException
 {
     public function __construct()
     {
         $message = 'No se ha encontrado ningún administrador';
-        $code = HttpResponses::NOT_FOUND;
-        parent::__construct($message, $code);
+        parent::__construct(
+            $message,
+            $this->getStatusCode()
+        );
     }
 }

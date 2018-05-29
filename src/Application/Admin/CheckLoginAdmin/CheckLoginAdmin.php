@@ -2,12 +2,11 @@
 
 namespace Javier\Cineja\Application\Admin\CheckLoginAdmin;
 
-use Javier\Cineja\Domain\Model\Entity\Admin\AdminRepositoryInterface;
+use Javier\Cineja\Domain\Model\Entity\Admin\AdminRepository;
 use Javier\Cineja\Domain\Model\Entity\Admin\NotFoundAdminsException;
-use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
 use Javier\Cineja\Domain\Model\JwtToken\Roles;
-use Javier\Cineja\Domain\Services\JwtToken\CreateToken;
-use Javier\Cineja\Domain\Services\PasswordHash\CheckPasswordEncrypt;
+use Javier\Cineja\Domain\Service\JwtToken\CreateToken;
+use Javier\Cineja\Domain\Service\PasswordHash\CheckPasswordEncrypt;
 
 class CheckLoginAdmin
 {
@@ -16,7 +15,7 @@ class CheckLoginAdmin
     private $createToken;
 
     public function __construct(
-        AdminRepositoryInterface $adminRepository,
+        AdminRepository $adminRepository,
         CheckPasswordEncrypt $checkPasswordEncrypt,
         CreateToken $createToken
     ) {
@@ -27,11 +26,11 @@ class CheckLoginAdmin
 
     /**
      * @param CheckLoginAdminCommand $checkLoginAdminCommand
-     * @return array
+     * @return string
      * @throws NotFoundAdminsException
      * @throws \Javier\Cineja\Domain\Model\PasswordHash\IncorrectPasswordException
      */
-    public function handle(CheckLoginAdminCommand $checkLoginAdminCommand): array
+    public function handle(CheckLoginAdminCommand $checkLoginAdminCommand): string
     {
         $admin = $this->adminRepository->findAdminByUsername(
             $checkLoginAdminCommand->username()
@@ -50,9 +49,6 @@ class CheckLoginAdmin
             ]
         );
 
-        return [
-            'data' => $token,
-            'code' => HttpResponses::OK
-        ];
+        return $token;
     }
 }

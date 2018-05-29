@@ -18,8 +18,8 @@ class CreateGenreController
         $response = $createGenre->handle($createGenreCommand);
 
         return new JsonResponse(
-            $response['data'],
-            $response['code']
+            $response,
+            Response::HTTP_CREATED
         );
     }
 }

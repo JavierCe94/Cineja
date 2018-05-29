@@ -14,7 +14,7 @@ class ShowFilmsWithRoomsController
 
         return new JsonResponse(
             $response['data'],
-            $response['code']
+            Response::HTTP_OK
         );
     }
 }
