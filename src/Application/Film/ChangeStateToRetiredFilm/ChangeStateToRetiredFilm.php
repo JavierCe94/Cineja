@@ -2,12 +2,10 @@
 
 namespace Javier\Cineja\Application\Film\ChangeStateToRetiredFilm;
 
-use Javier\Cineja\Application\Util\Role\RoleAdmin;
 use Javier\Cineja\Domain\Model\Entity\Film\FilmRepository;
 use Javier\Cineja\Domain\Service\Film\SearchFilmById;
-use Javier\Cineja\Domain\Service\JwtToken\CheckToken;
 
-class ChangeStateToRetiredFilm extends RoleAdmin
+class ChangeStateToRetiredFilm
 {
     private $filmRepository;
     private $changeStateToRetiredFilmTransform;
@@ -16,10 +14,8 @@ class ChangeStateToRetiredFilm extends RoleAdmin
     public function __construct(
         FilmRepository $filmRepository,
         ChangeStateToRetiredFilmTransformInterface $changeStateToRetiredFilmTransform,
-        SearchFilmById $searchFilmById,
-        CheckToken $checkToken
+        SearchFilmById $searchFilmById
     ) {
-        parent::__construct($checkToken);
         $this->filmRepository = $filmRepository;
         $this->changeStateToRetiredFilmTransform = $changeStateToRetiredFilmTransform;
         $this->searchFilmById = $searchFilmById;
@@ -32,10 +28,11 @@ class ChangeStateToRetiredFilm extends RoleAdmin
      */
     public function handle(ChangeStateToRetiredFilmCommand $changeStateToRetiredFilmCommand): string
     {
-        $film = $this->searchFilmById->execute(
-            $changeStateToRetiredFilmCommand->id()
+        $this->filmRepository->changeToStateRetiredFilm(
+            $this->searchFilmById->execute(
+                $changeStateToRetiredFilmCommand->id()
+            )
         );
-        $this->filmRepository->changeToStateRetiredFilm($film);
 
         return $this->changeStateToRetiredFilmTransform->transform();
     }

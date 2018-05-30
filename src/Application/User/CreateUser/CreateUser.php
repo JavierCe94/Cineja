@@ -24,17 +24,17 @@ class CreateUser
 
     public function handle(CreateUserCommand $createUserCommand): string
     {
-        $password = $this->generatePasswordEncrypt->execute(
-            $createUserCommand->password()
+        $this->userRepository->createUser(
+            new User(
+                $createUserCommand->mail(),
+                $createUserCommand->name(),
+                $createUserCommand->surname(),
+                $this->generatePasswordEncrypt->execute(
+                    $createUserCommand->password()
+                ),
+                $createUserCommand->creditCard()
+            )
         );
-        $user = new User(
-            $createUserCommand->mail(),
-            $createUserCommand->name(),
-            $createUserCommand->surname(),
-            $password,
-            $createUserCommand->creditCard()
-        );
-        $this->userRepository->createUser($user);
 
         return $this->createUserTransform->transform();
     }

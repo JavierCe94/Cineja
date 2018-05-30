@@ -3,17 +3,16 @@
 namespace Javier\Cineja\Infrastructure\Controller\Room;
 
 use Javier\Cineja\Application\Room\ShowRooms\ShowRooms;
+use Javier\Cineja\Infrastructure\Util\Role\RoleAdmin;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class ShowRoomsController
+class ShowRoomsController extends RoleAdmin
 {
     public function showRooms(ShowRooms $showRooms): Response
     {
-        $response = $showRooms->handle();
-
         return new JsonResponse(
-            $response,
+            $showRooms->handle(),
             Response::HTTP_OK
         );
     }

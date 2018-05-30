@@ -2,12 +2,10 @@
 
 namespace Javier\Cineja\Application\Room\ChangeRoomToStateOpen;
 
-use Javier\Cineja\Application\Util\Role\RoleAdmin;
 use Javier\Cineja\Domain\Model\Entity\Room\RoomRepository;
-use Javier\Cineja\Domain\Service\JwtToken\CheckToken;
 use Javier\Cineja\Domain\Service\Room\SearchRoomById;
 
-class ChangeRoomToStateOpen extends RoleAdmin
+class ChangeRoomToStateOpen
 {
     private $roomRepository;
     private $changeRoomToStateOpenTransform;
@@ -16,10 +14,8 @@ class ChangeRoomToStateOpen extends RoleAdmin
     public function __construct(
         RoomRepository $roomRepository,
         ChangeRoomToStateOpenTransformInterface $changeRoomToStateOpenTransform,
-        SearchRoomById $searchRoomById,
-        CheckToken $checkToken
+        SearchRoomById $searchRoomById
     ) {
-        parent::__construct($checkToken);
         $this->roomRepository = $roomRepository;
         $this->changeRoomToStateOpenTransform = $changeRoomToStateOpenTransform;
         $this->searchRoomById = $searchRoomById;
@@ -32,10 +28,11 @@ class ChangeRoomToStateOpen extends RoleAdmin
      */
     public function handle(ChangeRoomToStateOpenCommand $changeRoomToStateOpenCommand): string
     {
-        $room = $this->searchRoomById->execute(
-            $changeRoomToStateOpenCommand->id()
+        $this->roomRepository->changeToStateOpenRoom(
+            $this->searchRoomById->execute(
+                $changeRoomToStateOpenCommand->id()
+            )
         );
-        $this->roomRepository->changeToStateOpenRoom($room);
 
         return $this->changeRoomToStateOpenTransform->transform();
     }

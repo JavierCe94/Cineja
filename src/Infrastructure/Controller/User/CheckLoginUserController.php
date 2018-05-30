@@ -4,12 +4,11 @@ namespace Javier\Cineja\Infrastructure\Controller\User;
 
 use Javier\Cineja\Application\User\CheckLoginUser\CheckLoginUser;
 use Javier\Cineja\Application\User\CheckLoginUser\CheckLoginUserCommand;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CheckLoginUserController extends Controller
+class CheckLoginUserController
 {
     public function checkLoginUser(Request $request, CheckLoginUser $checkLoginUser): Response
     {
@@ -17,10 +16,11 @@ class CheckLoginUserController extends Controller
             $request->request->get('mail'),
             $request->request->get('password')
         );
-        $response = $checkLoginUser->handle($checkLoginUserCommand);
 
         return new JsonResponse(
-            $response,
+            $checkLoginUser->handle(
+                $checkLoginUserCommand
+            ),
             Response::HTTP_OK
         );
     }

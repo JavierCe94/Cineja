@@ -2,14 +2,12 @@
 
 namespace Javier\Cineja\Application\FilmRoom\CreateFilmRoom;
 
-use Javier\Cineja\Application\Util\Role\RoleAdmin;
 use Javier\Cineja\Domain\Model\Entity\FilmRoom\FilmRoom;
 use Javier\Cineja\Domain\Model\Entity\FilmRoom\FilmRoomRepository;
 use Javier\Cineja\Domain\Service\Film\SearchFilmById;
-use Javier\Cineja\Domain\Service\JwtToken\CheckToken;
 use Javier\Cineja\Domain\Service\Room\SearchRoomById;
 
-class CreateFilmRoom extends RoleAdmin
+class CreateFilmRoom
 {
     private $filmRoomRepository;
     private $createFilmRoomTransform;
@@ -20,10 +18,8 @@ class CreateFilmRoom extends RoleAdmin
         FilmRoomRepository $filmRoomRepository,
         CreateFilmRoomTransformInterface $createFilmRoomTransform,
         SearchFilmById $searchFilmById,
-        SearchRoomById $searchRoomById,
-        CheckToken $checkToken
+        SearchRoomById $searchRoomById
     ) {
-        parent::__construct($checkToken);
         $this->filmRoomRepository = $filmRoomRepository;
         $this->createFilmRoomTransform = $createFilmRoomTransform;
         $this->searchFilmById = $searchFilmById;
@@ -38,20 +34,19 @@ class CreateFilmRoom extends RoleAdmin
      */
     public function handle(CreateFilmRoomCommand $createFilmRoomCommand): string
     {
-        $film = $this->searchFilmById->execute(
-            $createFilmRoomCommand->film()
-        );
-        $room = $this->searchRoomById->execute(
-            $createFilmRoomCommand->room()
-        );
-        $filmRoom = new FilmRoom(
-            $film,
-            $room,
-            new \DateTime(
-                $createFilmRoomCommand->releaseDate()
+        $this->filmRoomRepository->createFilmRoom(
+            new FilmRoom(
+                $this->searchFilmById->execute(
+                    $createFilmRoomCommand->film()
+                ),
+                $this->searchRoomById->execute(
+                    $createFilmRoomCommand->room()
+                ),
+                new \DateTime(
+                    $createFilmRoomCommand->releaseDate()
+                )
             )
         );
-        $this->filmRoomRepository->createFilmRoom($filmRoom);
 
         return $this->createFilmRoomTransform->transform();
     }

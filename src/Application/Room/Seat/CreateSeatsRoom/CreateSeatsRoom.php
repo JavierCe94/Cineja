@@ -2,13 +2,11 @@
 
 namespace Javier\Cineja\Application\Room\Seat\CreateSeatsRoom;
 
-use Javier\Cineja\Application\Util\Role\RoleAdmin;
 use Javier\Cineja\Domain\Model\Entity\Room\Seat\Seat;
 use Javier\Cineja\Domain\Model\Entity\Room\Seat\SeatRepository;
-use Javier\Cineja\Domain\Service\JwtToken\CheckToken;
 use Javier\Cineja\Domain\Service\Room\SearchRoomById;
 
-class CreateSeatsRoom extends RoleAdmin
+class CreateSeatsRoom
 {
     private $seatRepository;
     private $createSeatsRoomTransform;
@@ -17,10 +15,8 @@ class CreateSeatsRoom extends RoleAdmin
     public function __construct(
         SeatRepository $seatRepository,
         CreateSeatsRoomTransformInterface $createSeatsRoomTransform,
-        SearchRoomById $searchRoomById,
-        CheckToken $checkToken
+        SearchRoomById $searchRoomById
     ) {
-        parent::__construct($checkToken);
         $this->seatRepository = $seatRepository;
         $this->createSeatsRoomTransform = $createSeatsRoomTransform;
         $this->searchRoomById = $searchRoomById;
@@ -43,7 +39,6 @@ class CreateSeatsRoom extends RoleAdmin
                 $createSeatsRoomCommand->priceSeat()
             );
         }
-
         $this->seatRepository->createSeatsRoom($listSeats);
 
         return $this->createSeatsRoomTransform->transform();

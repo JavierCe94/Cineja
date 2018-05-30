@@ -3,17 +3,16 @@
 namespace Javier\Cineja\Infrastructure\Controller\Film;
 
 use Javier\Cineja\Application\Film\ShowFilms\ShowFilms;
+use Javier\Cineja\Infrastructure\Util\Role\RoleAdmin;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class ShowFilmsController
+class ShowFilmsController extends RoleAdmin
 {
     public function showFilms(ShowFilms $showFilms): Response
     {
-        $response = $showFilms->handle();
-
         return new JsonResponse(
-            $response,
+            $showFilms->handle(),
             Response::HTTP_OK
         );
     }

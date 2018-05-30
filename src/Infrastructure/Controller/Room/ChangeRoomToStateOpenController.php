@@ -4,21 +4,25 @@ namespace Javier\Cineja\Infrastructure\Controller\Room;
 
 use Javier\Cineja\Application\Room\ChangeRoomToStateOpen\ChangeRoomToStateOpen;
 use Javier\Cineja\Application\Room\ChangeRoomToStateOpen\ChangeRoomToStateOpenCommand;
+use Javier\Cineja\Infrastructure\Util\Role\RoleAdmin;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ChangeRoomToStateOpenController
+class ChangeRoomToStateOpenController extends RoleAdmin
 {
-    public function changeRoomToStateOpen(Request $request, ChangeRoomToStateOpen $changeRoomToStateOpen): Response
-    {
+    public function changeRoomToStateOpen(
+        Request $request,
+        ChangeRoomToStateOpen $changeRoomToStateOpen
+    ): Response {
         $changeRoomToStateOpenCommand = new ChangeRoomToStateOpenCommand(
             $request->attributes->get('room')
         );
-        $response = $changeRoomToStateOpen->handle($changeRoomToStateOpenCommand);
 
         return new JsonResponse(
-            $response,
+            $changeRoomToStateOpen->handle(
+                $changeRoomToStateOpenCommand
+            ),
             Response::HTTP_OK
         );
     }

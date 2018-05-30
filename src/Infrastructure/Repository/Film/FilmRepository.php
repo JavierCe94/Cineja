@@ -50,11 +50,9 @@ class FilmRepository extends ServiceEntityRepository implements FilmRepositoryIn
     {
         $query = $this->createQueryBuilder('f')
             ->leftJoin('f.filmRooms', 'fr')
-            ->innerJoin('fr.room', 'r')
             ->andWhere('f.stateFilm = :stateFilm')
-            ->andWhere('r.stateRoom = :stateRoom')
             ->setParameter('stateFilm', StateFilm::STATE_VISIBLE)
-            ->setParameter('stateRoom', StateRoom::STATE_OPEN)
+            ->orderBy('f.id', 'desc')
             ->getQuery();
 
         return $query->execute();
@@ -67,6 +65,6 @@ class FilmRepository extends ServiceEntityRepository implements FilmRepositoryIn
     {
         $films = $this->findAll();
 
-        return $films;
+        return array_reverse($films);
     }
 }

@@ -42,13 +42,12 @@ class CheckLoginAdmin
             $checkLoginAdminCommand->password(),
             $admin->password()
         );
-        $token = $this->createToken->execute(
+
+        return $this->createToken->execute(
             Roles::ROLE_ADMIN,
             [
-                'username' => $checkLoginAdminCommand->username()
+                'username' => $admin->username()
             ]
         );
-
-        return $token;
     }
 }

@@ -2,12 +2,10 @@
 
 namespace Javier\Cineja\Application\Room\Seat\ChangeSeatsToTypeSpace;
 
-use Javier\Cineja\Application\Util\Role\RoleAdmin;
 use Javier\Cineja\Domain\Model\Entity\Room\Seat\SeatRepository;
-use Javier\Cineja\Domain\Service\JwtToken\CheckToken;
 use Javier\Cineja\Domain\Service\Room\Seat\SearchSeatById;
 
-class ChangeSeatsToTypeSpace extends RoleAdmin
+class ChangeSeatsToTypeSpace
 {
     private $seatRepository;
     private $changeSeatsToTypeSpaceTransform;
@@ -16,10 +14,8 @@ class ChangeSeatsToTypeSpace extends RoleAdmin
     public function __construct(
         SeatRepository $seatRepository,
         ChangeSeatsToTypeSpaceTransformInterface $changeSeatsToTypeSpaceTransform,
-        SearchSeatById $searchSeatById,
-        CheckToken $checkToken
+        SearchSeatById $searchSeatById
     ) {
-        parent::__construct($checkToken);
         $this->seatRepository = $seatRepository;
         $this->changeSeatsToTypeSpaceTransform = $changeSeatsToTypeSpaceTransform;
         $this->searchSeatById = $searchSeatById;

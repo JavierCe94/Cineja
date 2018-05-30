@@ -4,11 +4,12 @@ namespace Javier\Cineja\Infrastructure\Controller\Film;
 
 use Javier\Cineja\Application\Film\CreateFilm\CreateFilm;
 use Javier\Cineja\Application\Film\CreateFilm\CreateFilmCommand;
+use Javier\Cineja\Infrastructure\Util\Role\RoleAdmin;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CreateFilmController
+class CreateFilmController extends RoleAdmin
 {
     public function createFilm(Request $request, CreateFilm $createFilm): Response
     {
@@ -19,10 +20,11 @@ class CreateFilmController
             $request->request->get('duration'),
             $request->request->get('minage')
         );
-        $response = $createFilm->handle($createFilmCommand);
 
         return new JsonResponse(
-            $response,
+            $createFilm->handle(
+                $createFilmCommand
+            ),
             Response::HTTP_CREATED
         );
     }

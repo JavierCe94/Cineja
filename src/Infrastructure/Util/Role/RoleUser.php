@@ -1,6 +1,6 @@
 <?php
 
-namespace Javier\Cineja\Application\Util\Role;
+namespace Javier\Cineja\Infrastructure\Util\Role;
 
 use Javier\Cineja\Domain\Model\JwtToken\Roles;
 

@@ -2,12 +2,10 @@
 
 namespace Javier\Cineja\Application\Room\Seat\ChangeSeatsToTypeNormal;
 
-use Javier\Cineja\Application\Util\Role\RoleAdmin;
 use Javier\Cineja\Domain\Model\Entity\Room\Seat\SeatRepository;
-use Javier\Cineja\Domain\Service\JwtToken\CheckToken;
 use Javier\Cineja\Domain\Service\Room\Seat\SearchSeatById;
 
-class ChangeSeatsToTypeNormal extends RoleAdmin
+class ChangeSeatsToTypeNormal
 {
     private $seatRepository;
     private $changeSeatsToTypeNormalTransform;
@@ -16,10 +14,8 @@ class ChangeSeatsToTypeNormal extends RoleAdmin
     public function __construct(
         SeatRepository $seatRepository,
         ChangeSeatsToTypeNormalTransformInterface $changeSeatsToTypeNormalTransform,
-        SearchSeatById $searchSeatById,
-        CheckToken $checkToken
+        SearchSeatById $searchSeatById
     ) {
-        parent::__construct($checkToken);
         $this->seatRepository = $seatRepository;
         $this->changeSeatsToTypeNormalTransform = $changeSeatsToTypeNormalTransform;
         $this->searchSeatById = $searchSeatById;

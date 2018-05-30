@@ -2,16 +2,14 @@
 
 namespace Javier\Cineja\Application\UserSeatFilm\CreateUserSeatsFilm;
 
-use Javier\Cineja\Application\Util\Role\RoleUser;
 use Javier\Cineja\Domain\Model\Entity\UserSeatFilm\UserSeatFilm;
 use Javier\Cineja\Domain\Model\Entity\UserSeatFilm\UserSeatFilmRepository;
 use Javier\Cineja\Domain\Service\FilmRoom\SearchFilmRoomById;
-use Javier\Cineja\Domain\Service\JwtToken\CheckToken;
 use Javier\Cineja\Domain\Service\Room\Seat\SearchSeatById;
 use Javier\Cineja\Domain\Service\User\SearchUserById;
 use Javier\Cineja\Domain\Service\UserSeatFilm\GenerateCodeQr;
 
-class CreateUserSeatsFilm extends RoleUser
+class CreateUserSeatsFilm
 {
     private $userSeatFilmRepository;
     private $createUserSeatsFilmTransform;
@@ -26,10 +24,8 @@ class CreateUserSeatsFilm extends RoleUser
         SearchSeatById $searchSeatById,
         SearchFilmRoomById $searchFilmRoomById,
         SearchUserById $searchUserById,
-        GenerateCodeQr $generateCodeQr,
-        CheckToken $checkToken
+        GenerateCodeQr $generateCodeQr
     ) {
-        parent::__construct($checkToken);
         $this->userSeatFilmRepository = $userSeatFilmRepository;
         $this->createUserSeatsFilmTransform = $createUserSeatsFilmTransform;
         $this->searchSeatById = $searchSeatById;

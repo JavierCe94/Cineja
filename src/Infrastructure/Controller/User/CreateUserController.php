@@ -19,10 +19,11 @@ class CreateUserController
             $request->request->get('password'),
             $request->request->get('creditcard')
         );
-        $response = $createUser->handle($createUserCommand);
 
         return new JsonResponse(
-            $response,
+            $createUser->handle(
+                $createUserCommand
+            ),
             Response::HTTP_CREATED
         );
     }

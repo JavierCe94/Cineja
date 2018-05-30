@@ -2,17 +2,14 @@
 
 namespace Javier\Cineja\Domain\Model\JwtToken;
 
-
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
-
-class InvalidRoleTokenException extends UnauthorizedHttpException
+class InvalidRoleTokenException extends \Exception
 {
     public function __construct()
     {
         $message = 'No puedes acceder a esta información';
         parent::__construct(
             $message,
-            $this->getStatusCode()
+            401
         );
     }
 }

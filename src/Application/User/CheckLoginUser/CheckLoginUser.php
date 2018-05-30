@@ -38,14 +38,13 @@ class CheckLoginUser
             $checkLoginUserCommand->password(),
             $user->password()
         );
-        $token = $this->createToken->execute(
+
+        return $this->createToken->execute(
             Roles::ROLE_USER,
             [
                 'id' => $user->id(),
                 'mail' => $user->mail()
             ]
         );
-
-        return $token;
     }
 }

@@ -2,12 +2,10 @@
 
 namespace Javier\Cineja\Application\Room\ChangeRoomToStateClose;
 
-use Javier\Cineja\Application\Util\Role\RoleAdmin;
 use Javier\Cineja\Domain\Model\Entity\Room\RoomRepository;
-use Javier\Cineja\Domain\Service\JwtToken\CheckToken;
 use Javier\Cineja\Domain\Service\Room\SearchRoomById;
 
-class ChangeRoomToStateClose extends RoleAdmin
+class ChangeRoomToStateClose
 {
     private $roomRepository;
     private $changeRoomToStateCloseTransform;
@@ -16,10 +14,8 @@ class ChangeRoomToStateClose extends RoleAdmin
     public function __construct(
         RoomRepository $roomRepository,
         ChangeRoomToStateCloseTransformInterface $changeRoomToStateCloseTransform,
-        SearchRoomById $searchRoomById,
-        CheckToken $checkToken
+        SearchRoomById $searchRoomById
     ) {
-        parent::__construct($checkToken);
         $this->roomRepository = $roomRepository;
         $this->changeRoomToStateCloseTransform = $changeRoomToStateCloseTransform;
         $this->searchRoomById = $searchRoomById;
@@ -32,10 +28,11 @@ class ChangeRoomToStateClose extends RoleAdmin
      */
     public function handle(ChangeRoomToStateCloseCommand $changeRoomToStateCloseCommand): string
     {
-        $room = $this->searchRoomById->execute(
-            $changeRoomToStateCloseCommand->id()
+        $this->roomRepository->changeToStateCloseRoom(
+            $this->searchRoomById->execute(
+                $changeRoomToStateCloseCommand->id()
+            )
         );
-        $this->roomRepository->changeToStateCloseRoom($room);
 
         return $this->changeRoomToStateCloseTransform->transform();
     }

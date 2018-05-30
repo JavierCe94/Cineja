@@ -2,16 +2,14 @@
 
 namespace Javier\Cineja\Domain\Model\JwtToken;
 
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
-
-class ExpiredTokenException extends UnauthorizedHttpException
+class ExpiredTokenException extends \Exception
 {
     public function __construct()
     {
         $message = 'Tu sesión a expirado';
         parent::__construct(
             $message,
-            $this->getStatusCode()
+            401
         );
     }
 }
