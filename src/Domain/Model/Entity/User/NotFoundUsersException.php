@@ -2,16 +2,16 @@
 
 namespace Javier\Cineja\Domain\Model\Entity\User;
 
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
 
-class NotFoundUsersException extends NotFoundHttpException
+class NotFoundUsersException extends \Exception
 {
     public function __construct()
     {
         $message = 'No se ha encontrado ningún usuario';
         parent::__construct(
             $message,
-            $this->getStatusCode()
+            HttpResponses::NOT_FOUND
         );
     }
 }

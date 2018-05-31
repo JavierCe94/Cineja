@@ -2,16 +2,16 @@
 
 namespace Javier\Cineja\Domain\Model\File;
 
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
 
-class PhotoCanNotUploadException extends NotFoundHttpException
+class PhotoCanNotUploadException extends \Exception
 {
     public function __construct()
     {
         $message = 'No se ha podido subir la imágen';
         parent::__construct(
             $message,
-            $this->getStatusCode()
+            HttpResponses::NOT_FOUND
         );
     }
 }

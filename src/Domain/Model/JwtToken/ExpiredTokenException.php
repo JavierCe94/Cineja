@@ -2,6 +2,8 @@
 
 namespace Javier\Cineja\Domain\Model\JwtToken;
 
+use Javier\Cineja\Domain\Model\HttpResponses\HttpResponses;
+
 class ExpiredTokenException extends \Exception
 {
     public function __construct()
@@ -9,7 +11,7 @@ class ExpiredTokenException extends \Exception
         $message = 'Tu sesión a expirado';
         parent::__construct(
             $message,
-            401
+            HttpResponses::UNAUTHORIZED
         );
     }
 }
