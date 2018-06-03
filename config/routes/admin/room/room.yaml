@@ -1,15 +1,24 @@
 change_state_close_room:
     path: '/{room}/stateclose'
-    controller: 'Javier\Cineja\Infrastructure\Controller\Room\ChangeRoomToStateCloseController::changeRoomToStateClose'
+    controller: 'Javier\Cineja\Infrastructure\Controller\Room\ChangeRoomToStateCloseController'
+    methods: [PUT]
 
 change_state_open_room:
     path: '/{room}/stateopen'
-    controller: 'Javier\Cineja\Infrastructure\Controller\Room\ChangeRoomToStateOpenController::changeRoomToStateOpen'
+    controller: 'Javier\Cineja\Infrastructure\Controller\Room\ChangeRoomToStateOpenController'
+    methods: [PUT]
 
 create_room:
     path: '/create'
-    controller: 'Javier\Cineja\Infrastructure\Controller\Room\CreateRoomController::createRoom'
+    controller: 'Javier\Cineja\Infrastructure\Controller\Room\CreateRoomController'
+    methods: [PUT]
+
+show_room_by_id:
+    path: '/show/{room}'
+    controller: 'Javier\Cineja\Infrastructure\Controller\Room\ShowRoomByIdController'
+    methods: [PUT]
 
 show_rooms:
     path: '/showrooms'
-    controller: 'Javier\Cineja\Infrastructure\Controller\Room\ShowRoomsController::showRooms'
+    controller: 'Javier\Cineja\Infrastructure\Controller\Room\ShowRoomsController'
+    methods: [PUT]

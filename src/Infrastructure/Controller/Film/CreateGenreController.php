@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CreateGenreController extends RoleAdmin
 {
-    public function createGenre(Request $request, CreateGenre $createGenre): Response
+    public function __invoke(Request $request, CreateGenre $createGenre): Response
     {
         $createGenreCommand = new CreateGenreCommand(
             $request->query->get('name')

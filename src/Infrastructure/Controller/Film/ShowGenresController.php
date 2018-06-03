@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ShowGenresController extends RoleAdmin
 {
-    public function showGenres(ShowGenres $showGenres): Response
+    public function __invoke(ShowGenres $showGenres): Response
     {
         return new JsonResponse(
             $showGenres->handle(),

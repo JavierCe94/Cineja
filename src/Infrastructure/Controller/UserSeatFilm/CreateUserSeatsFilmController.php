@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CreateUserSeatsFilmController extends RoleUser
 {
-    public function createUserSeatsFilm(Request $request, CreateUserSeatsFilm $createUserSeatsFilm): Response
+    public function __invoke(Request $request, CreateUserSeatsFilm $createUserSeatsFilm): Response
     {
         $createUserSeatsFilmCommand = new CreateUserSeatsFilmCommand(
             $request->query->get('seats'),

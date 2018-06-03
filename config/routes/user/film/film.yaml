@@ -1,3 +1,4 @@
 show_films_rooms_user:
     path: '/showfilmsrooms'
-    controller: 'Javier\Cineja\Infrastructure\Controller\Film\ShowFilmsWithRoomsController::showFilmsWithRooms'
+    controller: 'Javier\Cineja\Infrastructure\Controller\Film\ShowFilmsWithRoomsController'
+    methods: [PUT]

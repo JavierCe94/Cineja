@@ -4,11 +4,11 @@ namespace Javier\Cineja\Infrastructure\Repository\Film;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Javier\Cineja\Domain\Model\Entity\Film\Film;
-use Javier\Cineja\Domain\Model\Entity\Film\FilmRepository as FilmRepositoryInterface;
+use Javier\Cineja\Domain\Model\Entity\Film\FilmRepository as FilmRepositoryI;
 use Javier\Cineja\Domain\Model\Entity\Film\StateFilm;
 use Javier\Cineja\Domain\Model\Entity\Room\StateRoom;
 
-class FilmRepository extends ServiceEntityRepository implements FilmRepositoryInterface
+class FilmRepository extends ServiceEntityRepository implements FilmRepositoryI
 {
     /**
      * @param Film $film
@@ -38,24 +38,36 @@ class FilmRepository extends ServiceEntityRepository implements FilmRepositoryIn
         return $film;
     }
 
+    /**
+     * @param int $id
+     * @return object|Film
+     */
     public function findFilmById(int $id): ?Film
     {
-        /* @var Film $film */
-        $film = $this->find($id);
+        return $this->find($id);
+    }
 
-        return $film;
+    /**
+     * @param string $name
+     * @return object|Film
+     */
+    public function findFilmByName(string $name): ?Film
+    {
+        return $this->findOneBy(['name' => $name]);
     }
 
     public function findRoomsWhereVisualizeFilmStateVisible(): array
     {
-        $query = $this->createQueryBuilder('f')
+        return $this->createQueryBuilder('f')
             ->leftJoin('f.filmRooms', 'fr')
+            ->leftJoin('fr.room', 'ro')
             ->andWhere('f.stateFilm = :stateFilm')
+            ->andWhere('ro.stateRoom = :stateRoom')
             ->setParameter('stateFilm', StateFilm::STATE_VISIBLE)
+            ->setParameter('stateRoom', StateRoom::STATE_OPEN)
             ->orderBy('f.id', 'desc')
-            ->getQuery();
-
-        return $query->execute();
+            ->getQuery()
+            ->execute();
     }
 
     /**
@@ -63,8 +75,12 @@ class FilmRepository extends ServiceEntityRepository implements FilmRepositoryIn
      */
     public function findFilms(): array
     {
-        $films = $this->findAll();
-
-        return array_reverse($films);
+        return $this->createQueryBuilder('f')
+            ->leftJoin('f.filmRooms', 'fr')
+            ->andWhere('f.stateFilm = :stateFilm')
+            ->setParameter('stateFilm', StateFilm::STATE_VISIBLE)
+            ->orderBy('f.id', 'desc')
+            ->getQuery()
+            ->execute();
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Javier\Cineja\Application\User\CreateUser;
 
-interface CreateUserTransformInterface
+interface CreateUserTransformI
 {
     public function transform();
 }

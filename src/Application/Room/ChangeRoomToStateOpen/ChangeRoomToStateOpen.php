@@ -3,6 +3,7 @@
 namespace Javier\Cineja\Application\Room\ChangeRoomToStateOpen;
 
 use Javier\Cineja\Domain\Model\Entity\Room\RoomRepository;
+use Javier\Cineja\Domain\Model\Entity\Room\StateRoom;
 use Javier\Cineja\Domain\Service\Room\SearchRoomById;
 
 class ChangeRoomToStateOpen
@@ -13,7 +14,7 @@ class ChangeRoomToStateOpen
 
     public function __construct(
         RoomRepository $roomRepository,
-        ChangeRoomToStateOpenTransformInterface $changeRoomToStateOpenTransform,
+        ChangeRoomToStateOpenTransformI $changeRoomToStateOpenTransform,
         SearchRoomById $searchRoomById
     ) {
         $this->roomRepository = $roomRepository;
@@ -28,10 +29,11 @@ class ChangeRoomToStateOpen
      */
     public function handle(ChangeRoomToStateOpenCommand $changeRoomToStateOpenCommand): string
     {
-        $this->roomRepository->changeToStateOpenRoom(
+        $this->roomRepository->changeStateRoom(
             $this->searchRoomById->execute(
                 $changeRoomToStateOpenCommand->id()
-            )
+            ),
+            StateRoom::STATE_OPEN
         );
 
         return $this->changeRoomToStateOpenTransform->transform();

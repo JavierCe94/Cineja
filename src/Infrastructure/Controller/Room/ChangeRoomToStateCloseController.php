@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ChangeRoomToStateCloseController extends RoleAdmin
 {
-    public function changeRoomToStateClose(
+    public function __invoke(
         Request $request,
         ChangeRoomToStateClose $changeRoomToStateClose
     ): Response {

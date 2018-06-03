@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ShowSeatsFilmRoomController extends RoleUser
 {
-    public function showSeatsFilmRoom(Request $request, ShowSeatsFilmRoom $showSeatsFilmRoom): Response
+    public function __invoke(Request $request, ShowSeatsFilmRoom $showSeatsFilmRoom): Response
     {
         $showSeatsFilmRoomCommand = new ShowSeatsFilmRoomCommand(
             $request->attributes->get('room'),

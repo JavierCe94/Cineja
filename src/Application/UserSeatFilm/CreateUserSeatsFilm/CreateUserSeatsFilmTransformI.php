@@ -2,7 +2,7 @@
 
 namespace Javier\Cineja\Application\UserSeatFilm\CreateUserSeatsFilm;
 
-interface CreateUserSeatsFilmTransformInterface
+interface CreateUserSeatsFilmTransformI
 {
     public function transform();
 }

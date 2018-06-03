@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ChangeRoomToStateOpenController extends RoleAdmin
 {
-    public function changeRoomToStateOpen(
+    public function __invoke(
         Request $request,
         ChangeRoomToStateOpen $changeRoomToStateOpen
     ): Response {

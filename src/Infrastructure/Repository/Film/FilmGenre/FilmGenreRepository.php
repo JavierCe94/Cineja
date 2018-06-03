@@ -4,9 +4,9 @@ namespace Javier\Cineja\Infrastructure\Repository\Film\FilmGenre;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Javier\Cineja\Domain\Model\Entity\Film\FilmGenre\FilmGenre;
-use Javier\Cineja\Domain\Model\Entity\Film\FilmGenre\FilmGenreRepository as FilmGenreRepositoryInterface;
+use Javier\Cineja\Domain\Model\Entity\Film\FilmGenre\FilmGenreRepository as FilmGenreRepositoryI;
 
-class FilmGenreRepository extends ServiceEntityRepository implements FilmGenreRepositoryInterface
+class FilmGenreRepository extends ServiceEntityRepository implements FilmGenreRepositoryI
 {
     /**
      * @param FilmGenre $filmGenre
@@ -24,13 +24,12 @@ class FilmGenreRepository extends ServiceEntityRepository implements FilmGenreRe
 
     public function findFilmsGenresWithStateVisible(string $stateFilm): array
     {
-        $query = $this->createQueryBuilder('fg')
+        return $this->createQueryBuilder('fg')
             ->innerJoin('fg.film', 'f')
             ->innerJoin('fg.genre', 'g')
             ->andWhere('f.stateFilm = :stateFilm')
             ->setParameter('stateFilm', $stateFilm)
-            ->getQuery();
-
-        return $query->execute();
+            ->getQuery()
+            ->execute();
     }
 }

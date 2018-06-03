@@ -8,11 +8,12 @@ use Javier\Cineja\Domain\Model\Entity\Admin\AdminRepository as AdminRepositoryIn
 
 class AdminRepository extends ServiceEntityRepository implements AdminRepositoryInterface
 {
+    /**
+     * @param string $username
+     * @return object|Admin
+     */
     public function findAdminByUsername(string $username): ?Admin
     {
-        /* @var Admin $admin */
-        $admin = $this->findOneBy(['userName' => $username]);
-
-        return $admin;
+        return $this->findOneBy(['userName' => $username]);
     }
 }

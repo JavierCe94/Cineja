@@ -1,9 +1,9 @@
 check_login_user:
     path: '/login'
-    controller: 'Javier\Cineja\Infrastructure\Controller\User\CheckLoginUserController::checkLoginUser'
+    controller: 'Javier\Cineja\Infrastructure\Controller\User\CheckLoginUserController'
     methods: [PUT]
 
 create_user:
     path: '/create'
-    controller: 'Javier\Cineja\Infrastructure\Controller\User\CreateUserController::createUser'
+    controller: 'Javier\Cineja\Infrastructure\Controller\User\CreateUserController'
     methods: [PUT]

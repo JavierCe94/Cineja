@@ -11,7 +11,7 @@ class ShowGenres
 
     public function __construct(
         GenreRepository $genreRepository,
-        ShowGenresTransformInterface $showGenresTransform
+        ShowGenresTransformI $showGenresTransform
     ) {
         $this->genreRepository = $genreRepository;
         $this->showGenresTransform = $showGenresTransform;

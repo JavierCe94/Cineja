@@ -14,7 +14,7 @@ class CreateSeatsRoom
 
     public function __construct(
         SeatRepository $seatRepository,
-        CreateSeatsRoomTransformInterface $createSeatsRoomTransform,
+        CreateSeatsRoomTransformI $createSeatsRoomTransform,
         SearchRoomById $searchRoomById
     ) {
         $this->seatRepository = $seatRepository;

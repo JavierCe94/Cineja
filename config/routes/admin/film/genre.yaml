@@ -1,7 +1,9 @@
 create_genre:
     path: '/create'
-    controller: 'Javier\Cineja\Infrastructure\Controller\Film\CreateGenreController::createGenre'
+    controller: 'Javier\Cineja\Infrastructure\Controller\Film\CreateGenreController'
+    methods: [PUT]
 
 show_genres:
     path: '/showgenres'
-    controller: 'Javier\Cineja\Infrastructure\Controller\Film\ShowGenresController::showGenres'
+    controller: 'Javier\Cineja\Infrastructure\Controller\Film\ShowGenresController'
+    methods: [PUT]

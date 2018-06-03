@@ -1,3 +1,4 @@
 create_film_room:
     path: '/create'
-    controller: 'Javier\Cineja\Infrastructure\Controller\FilmRoom\CreateFilmRoomController::createFilmRoom'
+    controller: 'Javier\Cineja\Infrastructure\Controller\FilmRoom\CreateFilmRoomController'
+    methods: [PUT]

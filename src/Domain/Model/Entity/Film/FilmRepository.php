@@ -7,6 +7,7 @@ interface FilmRepository
     public function createFilm(Film $film): Film;
     public function changeToStateRetiredFilm(Film $film): Film;
     public function findFilmById(int $id): ?Film;
+    public function findFilmByName(string $name): ?Film;
     public function findRoomsWhereVisualizeFilmStateVisible(): array;
     public function findFilms(): array;
 }

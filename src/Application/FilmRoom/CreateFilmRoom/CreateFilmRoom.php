@@ -16,7 +16,7 @@ class CreateFilmRoom
 
     public function __construct(
         FilmRoomRepository $filmRoomRepository,
-        CreateFilmRoomTransformInterface $createFilmRoomTransform,
+        CreateFilmRoomTransformI $createFilmRoomTransform,
         SearchFilmById $searchFilmById,
         SearchRoomById $searchRoomById
     ) {

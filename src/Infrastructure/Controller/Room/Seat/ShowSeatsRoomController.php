@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ShowSeatsRoomController extends RoleAdmin
 {
-    public function showSeatsRoom(Request $request, ShowSeatsRoom $showSeatsRoom): Response
+    public function __invoke(Request $request, ShowSeatsRoom $showSeatsRoom): Response
     {
         $showSeatsRoomCommand = new ShowSeatsRoomCommand(
             $request->attributes->get('room')

@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CheckLoginUserController
 {
-    public function checkLoginUser(Request $request, CheckLoginUser $checkLoginUser): Response
+    public function __invoke(Request $request, CheckLoginUser $checkLoginUser): Response
     {
         $checkLoginUserCommand = new CheckLoginUserCommand(
             $request->request->get('mail'),

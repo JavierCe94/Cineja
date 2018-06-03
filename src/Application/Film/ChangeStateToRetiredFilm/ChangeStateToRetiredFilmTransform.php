@@ -2,7 +2,7 @@
 
 namespace Javier\Cineja\Application\Film\ChangeStateToRetiredFilm;
 
-class ChangeStateToRetiredFilmTransform implements ChangeStateToRetiredFilmTransformInterface
+class ChangeStateToRetiredFilmTransform implements ChangeStateToRetiredFilmTransformI
 {
     public function transform()
     {

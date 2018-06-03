@@ -1,15 +1,19 @@
 change_state_type_normal_seat:
     path: '/typenormal'
-    controller: 'Javier\Cineja\Infrastructure\Controller\Room\Seat\ChangeSeatsToTypeNormalController::changeSeatsToTypeNormal'
+    controller: 'Javier\Cineja\Infrastructure\Controller\Room\Seat\ChangeSeatsToTypeNormalController'
+    methods: [PUT]
 
 change_state_type_space_seat:
     path: '/typespace'
-    controller: 'Javier\Cineja\Infrastructure\Controller\Room\Seat\ChangeSeatsToTypeSpaceController::changeSeatsToTypeSpace'
+    controller: 'Javier\Cineja\Infrastructure\Controller\Room\Seat\ChangeSeatsToTypeSpaceController'
+    methods: [PUT]
 
 create_seats_room:
     path: '/room/{room}/create'
-    controller: 'Javier\Cineja\Infrastructure\Controller\Room\Seat\CreateSeatsRoomController::createSeatsRoom'
+    controller: 'Javier\Cineja\Infrastructure\Controller\Room\Seat\CreateSeatsRoomController'
+    methods: [PUT]
 
 show_seats_room:
     path: '/room/{room}/showseats'
-    controller: 'Javier\Cineja\Infrastructure\Controller\Room\Seat\ShowSeatsRoomController::showSeatsRoom'
+    controller: 'Javier\Cineja\Infrastructure\Controller\Room\Seat\ShowSeatsRoomController'
+    methods: [PUT]

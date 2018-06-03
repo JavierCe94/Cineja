@@ -4,7 +4,7 @@ namespace Javier\Cineja\Application\Film\ShowGenres;
 
 use Javier\Cineja\Domain\Model\Entity\Film\Genre;
 
-class ShowGenresTransform implements ShowGenresTransformInterface
+class ShowGenresTransform implements ShowGenresTransformI
 {
     /**
      * @param array|Genre[] $genres

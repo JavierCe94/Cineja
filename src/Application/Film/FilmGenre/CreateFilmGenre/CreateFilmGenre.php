@@ -16,7 +16,7 @@ class CreateFilmGenre
 
     public function __construct(
         FilmGenreRepository $filmGenreRepository,
-        CreateFilmGenreTransformInterface $createFilmGenreTransform,
+        CreateFilmGenreTransformI $createFilmGenreTransform,
         SearchFilmById $searchFilmById,
         SearchGenreById $searchGenreById
     ) {

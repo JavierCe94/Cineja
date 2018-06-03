@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ChangeStateToRetiredFilmController extends RoleAdmin
 {
-    public function changeStateToRetiredFilm(
+    public function __invoke(
         Request $request,
         ChangeStateToRetiredFilm $changeStateToRetiredFilm
     ): Response {

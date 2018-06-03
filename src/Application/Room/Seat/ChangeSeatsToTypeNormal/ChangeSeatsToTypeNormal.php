@@ -13,7 +13,7 @@ class ChangeSeatsToTypeNormal
 
     public function __construct(
         SeatRepository $seatRepository,
-        ChangeSeatsToTypeNormalTransformInterface $changeSeatsToTypeNormalTransform,
+        ChangeSeatsToTypeNormalTransformI $changeSeatsToTypeNormalTransform,
         SearchSeatById $searchSeatById
     ) {
         $this->seatRepository = $seatRepository;
@@ -32,7 +32,7 @@ class ChangeSeatsToTypeNormal
         foreach ($changeSeatsToTypeNormalCommand->seats() as $idSeat) {
             $listSeats[] = $this->searchSeatById->execute($idSeat);
         }
-        $this->seatRepository->changeToTypeNormalSeat($listSeats);
+        $this->seatRepository->changeTypeSeat($listSeats, false);
 
         return $this->changeSeatsToTypeNormalTransform->transform();
     }

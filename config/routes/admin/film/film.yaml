@@ -1,18 +1,19 @@
 change_state_retired_film:
     path: '/{film}/stateretired'
-    controller: 'Javier\Cineja\Infrastructure\Controller\Film\ChangeStateToRetiredFilmController::changeStateToRetiredFilm'
+    controller: 'Javier\Cineja\Infrastructure\Controller\Film\ChangeStateToRetiredFilmController'
+    methods: [PUT]
 
 create_film:
     path: '/create'
-    controller: 'Javier\Cineja\Infrastructure\Controller\Film\CreateFilmController::createFilm'
+    controller: 'Javier\Cineja\Infrastructure\Controller\Film\CreateFilmController'
     methods: [PUT]
 
 show_films:
     path: '/showfilms'
-    controller: 'Javier\Cineja\Infrastructure\Controller\Film\ShowFilmsController::showFilms'
+    controller: 'Javier\Cineja\Infrastructure\Controller\Film\ShowFilmsController'
     methods: [PUT]
 
 show_films_rooms:
     path: '/showfilmsrooms'
-    controller: 'Javier\Cineja\Infrastructure\Controller\Film\ShowFilmsWithRoomsController::showFilmsWithRooms'
+    controller: 'Javier\Cineja\Infrastructure\Controller\Film\ShowFilmsWithRoomsController'
     methods: [PUT]

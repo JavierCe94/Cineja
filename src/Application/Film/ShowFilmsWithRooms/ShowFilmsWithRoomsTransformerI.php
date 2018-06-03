@@ -2,7 +2,7 @@
 
 namespace Javier\Cineja\Application\Film\ShowFilmsWithRooms;
 
-interface ShowFilmsWithRoomsTransformerInterface
+interface ShowFilmsWithRoomsTransformerI
 {
     public function transform(array $filmsWithRooms);
 }

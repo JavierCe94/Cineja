@@ -11,7 +11,7 @@ class ShowSeatsFilmRoom
 
     public function __construct(
         SeatRepository $seatRepository,
-        ShowSeatsFilmRoomTransformInterface $showSeatsFilmRoomTransform
+        ShowSeatsFilmRoomTransformI $showSeatsFilmRoomTransform
     ) {
         $this->seatRepository = $seatRepository;
         $this->showSeatsFilmRoomTransform = $showSeatsFilmRoomTransform;

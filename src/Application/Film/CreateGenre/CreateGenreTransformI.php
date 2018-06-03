@@ -2,7 +2,7 @@
 
 namespace Javier\Cineja\Application\Film\CreateGenre;
 
-interface CreateGenreTransformInterface
+interface CreateGenreTransformI
 {
     public function transform();
 }

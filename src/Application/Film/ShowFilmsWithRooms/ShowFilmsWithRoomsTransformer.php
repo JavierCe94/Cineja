@@ -4,7 +4,7 @@ namespace Javier\Cineja\Application\Film\ShowFilmsWithRooms;
 
 use Javier\Cineja\Domain\Model\Entity\Film\Film;
 
-class ShowFilmsWithRoomsTransformer implements ShowFilmsWithRoomsTransformerInterface
+class ShowFilmsWithRoomsTransformer implements ShowFilmsWithRoomsTransformerI
 {
     /**
      * @param array|Film[] $filmsWithRooms
@@ -26,7 +26,7 @@ class ShowFilmsWithRoomsTransformer implements ShowFilmsWithRoomsTransformerInte
                 $listRooms[] = [
                     'idRoom' => $room->room()->id(),
                     'idFilmRoom' => $room->id(),
-                    'releaseDate' => $room->releaseDate()
+                    'releaseDate' => $room->releaseDate()->format('d-m-Y')
                 ];
             }
             $listFilmsWithRooms[] = [

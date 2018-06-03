@@ -2,7 +2,7 @@
 
 namespace Javier\Cineja\Application\User\CheckLoginUser;
 
-interface CheckLoginUserTransformInterface
+interface CheckLoginUserTransformI
 {
 
 }

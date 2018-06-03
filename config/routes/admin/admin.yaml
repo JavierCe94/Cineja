@@ -1,4 +1,4 @@
 check_login_admin:
     path: '/login'
-    controller: 'Javier\Cineja\Infrastructure\Controller\Admin\CheckLoginAdminController::checkLoginAdmin'
+    controller: 'Javier\Cineja\Infrastructure\Controller\Admin\CheckLoginAdminController'
     methods: [PUT]

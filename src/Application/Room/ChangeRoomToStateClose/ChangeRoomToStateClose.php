@@ -3,6 +3,7 @@
 namespace Javier\Cineja\Application\Room\ChangeRoomToStateClose;
 
 use Javier\Cineja\Domain\Model\Entity\Room\RoomRepository;
+use Javier\Cineja\Domain\Model\Entity\Room\StateRoom;
 use Javier\Cineja\Domain\Service\Room\SearchRoomById;
 
 class ChangeRoomToStateClose
@@ -13,7 +14,7 @@ class ChangeRoomToStateClose
 
     public function __construct(
         RoomRepository $roomRepository,
-        ChangeRoomToStateCloseTransformInterface $changeRoomToStateCloseTransform,
+        ChangeRoomToStateCloseTransformI $changeRoomToStateCloseTransform,
         SearchRoomById $searchRoomById
     ) {
         $this->roomRepository = $roomRepository;
@@ -28,10 +29,11 @@ class ChangeRoomToStateClose
      */
     public function handle(ChangeRoomToStateCloseCommand $changeRoomToStateCloseCommand): string
     {
-        $this->roomRepository->changeToStateCloseRoom(
+        $this->roomRepository->changeStateRoom(
             $this->searchRoomById->execute(
                 $changeRoomToStateCloseCommand->id()
-            )
+            ),
+            StateRoom::STATE_CLOSE
         );
 
         return $this->changeRoomToStateCloseTransform->transform();

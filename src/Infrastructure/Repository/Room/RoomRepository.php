@@ -4,10 +4,9 @@ namespace Javier\Cineja\Infrastructure\Repository\Room;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Javier\Cineja\Domain\Model\Entity\Room\Room;
-use Javier\Cineja\Domain\Model\Entity\Room\RoomRepository as RoomRepositoryInterface;
-use Javier\Cineja\Domain\Model\Entity\Room\StateRoom;
+use Javier\Cineja\Domain\Model\Entity\Room\RoomRepository as RoomRepositoryI;
 
-class RoomRepository extends ServiceEntityRepository implements RoomRepositoryInterface
+class RoomRepository extends ServiceEntityRepository implements RoomRepositoryI
 {
     /**
      * @param Room $room
@@ -25,38 +24,35 @@ class RoomRepository extends ServiceEntityRepository implements RoomRepositoryIn
 
     /**
      * @param Room $room
+     * @param string $state
      * @return Room
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function changeToStateCloseRoom(Room $room): Room
+    public function changeStateRoom(Room $room, string $state): Room
     {
-        $room->setStateRoom(StateRoom::STATE_CLOSE);
+        $room->setStateRoom($state);
         $this->getEntityManager()->flush();
 
         return $room;
     }
 
     /**
-     * @param Room $room
-     * @return Room
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @param int $id
+     * @return object|Room
      */
-    public function changeToStateOpenRoom(Room $room): Room
-    {
-        $room->setStateRoom(StateRoom::STATE_OPEN);
-        $this->getEntityManager()->flush();
-
-        return $room;
-    }
-
     public function findRoomById(int $id): ?Room
     {
-        /* @var Room $room */
-        $room = $this->find($id);
+        return $this->find($id);
+    }
 
-        return $room;
+    /**
+     * @param string $name
+     * @return object|Room
+     */
+    public function findRoomByName(string $name): ?Room
+    {
+        return $this->findOneBy(['name' => $name]);
     }
 
     /**
@@ -64,8 +60,6 @@ class RoomRepository extends ServiceEntityRepository implements RoomRepositoryIn
      */
     public function findRooms(): array
     {
-        $rooms = $this->findAll();
-
-        return $rooms;
+        return $this->findAll();
     }
 }

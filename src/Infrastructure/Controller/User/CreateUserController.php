@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CreateUserController
 {
-    public function createUser(Request $request, CreateUser $createUser): Response
+    public function __invoke(Request $request, CreateUser $createUser): Response
     {
         $createUserCommand = new CreateUserCommand(
             $request->request->get('mail'),

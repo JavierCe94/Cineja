@@ -13,7 +13,7 @@ class ChangeStateToRetiredFilm
 
     public function __construct(
         FilmRepository $filmRepository,
-        ChangeStateToRetiredFilmTransformInterface $changeStateToRetiredFilmTransform,
+        ChangeStateToRetiredFilmTransformI $changeStateToRetiredFilmTransform,
         SearchFilmById $searchFilmById
     ) {
         $this->filmRepository = $filmRepository;

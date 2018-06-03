@@ -2,7 +2,7 @@
 
 namespace Javier\Cineja\Application\Film\CreateFilm;
 
-class CreateFilmTransform implements CreateFilmTransformInterface
+class CreateFilmTransform implements CreateFilmTransformI
 {
     public function transform()
     {

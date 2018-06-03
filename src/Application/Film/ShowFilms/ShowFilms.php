@@ -11,7 +11,7 @@ class ShowFilms
 
     public function __construct(
         FilmRepository $filmRepository,
-        ShowFilmsTransformInterface $showFilmTransform
+        ShowFilmsTransformI $showFilmTransform
     ) {
         $this->filmRepository = $filmRepository;
         $this->showFilmTransform = $showFilmTransform;

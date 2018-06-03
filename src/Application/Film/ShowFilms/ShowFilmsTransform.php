@@ -4,7 +4,7 @@ namespace Javier\Cineja\Application\Film\ShowFilms;
 
 use Javier\Cineja\Domain\Model\Entity\Film\Film;
 
-class ShowFilmsTransform implements ShowFilmsTransformInterface
+class ShowFilmsTransform implements ShowFilmsTransformI
 {
     /**
      * @param array|Film[] $films

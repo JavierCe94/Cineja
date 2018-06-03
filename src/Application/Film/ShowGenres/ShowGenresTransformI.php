@@ -2,7 +2,7 @@
 
 namespace Javier\Cineja\Application\Film\ShowGenres;
 
-interface ShowGenresTransformInterface
+interface ShowGenresTransformI
 {
     public function transform(array $genres);
 }

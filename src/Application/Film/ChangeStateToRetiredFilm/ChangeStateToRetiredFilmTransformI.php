@@ -2,7 +2,7 @@
 
 namespace Javier\Cineja\Application\Film\ChangeStateToRetiredFilm;
 
-interface ChangeStateToRetiredFilmTransformInterface
+interface ChangeStateToRetiredFilmTransformI
 {
     public function transform();
 }

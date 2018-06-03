@@ -4,9 +4,9 @@ namespace Javier\Cineja\Infrastructure\Repository\Room\Seat;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Javier\Cineja\Domain\Model\Entity\Room\Seat\Seat;
-use Javier\Cineja\Domain\Model\Entity\Room\Seat\SeatRepository as SeatRepositoryInterface;
+use Javier\Cineja\Domain\Model\Entity\Room\Seat\SeatRepository as SeatRepositoryI;
 
-class SeatRepository extends ServiceEntityRepository implements SeatRepositoryInterface
+class SeatRepository extends ServiceEntityRepository implements SeatRepositoryI
 {
     /**
      * @param array $seats
@@ -26,14 +26,15 @@ class SeatRepository extends ServiceEntityRepository implements SeatRepositoryIn
 
     /**
      * @param array $seats
+     * @param bool $isTypeSpace
      * @return array
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function changeToTypeSpaceSeat(array $seats): array
+    public function changeTypeSeat(array $seats, bool $isTypeSpace): array
     {
         foreach ($seats as $seat) {
-            $seat->setTypeSpace(true);
+            $seat->setTypeSpace($isTypeSpace);
         }
         $this->getEntityManager()->flush();
 
@@ -41,32 +42,17 @@ class SeatRepository extends ServiceEntityRepository implements SeatRepositoryIn
     }
 
     /**
-     * @param array $seats
-     * @return array
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @param int $id
+     * @return object|Seat
      */
-    public function changeToTypeNormalSeat(array $seats): array
-    {
-        foreach ($seats as $seat) {
-            $seat->setTypeSpace(false);
-        }
-        $this->getEntityManager()->flush();
-
-        return $seats;
-    }
-
     public function findSeatById(int $id): ?Seat
     {
-        /* @var Seat $seat */
-        $seat = $this->find($id);
-
-        return $seat;
+        return $this->find($id);
     }
 
     public function findSeatsFilmRoom(int $idRoom, int $idFilmRoom): array
     {
-        $query = $this->createQueryBuilder('s')
+        return $this->createQueryBuilder('s')
             ->leftJoin('s.userSeatsFilm', 'usf')
             ->innerJoin('usf.filmRoom', 'fr')
             ->innerJoin('s.room', 'r')
@@ -74,19 +60,17 @@ class SeatRepository extends ServiceEntityRepository implements SeatRepositoryIn
             ->andWhere('fr.id = :idFilmRoom')
             ->setParameter('idRoom', $idRoom)
             ->setParameter('idFilmRoom', $idFilmRoom)
-            ->getQuery();
-
-        return $query->execute();
+            ->getQuery()
+            ->execute();
     }
 
     public function findSeatsByIdRoom(int $idRoom): array
     {
-        $query = $this->createQueryBuilder('se')
+        return $this->createQueryBuilder('se')
             ->innerJoin('se.room', 'ro')
             ->andWhere('ro.id = :idRoom')
             ->setParameter('idRoom', $idRoom)
-            ->getQuery();
-
-        return $query->execute();
+            ->getQuery()
+            ->execute();
     }
 }

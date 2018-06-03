@@ -13,7 +13,7 @@ class ChangeSeatsToTypeSpace
 
     public function __construct(
         SeatRepository $seatRepository,
-        ChangeSeatsToTypeSpaceTransformInterface $changeSeatsToTypeSpaceTransform,
+        ChangeSeatsToTypeSpaceTransformI $changeSeatsToTypeSpaceTransform,
         SearchSeatById $searchSeatById
     ) {
         $this->seatRepository = $seatRepository;
@@ -32,7 +32,7 @@ class ChangeSeatsToTypeSpace
         foreach ($changeSeatsToTypeSpaceCommand->seats() as $idSeat) {
             $listSeats[] = $this->searchSeatById->execute($idSeat);
         }
-        $this->seatRepository->changeToTypeSpaceSeat($listSeats);
+        $this->seatRepository->changeTypeSeat($listSeats, true);
 
         return $this->changeSeatsToTypeSpaceTransform->transform();
     }

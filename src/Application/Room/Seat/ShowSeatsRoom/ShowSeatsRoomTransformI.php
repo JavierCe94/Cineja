@@ -2,7 +2,7 @@
 
 namespace Javier\Cineja\Application\Room\Seat\ShowSeatsRoom;
 
-interface ShowSeatsRoomTransformInterface
+interface ShowSeatsRoomTransformI
 {
     public function transform(array $seats);
 }

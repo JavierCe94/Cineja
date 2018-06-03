@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CreateFilmRoomController extends RoleAdmin
 {
-    public function createFilmRoom(Request $request, CreateFilmRoom $createFilmRoom): Response
+    public function __invoke(Request $request, CreateFilmRoom $createFilmRoom): Response
     {
         $createFilmRoomCommand = new CreateFilmRoomCommand(
             $request->query->get('film'),

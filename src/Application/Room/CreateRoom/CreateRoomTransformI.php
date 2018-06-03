@@ -2,7 +2,7 @@
 
 namespace Javier\Cineja\Application\Room\CreateRoom;
 
-interface CreateRoomTransformInterface
+interface CreateRoomTransformI
 {
     public function transform();
 }

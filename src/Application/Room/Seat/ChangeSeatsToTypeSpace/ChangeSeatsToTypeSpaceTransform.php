@@ -2,7 +2,7 @@
 
 namespace Javier\Cineja\Application\Room\Seat\ChangeSeatsToTypeSpace;
 
-class ChangeSeatsToTypeSpaceTransform implements ChangeSeatsToTypeSpaceTransformInterface
+class ChangeSeatsToTypeSpaceTransform implements ChangeSeatsToTypeSpaceTransformI
 {
     public function transform()
     {

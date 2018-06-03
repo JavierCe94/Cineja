@@ -2,7 +2,7 @@
 
 namespace Javier\Cineja\Application\Room\ChangeRoomToStateOpen;
 
-interface ChangeRoomToStateOpenTransformInterface
+interface ChangeRoomToStateOpenTransformI
 {
     public function transform();
 }

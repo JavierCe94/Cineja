@@ -11,12 +11,12 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CreateSeatsRoomController extends RoleAdmin
 {
-    public function createSeatsRoom(Request $request, CreateSeatsRoom $createSeatsRoom): Response
+    public function __invoke(Request $request, CreateSeatsRoom $createSeatsRoom): Response
     {
         $createSeatsRoomCommand = new CreateSeatsRoomCommand(
             $request->attributes->get('room'),
-            $request->query->get('priceseat'),
-            $request->query->get('totalseatsroom')
+            $request->request->get('priceseat'),
+            $request->request->get('totalseatsroom')
         );
 
         return new JsonResponse(

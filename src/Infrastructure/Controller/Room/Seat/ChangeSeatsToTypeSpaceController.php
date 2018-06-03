@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ChangeSeatsToTypeSpaceController extends RoleAdmin
 {
-    public function changeSeatsToTypeSpace(
+    public function __invoke(
         Request $request,
         ChangeSeatsToTypeSpace $changeSeatsToTypeSpace
     ): Response {

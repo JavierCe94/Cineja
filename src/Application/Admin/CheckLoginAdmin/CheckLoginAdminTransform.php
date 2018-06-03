@@ -2,7 +2,7 @@
 
 namespace Javier\Cineja\Application\Admin\CheckLoginAdmin;
 
-class CheckLoginAdminTransform implements CheckLoginAdminTransformInterface
+class CheckLoginAdminTransform implements CheckLoginAdminTransformI
 {
 
 }

@@ -36,7 +36,7 @@ class Room
     {
         $this->name = $name;
         $this->totalSeatsByRow = $totalSeatsByRow;
-        $this->stateRoom = StateRoom::STATE_OPEN;
+        $this->stateRoom = StateRoom::STATE_CLOSE;
     }
 
     public function id(): int

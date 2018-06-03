@@ -4,9 +4,9 @@ namespace Javier\Cineja\Infrastructure\Repository\Film;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Javier\Cineja\Domain\Model\Entity\Film\Genre;
-use Javier\Cineja\Domain\Model\Entity\Film\GenreRepository as GenreRepositoryInterface;
+use Javier\Cineja\Domain\Model\Entity\Film\GenreRepository as GenreRepositoryI;
 
-class GenreRepository extends ServiceEntityRepository implements GenreRepositoryInterface
+class GenreRepository extends ServiceEntityRepository implements GenreRepositoryI
 {
     /**
      * @param Genre $genre
@@ -22,12 +22,22 @@ class GenreRepository extends ServiceEntityRepository implements GenreRepository
         return $genre;
     }
 
+    /**
+     * @param int $id
+     * @return object|Genre
+     */
     public function findGenreById(int $id): ?Genre
     {
-        /* @var Genre $genre */
-        $genre = $this->find($id);
+        return $this->find($id);
+    }
 
-        return $genre;
+    /**
+     * @param string $name
+     * @return object|Genre
+     */
+    public function findGenreByName(string $name): ?Genre
+    {
+        return $this->findOneBy(['name' => $name]);
     }
 
     /**
@@ -35,8 +45,6 @@ class GenreRepository extends ServiceEntityRepository implements GenreRepository
      */
     public function findGenres(): array
     {
-        $listGenres = $this->findAll();
-
-        return $listGenres;
+        return $this->findAll();
     }
 }

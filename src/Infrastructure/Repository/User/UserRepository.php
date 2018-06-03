@@ -4,9 +4,9 @@ namespace Javier\Cineja\Infrastructure\Repository\User;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Javier\Cineja\Domain\Model\Entity\User\User;
-use Javier\Cineja\Domain\Model\Entity\User\UserRepository as UserRepositoryInterface;
+use Javier\Cineja\Domain\Model\Entity\User\UserRepository as UserRepositoryI;
 
-class UserRepository extends ServiceEntityRepository implements UserRepositoryInterface
+class UserRepository extends ServiceEntityRepository implements UserRepositoryI
 {
     /**
      * @param User $user
@@ -22,19 +22,30 @@ class UserRepository extends ServiceEntityRepository implements UserRepositoryIn
         return $user;
     }
 
+    /**
+     * @param int $id
+     * @return object|User
+     */
     public function findUserById(int $id): ?User
     {
-        /* @var User $user */
-        $user = $this->find($id);
-
-        return $user;
+        return $this->find($id);
     }
 
+    /**
+     * @param string $mail
+     * @return object|User
+     */
     public function findUserByMail(string $mail): ?User
     {
-        /* @var User $user */
-        $user = $this->findOneBy(['mail' => $mail]);
+        return $this->findOneBy(['mail' => $mail]);
+    }
 
-        return $user;
+    /**
+     * @param string $creditCard
+     * @return object|User
+     */
+    public function findUserByCreditCard(string $creditCard): ?User
+    {
+        return $this->findOneBy(['creditCard' => $creditCard]);
     }
 }

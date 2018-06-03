@@ -4,9 +4,9 @@ namespace Javier\Cineja\Infrastructure\Repository\FilmRoom;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Javier\Cineja\Domain\Model\Entity\FilmRoom\FilmRoom;
-use Javier\Cineja\Domain\Model\Entity\FilmRoom\FilmRoomRepository as FilmRoomRepositoryInterface;
+use Javier\Cineja\Domain\Model\Entity\FilmRoom\FilmRoomRepository as FilmRoomRepositoryI;
 
-class FilmRoomRepository extends ServiceEntityRepository implements FilmRoomRepositoryInterface
+class FilmRoomRepository extends ServiceEntityRepository implements FilmRoomRepositoryI
 {
     /**
      * @param FilmRoom $filmRoom
@@ -22,12 +22,13 @@ class FilmRoomRepository extends ServiceEntityRepository implements FilmRoomRepo
         return $filmRoom;
     }
 
+    /**
+     * @param int $id
+     * @return object|FilmRoom
+     */
     public function findFilmRoomById(int $id): ?FilmRoom
     {
-        /* @var FilmRoom $filmRoom */
-        $filmRoom = $this->find($id);
-
-        return $filmRoom;
+        return $this->find($id);
     }
 
     /**
@@ -36,12 +37,11 @@ class FilmRoomRepository extends ServiceEntityRepository implements FilmRoomRepo
      */
     public function findFilmRooms(int $idFilm): array
     {
-        $query = $this->createQueryBuilder('fr')
+        return $this->createQueryBuilder('fr')
             ->innerJoin('fr.film', 'f')
             ->andWhere('f.id = :idFilm')
             ->setParameter('idFilm', $idFilm)
-            ->getQuery();
-
-        return $query->execute();
+            ->getQuery()
+            ->execute();
     }
 }

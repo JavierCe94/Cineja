@@ -11,7 +11,7 @@ class ShowRooms
 
     public function __construct(
         RoomRepository $roomRepository,
-        ShowRoomsTransformInterface $showRoomsTransform
+        ShowRoomsTransformI $showRoomsTransform
     ) {
         $this->roomRepository = $roomRepository;
         $this->showRoomsTransform = $showRoomsTransform;

@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CheckLoginAdminController
 {
-    public function checkLoginAdmin(Request $request, CheckLoginAdmin $checkLoginAdmin): Response
+    public function __invoke(Request $request, CheckLoginAdmin $checkLoginAdmin): Response
     {
         $checkLoginAdminCommand = new CheckLoginAdminCommand(
             $request->request->get('username'),

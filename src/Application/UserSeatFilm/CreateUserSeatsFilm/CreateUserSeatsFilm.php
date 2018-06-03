@@ -20,7 +20,7 @@ class CreateUserSeatsFilm
 
     public function __construct(
         UserSeatFilmRepository $userSeatFilmRepository,
-        CreateUserSeatsFilmTransformInterface $createUserSeatsFilmTransform,
+        CreateUserSeatsFilmTransformI $createUserSeatsFilmTransform,
         SearchSeatById $searchSeatById,
         SearchFilmRoomById $searchFilmRoomById,
         SearchUserById $searchUserById,

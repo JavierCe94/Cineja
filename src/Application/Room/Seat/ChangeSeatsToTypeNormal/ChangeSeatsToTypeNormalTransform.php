@@ -2,7 +2,7 @@
 
 namespace Javier\Cineja\Application\Room\Seat\ChangeSeatsToTypeNormal;
 
-class ChangeSeatsToTypeNormalTransform implements ChangeSeatsToTypeNormalTransformInterface
+class ChangeSeatsToTypeNormalTransform implements ChangeSeatsToTypeNormalTransformI
 {
     public function transform()
     {

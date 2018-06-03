@@ -2,7 +2,7 @@
 
 namespace Javier\Cineja\Application\Room\ChangeRoomToStateClose;
 
-class ChangeRoomToStateCloseTransform implements ChangeRoomToStateCloseTransformInterface
+class ChangeRoomToStateCloseTransform implements ChangeRoomToStateCloseTransformI
 {
     public function transform()
     {

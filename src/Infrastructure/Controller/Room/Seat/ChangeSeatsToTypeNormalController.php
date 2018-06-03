@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ChangeSeatsToTypeNormalController extends RoleAdmin
 {
-    public function changeSeatsToTypeNormal(
+    public function __invoke(
         Request $request,
         ChangeSeatsToTypeNormal $changeSeatsToTypeNormal
     ): Response {

@@ -4,9 +4,9 @@ namespace Javier\Cineja\Infrastructure\Repository\UserSeatFilm;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Javier\Cineja\Domain\Model\Entity\UserSeatFilm\UserSeatFilm;
-use Javier\Cineja\Domain\Model\Entity\UserSeatFilm\UserSeatFilmRepository as UserSeatFilmRepositoryInterface;
+use Javier\Cineja\Domain\Model\Entity\UserSeatFilm\UserSeatFilmRepository as UserSeatFilmRepositoryI;
 
-class UserSeatFilmRepository extends ServiceEntityRepository implements UserSeatFilmRepositoryInterface
+class UserSeatFilmRepository extends ServiceEntityRepository implements UserSeatFilmRepositoryI
 {
     /**
      * @param array|UserSeatFilm[] $userSeatsFilm
@@ -22,5 +22,14 @@ class UserSeatFilmRepository extends ServiceEntityRepository implements UserSeat
         $this->getEntityManager()->flush();
 
         return $userSeatsFilm;
+    }
+
+    /**
+     * @param string $codeQr
+     * @return object|UserSeatFilm
+     */
+    public function findUserSeatFilmByCodeQr(string $codeQr): ?UserSeatFilm
+    {
+        return $this->findOneBy(['codeQr' => $codeQr]);
     }
 }
