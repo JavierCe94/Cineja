@@ -16,7 +16,7 @@ class ChangeSeatsToTypeSpaceController extends RoleAdmin
         ChangeSeatsToTypeSpace $changeSeatsToTypeSpace
     ): Response {
         $changeSeatsToTypeSpaceCommand = new ChangeSeatsToTypeSpaceCommand(
-            $request->query->get('seats')
+            $request->request->get('seats')
         );
 
         return new JsonResponse(

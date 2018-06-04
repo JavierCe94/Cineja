@@ -16,7 +16,7 @@ class ChangeSeatsToTypeNormalController extends RoleAdmin
         ChangeSeatsToTypeNormal $changeSeatsToTypeNormal
     ): Response {
         $changeSeatsToTypeNormalCommand = new ChangeSeatsToTypeNormalCommand(
-            $request->query->get('seats')
+            $request->request->get('seats')
         );
 
         return new JsonResponse(
