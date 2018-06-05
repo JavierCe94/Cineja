@@ -14,8 +14,8 @@ class CreateFilmGenreController extends RoleAdmin
     public function __invoke(Request $request, CreateFilmGenre $createFilmGenre): Response
     {
         $createFilmGenreCommand = new CreateFilmGenreCommand(
-            $request->query->get('film'),
-            $request->query->get('genre')
+            $request->request->get('film'),
+            $request->request->get('genre')
         );
 
         return new JsonResponse(

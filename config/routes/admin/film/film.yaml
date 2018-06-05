@@ -8,6 +8,11 @@ create_film:
     controller: 'Javier\Cineja\Infrastructure\Controller\Film\CreateFilmController'
     methods: [PUT]
 
+show_film_by_id:
+    path: '/show/{film}'
+    controller: 'Javier\Cineja\Infrastructure\Controller\Film\ShowFilmByIdController'
+    methods: [PUT]
+
 show_films:
     path: '/showfilms'
     controller: 'Javier\Cineja\Infrastructure\Controller\Film\ShowFilmsController'

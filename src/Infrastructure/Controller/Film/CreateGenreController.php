@@ -14,7 +14,7 @@ class CreateGenreController extends RoleAdmin
     public function __invoke(Request $request, CreateGenre $createGenre): Response
     {
         $createGenreCommand = new CreateGenreCommand(
-            $request->query->get('name')
+            $request->request->get('name')
         );
 
         return new JsonResponse(
