@@ -9,5 +9,5 @@ interface FilmRepository
     public function findFilmById(int $id): ?Film;
     public function findFilmByName(string $name): ?Film;
     public function findRoomsWhereVisualizeFilmStateVisible(): array;
-    public function findFilms(): array;
+    public function findFilms(?\DateTime $startDate, ?\DateTime $endDate): array;
 }

@@ -22,11 +22,11 @@ class ShowFilmsWithRoomsTransformer implements ShowFilmsWithRoomsTransformerI
                 ];
             }
             $listRooms = [];
-            foreach ($filmWithRooms->filmRooms() as $room) {
+            foreach ($filmWithRooms->filmRooms() as $filmRoom) {
                 $listRooms[] = [
-                    'idRoom' => $room->room()->id(),
-                    'idFilmRoom' => $room->id(),
-                    'releaseDate' => $room->releaseDate()->format('d-m-Y')
+                    'idFilmRoom' => $filmRoom->id(),
+                    'idRoom' => $filmRoom->room()->id(),
+                    'releaseDate' => $filmRoom->releaseDate()->format('d-m-Y')
                 ];
             }
             $listFilmsWithRooms[] = [

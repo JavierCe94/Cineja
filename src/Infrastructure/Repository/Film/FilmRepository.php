@@ -7,6 +7,9 @@ use Javier\Cineja\Domain\Model\Entity\Film\Film;
 use Javier\Cineja\Domain\Model\Entity\Film\FilmRepository as FilmRepositoryI;
 use Javier\Cineja\Domain\Model\Entity\Film\StateFilm;
 use Javier\Cineja\Domain\Model\Entity\Room\StateRoom;
+use Javier\Cineja\Infrastructure\Util\Specification\AndX;
+use Javier\Cineja\Infrastructure\Util\Specification\AsArray;
+use Javier\Cineja\Infrastructure\Util\Specification\Film\FilterFilmByDate;
 
 class FilmRepository extends ServiceEntityRepository implements FilmRepositoryI
 {
@@ -70,17 +73,19 @@ class FilmRepository extends ServiceEntityRepository implements FilmRepositoryI
             ->execute();
     }
 
-    /**
-     * @return array|Film[]
-     */
-    public function findFilms(): array
+    public function findFilms(?\DateTime $startDate, ?\DateTime $endDate): array
     {
-        return $this->createQueryBuilder('f')
+        $query = $this->createQueryBuilder('f')
             ->leftJoin('f.filmRooms', 'fr')
             ->andWhere('f.stateFilm = :stateFilm')
             ->setParameter('stateFilm', StateFilm::STATE_VISIBLE)
-            ->orderBy('f.id', 'desc')
-            ->getQuery()
-            ->execute();
+            ->orderBy('f.id', 'desc');
+        (new AsArray(
+            new AndX(
+                new FilterFilmByDate($startDate, $endDate)
+            )
+        ))->match($query);
+
+        return $query->getQuery()->execute();
     }
 }

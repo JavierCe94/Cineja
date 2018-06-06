@@ -17,10 +17,22 @@ class ShowFilms
         $this->showFilmTransform = $showFilmTransform;
     }
 
-    public function handle(): array
+    public function handle(ShowFilmsCommand $showFilmsCommand): array
     {
+        if (null === $showFilmsCommand->date()) {
+            return $this->showFilmTransform->transform(
+                $this->filmRepository->findFilms(
+                    null,
+                    null
+                )
+            );
+        }
+
         return $this->showFilmTransform->transform(
-            $this->filmRepository->findFilms()
+            $this->filmRepository->findFilms(
+                new \DateTime($showFilmsCommand->date().' 00:00:00'),
+                new \DateTime($showFilmsCommand->date().' 23:59:59')
+            )
         );
     }
 }

@@ -15,6 +15,16 @@ class ShowFilmByIdTransform implements ShowFilmByIdTransformI
                 'name' => $filmGenre->genre()->name()
             ];
         }
+        $listRooms = [];
+        foreach ($film->filmRooms() as $filmRoom) {
+            $listRooms[] = [
+                'id' => $filmRoom->id(),
+                'name' => $filmRoom->room()->name(),
+                'seatsRow' => $filmRoom->room()->totalSeatsByRow(),
+                'state' => $filmRoom->room()->stateRoom(),
+                'releaseDate' => $filmRoom->releaseDate()->format('d-m-Y')
+            ];
+        }
 
         return [
             'id' => $film->id(),
@@ -23,7 +33,8 @@ class ShowFilmByIdTransform implements ShowFilmByIdTransformI
             'description' => $film->description(),
             'minAge' => $film->minAge(),
             'duration' => $film->duration(),
-            'genres' => $listGenres
+            'genres' => $listGenres,
+            'rooms' => $listRooms
         ];
     }
 }
