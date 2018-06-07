@@ -5,6 +5,7 @@ namespace Javier\Cineja\Infrastructure\Repository\FilmRoom;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Javier\Cineja\Domain\Model\Entity\FilmRoom\FilmRoom;
 use Javier\Cineja\Domain\Model\Entity\FilmRoom\FilmRoomRepository as FilmRoomRepositoryI;
+use Javier\Cineja\Domain\Model\Entity\Room\StateRoom;
 
 class FilmRoomRepository extends ServiceEntityRepository implements FilmRoomRepositoryI
 {
@@ -33,14 +34,23 @@ class FilmRoomRepository extends ServiceEntityRepository implements FilmRoomRepo
 
     /**
      * @param int $idFilm
+     * @param \DateTime $startDate
+     * @param \DateTime $endDate
      * @return array|FilmRoom[]
      */
-    public function findFilmRooms(int $idFilm): array
+    public function findFilmRoomsByIdAndDate(int $idFilm, \DateTime $startDate, \DateTime $endDate): array
     {
         return $this->createQueryBuilder('fr')
             ->innerJoin('fr.film', 'f')
+            ->innerJoin('fr.room', 'ro')
             ->andWhere('f.id = :idFilm')
+            ->andWhere('ro.stateRoom = :stateRoom')
+            ->andWhere('fr.releaseDate BETWEEN :startDate AND :endDate')
             ->setParameter('idFilm', $idFilm)
+            ->setParameter('stateRoom', StateRoom::STATE_OPEN)
+            ->setParameter('startDate', $startDate)
+            ->setParameter('endDate', $endDate)
+            ->orderBy('fr.releaseDate', 'asc')
             ->getQuery()
             ->execute();
     }

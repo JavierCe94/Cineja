@@ -26,7 +26,7 @@ class ShowFilmsWithRoomsTransformer implements ShowFilmsWithRoomsTransformerI
                 $listRooms[] = [
                     'idFilmRoom' => $filmRoom->id(),
                     'idRoom' => $filmRoom->room()->id(),
-                    'releaseDate' => $filmRoom->releaseDate()->format('d-m-Y')
+                    'releaseDate' => $filmRoom->releaseDate()->format('H:i')
                 ];
             }
             $listFilmsWithRooms[] = [

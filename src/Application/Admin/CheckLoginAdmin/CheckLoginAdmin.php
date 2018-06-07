@@ -11,26 +11,29 @@ use Javier\Cineja\Domain\Service\PasswordHash\CheckPasswordEncrypt;
 class CheckLoginAdmin
 {
     private $adminRepository;
+    private $checkLoginAdminTransform;
     private $checkPasswordEncrypt;
     private $createToken;
 
     public function __construct(
         AdminRepository $adminRepository,
+        CheckLoginAdminTransformI $checkLoginAdminTransform,
         CheckPasswordEncrypt $checkPasswordEncrypt,
         CreateToken $createToken
     ) {
         $this->adminRepository = $adminRepository;
+        $this->checkLoginAdminTransform = $checkLoginAdminTransform;
         $this->checkPasswordEncrypt = $checkPasswordEncrypt;
         $this->createToken = $createToken;
     }
 
     /**
      * @param CheckLoginAdminCommand $checkLoginAdminCommand
-     * @return string
+     * @return array
      * @throws NotFoundAdminsException
      * @throws \Javier\Cineja\Domain\Model\PasswordHash\IncorrectPasswordException
      */
-    public function handle(CheckLoginAdminCommand $checkLoginAdminCommand): string
+    public function handle(CheckLoginAdminCommand $checkLoginAdminCommand): array
     {
         $admin = $this->adminRepository->findAdminByUsername(
             $checkLoginAdminCommand->username()
@@ -43,11 +46,14 @@ class CheckLoginAdmin
             $admin->password()
         );
 
-        return $this->createToken->execute(
-            Roles::ROLE_ADMIN,
-            [
-                'username' => $admin->username()
-            ]
+        return $this->checkLoginAdminTransform->transform(
+            $this->createToken->execute(
+                Roles::ROLE_ADMIN,
+                [
+                    'username' => $admin->username()
+                ]
+            ),
+            $admin->userName()
         );
     }
 }

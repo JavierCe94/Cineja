@@ -6,5 +6,5 @@ interface FilmRoomRepository
 {
     public function createFilmRoom(FilmRoom $filmRoom): FilmRoom;
     public function findFilmRoomById(int $id): ?FilmRoom;
-    public function findFilmRooms(int $idFilm): array;
+    public function findFilmRoomsByIdAndDate(int $idFilm, \DateTime $startDate, \DateTime $endDate): array;
 }

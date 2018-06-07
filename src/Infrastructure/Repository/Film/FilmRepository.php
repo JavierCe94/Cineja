@@ -13,6 +13,8 @@ use Javier\Cineja\Infrastructure\Util\Specification\Film\FilterFilmByDate;
 
 class FilmRepository extends ServiceEntityRepository implements FilmRepositoryI
 {
+    private const MAX_FILMS = 30;
+
     /**
      * @param Film $film
      * @return Film
@@ -59,15 +61,18 @@ class FilmRepository extends ServiceEntityRepository implements FilmRepositoryI
         return $this->findOneBy(['name' => $name]);
     }
 
-    public function findRoomsWhereVisualizeFilmStateVisible(): array
+    public function findRoomsWhereVisualizeFilmStateVisible(\DateTime $startDate, \DateTime $endDate): array
     {
         return $this->createQueryBuilder('f')
             ->leftJoin('f.filmRooms', 'fr')
             ->leftJoin('fr.room', 'ro')
             ->andWhere('f.stateFilm = :stateFilm')
             ->andWhere('ro.stateRoom = :stateRoom')
+            ->andWhere('fr.releaseDate BETWEEN :startDate AND :endDate')
             ->setParameter('stateFilm', StateFilm::STATE_VISIBLE)
             ->setParameter('stateRoom', StateRoom::STATE_OPEN)
+            ->setParameter('startDate', $startDate)
+            ->setParameter('endDate', $endDate)
             ->orderBy('f.id', 'desc')
             ->getQuery()
             ->execute();
@@ -79,7 +84,8 @@ class FilmRepository extends ServiceEntityRepository implements FilmRepositoryI
             ->leftJoin('f.filmRooms', 'fr')
             ->andWhere('f.stateFilm = :stateFilm')
             ->setParameter('stateFilm', StateFilm::STATE_VISIBLE)
-            ->orderBy('f.id', 'desc');
+            ->orderBy('f.id', 'desc')
+            ->setMaxResults(self::MAX_FILMS);
         (new AsArray(
             new AndX(
                 new FilterFilmByDate($startDate, $endDate)

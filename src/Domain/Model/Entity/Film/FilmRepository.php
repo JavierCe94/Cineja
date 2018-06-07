@@ -8,6 +8,6 @@ interface FilmRepository
     public function changeToStateRetiredFilm(Film $film): Film;
     public function findFilmById(int $id): ?Film;
     public function findFilmByName(string $name): ?Film;
-    public function findRoomsWhereVisualizeFilmStateVisible(): array;
+    public function findRoomsWhereVisualizeFilmStateVisible(\DateTime $startDate, \DateTime $endDate): array;
     public function findFilms(?\DateTime $startDate, ?\DateTime $endDate): array;
 }

@@ -10,26 +10,29 @@ use Javier\Cineja\Domain\Service\JwtToken\CreateToken;
 class CheckLoginUser
 {
     private $searchUserByMail;
+    private $checkLoginUserTransform;
     private $checkPasswordEncrypt;
     private $createToken;
 
     public function __construct(
         SearchUserByMail $searchUserByMail,
+        CheckLoginUserTransformI $checkLoginUserTransform,
         CheckPasswordEncrypt $checkPasswordEncrypt,
         CreateToken $createToken
     ) {
         $this->searchUserByMail = $searchUserByMail;
+        $this->checkLoginUserTransform = $checkLoginUserTransform;
         $this->checkPasswordEncrypt = $checkPasswordEncrypt;
         $this->createToken = $createToken;
     }
 
     /**
      * @param CheckLoginUserCommand $checkLoginUserCommand
-     * @return string
+     * @return array
      * @throws \Javier\Cineja\Domain\Model\Entity\User\NotFoundUsersException
      * @throws \Javier\Cineja\Domain\Model\PasswordHash\IncorrectPasswordException
      */
-    public function handle(CheckLoginUserCommand $checkLoginUserCommand): string
+    public function handle(CheckLoginUserCommand $checkLoginUserCommand): array
     {
         $user = $this->searchUserByMail->execute(
             $checkLoginUserCommand->mail()
@@ -39,12 +42,15 @@ class CheckLoginUser
             $user->password()
         );
 
-        return $this->createToken->execute(
-            Roles::ROLE_USER,
-            [
-                'id' => $user->id(),
-                'mail' => $user->mail()
-            ]
+        return $this->checkLoginUserTransform->transform(
+            $this->createToken->execute(
+                Roles::ROLE_USER,
+                [
+                    'id' => $user->id(),
+                    'mail' => $user->mail()
+                ]
+            ),
+            $user->mail()
         );
     }
 }
