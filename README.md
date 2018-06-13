@@ -13,8 +13,8 @@ habiendo configurado anteriormente el archivo .env para la conexión a MYSQL:
 cd al directorio del proyecto y el comando <b>php bin/console doctrine:database:create</b>
 <br/>
 <br/>
-Una vez creada la base de datos, pasaremos a crear las tablas a partir de las entidades con los siguientes comandos, 
-(es recomendable quitar los archivos de la carpeta migrations que esta ubicada dentro de la capa de infrastructure antes de ejecutar los comando):
+Una vez creada la base de datos, pasaremos a crear las tablas a partir de las entidades, con los siguientes comandos 
+(es recomendable quitar los archivos de la carpeta migrations que esta ubicada dentro de la capa de infrastructure antes de ejecutar los comandos):
 <br/>
 <b>php bin/console doctrine:migrations:diff</b>
 <br/>
