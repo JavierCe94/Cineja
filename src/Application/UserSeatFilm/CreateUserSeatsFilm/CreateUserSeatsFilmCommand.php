@@ -6,13 +6,13 @@ class CreateUserSeatsFilmCommand
 {
     private $seats;
     private $filmRoom;
-    private $codeQr;
+    private $user;
 
-    public function __construct($seats, $filmRoom, $codeQr)
+    public function __construct($seats, $filmRoom, $user)
     {
         $this->seats = $seats;
         $this->filmRoom = $filmRoom;
-        $this->codeQr = $codeQr;
+        $this->user = $user;
     }
 
     public function seats(): array
@@ -25,8 +25,8 @@ class CreateUserSeatsFilmCommand
         return $this->filmRoom;
     }
 
-    public function codeQr(): string
+    public function user(): string
     {
-        return $this->codeQr;
+        return $this->user;
     }
 }

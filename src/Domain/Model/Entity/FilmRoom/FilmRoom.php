@@ -26,7 +26,7 @@ class FilmRoom
     private $film;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Javier\Cineja\Domain\Model\Entity\Room\Room", inversedBy="rooms")
+     * @ORM\ManyToOne(targetEntity="Javier\Cineja\Domain\Model\Entity\Room\Room")
      * @ORM\JoinColumn(nullable=false)
      */
     private $room;

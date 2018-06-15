@@ -50,16 +50,6 @@ class SeatRepository extends ServiceEntityRepository implements SeatRepositoryI
         return $this->find($id);
     }
 
-    public function findSeatsFilmRoom(int $idRoom, int $idFilmRoom): array
-    {
-        return $this->createQueryBuilder('s')
-            ->innerJoin('s.room', 'r')
-            ->andWhere('r.id = :idRoom')
-            ->setParameter('idRoom', $idRoom)
-            ->getQuery()
-            ->execute();
-    }
-
     public function findSeatsByIdRoom(int $idRoom): array
     {
         return $this->createQueryBuilder('se')

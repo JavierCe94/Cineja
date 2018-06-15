@@ -64,8 +64,8 @@ class FilmRepository extends ServiceEntityRepository implements FilmRepositoryI
     public function findRoomsWhereVisualizeFilmStateVisible(\DateTime $startDate, \DateTime $endDate): array
     {
         return $this->createQueryBuilder('f')
-            ->leftJoin('f.filmRooms', 'fr')
-            ->leftJoin('fr.room', 'ro')
+            ->innerJoin('f.filmRooms', 'fr')
+            ->innerJoin('fr.room', 'ro')
             ->andWhere('f.stateFilm = :stateFilm')
             ->andWhere('ro.stateRoom = :stateRoom')
             ->andWhere('fr.releaseDate BETWEEN :startDate AND :endDate')

@@ -14,9 +14,9 @@ class CreateUserSeatsFilmController extends RoleUser
     public function __invoke(Request $request, CreateUserSeatsFilm $createUserSeatsFilm): Response
     {
         $createUserSeatsFilmCommand = new CreateUserSeatsFilmCommand(
-            $request->query->get('seats'),
-            $request->query->get('filmroom'),
-            $request->query->get('codeqr')
+            $request->request->get('seats'),
+            $request->request->get('filmroom'),
+            $this->dataToken()->id
         );
 
         return new JsonResponse(

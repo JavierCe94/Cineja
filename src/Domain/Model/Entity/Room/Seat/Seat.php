@@ -29,7 +29,7 @@ class Seat
     /**
      * @ORM\OneToMany(targetEntity="Javier\Cineja\Domain\Model\Entity\UserSeatFilm\UserSeatFilm", mappedBy="seat")
      */
-    private $userSeatsFilm;
+    private $userSeatFilm;
 
     /**
      * @ORM\Column(type="float", nullable=false)
@@ -53,17 +53,17 @@ class Seat
         return $this->id;
     }
 
-    /**
-     * @return Collection|UserSeatFilm[]
-     */
-    public function userSeatsFilm(): Collection
-    {
-        return $this->userSeatsFilm;
-    }
-
     public function room(): Room
     {
         return $this->room;
+    }
+
+    /**
+     * @return Collection|UserSeatFilm[]
+     */
+    public function userSeatFilm(): Collection
+    {
+        return $this->userSeatFilm;
     }
 
     public function price(): float

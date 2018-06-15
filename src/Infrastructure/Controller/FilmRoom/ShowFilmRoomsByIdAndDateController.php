@@ -4,12 +4,12 @@ namespace Javier\Cineja\Infrastructure\Controller\FilmRoom;
 
 use Javier\Cineja\Application\FilmRoom\ShowFilmRoomsByIdAndDate\ShowFilmRoomsByIdAndDate;
 use Javier\Cineja\Application\FilmRoom\ShowFilmRoomsByIdAndDate\ShowFilmRoomsByIdAndDateCommand;
-use Javier\Cineja\Infrastructure\Util\Role\RoleAdminUser;
+use Javier\Cineja\Infrastructure\Util\Role\RoleAdmin;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ShowFilmRoomsByIdAndDateController extends RoleAdminUser
+class ShowFilmRoomsByIdAndDateController extends RoleAdmin
 {
     public function __invoke(Request $request, ShowFilmRoomsByIdAndDate $showFilmRoomsByIdAndDate): Response
     {

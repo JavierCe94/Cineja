@@ -47,7 +47,7 @@ class CreateUserSeatsFilm
             $createUserSeatFilmCommand->filmRoom()
         );
         $user = $this->searchUserById->execute(
-            $this->dataToken()->id
+            $createUserSeatFilmCommand->user()
         );
         $listUserSeatsFilm = [];
         foreach ($createUserSeatFilmCommand->seats() as $idSeat) {

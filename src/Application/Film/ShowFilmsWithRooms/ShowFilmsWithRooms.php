@@ -23,7 +23,9 @@ class ShowFilmsWithRooms
             $this->filmRepository->findRoomsWhereVisualizeFilmStateVisible(
                 new \DateTime($showFilmsWithRoomsCommand->date().' 00:00:00'),
                 new \DateTime($showFilmsWithRoomsCommand->date().' 23:59:59')
-            )
+            ),
+            new \DateTime($showFilmsWithRoomsCommand->date().' 00:00:00'),
+            new \DateTime($showFilmsWithRoomsCommand->date().' 23:59:59')
         );
     }
 }

@@ -16,14 +16,14 @@ class ShowSeatsFilmRoom
         $this->seatRepository = $seatRepository;
         $this->showSeatsFilmRoomTransform = $showSeatsFilmRoomTransform;
     }
-    
+
     public function handle(ShowSeatsFilmRoomCommand $showSeatsFilmRoomCommand): array
     {
         return $this->showSeatsFilmRoomTransform->transform(
-            $this->seatRepository->findSeatsFilmRoom(
-                $showSeatsFilmRoomCommand->room(),
-                $showSeatsFilmRoomCommand->filmRoom()
-            )
+            $this->seatRepository->findSeatsByIdRoom(
+                $showSeatsFilmRoomCommand->room()
+            ),
+            $showSeatsFilmRoomCommand->filmRoom()
         );
     }
 }

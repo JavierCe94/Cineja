@@ -1,4 +1,4 @@
 show_seats_film:
-    path: '/room/{room}/filmroom/{filmroom}/showseatsfilm'
+    path: '/room/{room}/filmroom/{filmroom}/showseats'
     controller: 'Javier\Cineja\Infrastructure\Controller\Room\Seat\ShowSeatsFilmRoomController'
     methods: [PUT]

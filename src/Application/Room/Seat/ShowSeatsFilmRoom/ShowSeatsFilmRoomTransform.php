@@ -3,29 +3,40 @@
 namespace Javier\Cineja\Application\Room\Seat\ShowSeatsFilmRoom;
 
 use Javier\Cineja\Domain\Model\Entity\Room\Seat\Seat;
+use Javier\Cineja\Domain\Model\Entity\UserSeatFilm\UserSeatFilm;
 
 class ShowSeatsFilmRoomTransform implements ShowSeatsFilmRoomTransformI
 {
     /**
-     * @param array|Seat[] $seatsFilmRoom
+     * @param array|Seat[] $seats
+     * @param int $filmRoom
      * @return array
      */
-    public function transform(array $seatsFilmRoom)
+    public function transform(array $seats, int $filmRoom)
     {
-        $listSeatsFilmRoom = [];
-        foreach ($seatsFilmRoom as $seatFilmRoom) {
-            $userSeat = 0;
-            foreach ($seatFilmRoom->userSeatsFilm() as $user) {
-                $userSeat = $user->user()->id();
+        $listSeats = [];
+        foreach ($seats as $seat) {
+            $usersSeatFilm = [];
+            $userSeatFilmFilter = $seat->userSeatFilm()->filter(
+                function (UserSeatFilm $userSeatFilm) use ($filmRoom)
+                {
+                    return $filmRoom === $userSeatFilm->filmRoom()->id();
+                }
+            );
+            foreach ($userSeatFilmFilter as $userSeatFilm) {
+                $usersSeatFilm[] = [
+                    'id' => $userSeatFilm->id(),
+                    'codeQr' => $userSeatFilm->codeQr()
+                ];
             }
-            $listSeatsFilmRoom[] = [
-                'id' => $seatFilmRoom->id(),
-                'price' => $seatFilmRoom->price(),
-                'typeSpace' => $seatFilmRoom->typeSpace(),
-                'userSeat' => $userSeat
+            $listSeats[] = [
+                'id' => $seat->id(),
+                'price' => $seat->price(),
+                'typeSpace' => $seat->typeSpace(),
+                'usersSeatFilm' => $usersSeatFilm
             ];
         }
 
-        return $listSeatsFilmRoom;
+        return $listSeats;
     }
 }
